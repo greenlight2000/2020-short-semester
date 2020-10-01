@@ -1,0 +1,18 @@
+
+.note-user{
+	float:left;
+	height: 500px;
+	width: 250px;
+	border-style: solid;
+	border-color: #e74c3c;
+  	border-top-width: 5px;
+	border-right-width: 5px;
+  	border-bottom-width: 5px;
+  	border-left-width: 5px;
+}
+
+.note-message>li{
+	margin-left: 10px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+}

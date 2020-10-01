@@ -1,0 +1,28 @@
+
+.le-select{
+	border-radius: 10px;
+	color:dimgray;
+	font-size: 16px;
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+
+.acc-config-title{
+	font-weight: 800;
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
+}
+
+.spefic-acc{
+	font-size: 16px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.acc-table{
+	border-collapse: separate; 
+	border-spacing: 30px 8px;  /* 水平间距 垂直间距 */
+ }
