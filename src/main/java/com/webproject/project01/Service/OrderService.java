@@ -60,11 +60,20 @@ public class OrderService extends BaseService<Order>{
      * @param pageable 分页策略
      * @return po层数据的Page对象
      */
-    public Page<Order> getOrderWithPage(long userId, Pageable pageable){
+    public Page<Order> getOrderWithPage(long userId, Pageable pageable, String payStatus){
         Page<Order> orderPage = orderDao.findAll(new Specification<Order>() {
             @Override
             public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("user").get("id"),userId);
+                List<Predicate> predicatesList = new ArrayList<>();
+                predicatesList.add(
+                        criteriaBuilder.equal(root.get("user").get("id"),userId)
+                );
+                if (payStatus!=null && !payStatus.equals("")){
+                    predicatesList.add(
+                            criteriaBuilder.equal(root.get("payStatus"), payStatus)
+                    );
+                }
+                return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
             }
         },pageable);
         return orderPage;
@@ -129,7 +138,10 @@ public class OrderService extends BaseService<Order>{
      * @param orderId 要删除的订单id
      */
     public void cancelOrder(long orderId){
-        orderDao.deleteById(orderId);
+//        orderDao.deleteById(orderId);
+        Order order = orderDao.getOne(orderId);
+        order.setPayStatus("canceled");
+        uploadOrder(order);
     }
     /**
      * 前端支付未支付订单，后端更新支付状态

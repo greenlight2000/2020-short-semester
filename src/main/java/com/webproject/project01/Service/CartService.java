@@ -73,8 +73,13 @@ public class CartService extends BaseService<Cart>{
             //把cart里的数据dump进order
             Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSPU(),cart.getUser());
             orderDao.save(order);
+            if(payStatus.equals("paid")){//若已经支付，则增加销量
+                SPU spu = spuDao.getOne(cart.getSPU().getId());
+                spu.setSales(spu.getSales() + cart.getNum());
+                spuDao.save(spu);
+            }
             //删除cart
-//            delCartById(cart.getId());
+            delCartById(cart.getId());
         }
     }
 

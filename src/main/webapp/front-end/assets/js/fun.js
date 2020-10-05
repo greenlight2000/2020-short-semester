@@ -34,10 +34,11 @@ var chooseSearchBy = function(choice){
 var checkProduct = function(spuId){
     console.log(spuId);
     $.get(
-        "/detail",{spuId:spuId},function(data){
-            console("data="+data);
+        "/detail",{spuId:spuId},function(){
+            location.href = "single-product.jsp";
         }
     );
+
 };
 
 var clickSort = function(key,value){
@@ -68,31 +69,36 @@ var changePage = function(key,value,sortKey,sortAsc,toPage){
 
 
 //single-product.jsp
-var chooseSku = function(spuIndex,skuIndex){
-    url = "single-product.jsp?spuIndex="+spuIndex+"&skuIndex="+skuIndex;
+var chooseSku = function(skuIndex){
+    url = "single-product.jsp?skuIndex="+skuIndex;
     location.href = url;
 };
 var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
 
-    if ( checkbox.checked == true){
+    if ( checkbox.checked == true){//如果新选中一个ax
+        //将新ax添加进List
         axStrList.push(axName);
-
+        //构造ax字符串
         axStr = axStrList.join("➕");
+        //展示ax字符串
         var accessoryStr = $("#accessory-str");
         accessoryStr[0].attributes[1].value = axStr;
         accessoryStr.html(axStr);
 
+        //将axPrice存进hiiden标签
+        var priceAccessory = $("#price-accessory");
+        priceAccessory[0].attributes[1].value = (parseFloat(priceAccessory[0].attributes[1].value)+axPrice).toString();
+        //将总价格存进price-current标签的price属性
+        // var cartTotalPrice = $("#price-current");
+        // cartTotalPrice[0].attributes[2].value = (parseFloat( cartTotalPrice[0].attributes[2].value)+axPrice).toString();
 
-        var axTotalPrice = $("#price-accessory");
-        axTotalPrice[0].attributes[1].value = (parseFloat(axTotalPrice[0].attributes[1].value)+axPrice).toString();
-        var cartTotalPrice = $("#price-current");
-        cartTotalPrice[0].attributes[2].value = (parseFloat( cartTotalPrice[0].attributes[2].value)+axPrice).toString();
+        //将axPrice展示在后面
+        // if(axStr!='')
+        //     $("#axTotalPrice").html(' + $'+priceAccessory[0].attributes[1].value);
+        // else
+        //     $("#axTotalPrice").html("");
 
-        if(axStr!='')
-            $("#axTotalPrice").html(' + $'+axTotalPrice[0].attributes[1].value);
-        else
-            $("#axTotalPrice").html("");
-    }else{
+    }else{//如果退选一个ax
         var index = axStrList.indexOf(axName);
         axStrList.splice(index,1);
 
@@ -103,15 +109,47 @@ var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
 
         var axTotalPrice = $("#price-accessory");
         axTotalPrice[0].attributes[1].value = (parseFloat(axTotalPrice[0].attributes[1].value)-axPrice).toString();
-        var cartTotalPrice = $("#price-current");
-        cartTotalPrice[0].attributes[2].value = (parseFloat(cartTotalPrice[0].attributes[2].value)-axPrice).toString();
+        // var cartTotalPrice = $("#price-current");
+        // cartTotalPrice[0].attributes[2].value = (parseFloat(cartTotalPrice[0].attributes[2].value)-axPrice).toString();
 
-        if(axStr!='')
-            $("#axTotalPrice").html(' + $'+axTotalPrice[0].attributes[1].value);
-        else
-            $("#axTotalPrice").html("");
+        // if(axStr!='')
+        //     $("#axTotalPrice").html(' + $'+axTotalPrice[0].attributes[1].value);
+        // else
+        //     $("#axTotalPrice").html("");
     }
+    showCartTolPrice();
 };
+//single-product页面显示总价格
+var calCartTolPrice = function(){
+    //sku总单价
+    var skuPrice = $("#price-current");
+    skuPrice = parseFloat(skuPrice[0].attributes[2].value);
+    //acessory总单价
+    var axPrice = $("#price-accessory");
+    axPrice = parseFloat(axPrice[0].attributes[1].value);
+    //订货数
+    var num = parseFloat($("#choose-num").val());
+
+    var totalCartPrice = num * (skuPrice + axPrice);
+    console.log("totalCartPrice = "+totalCartPrice);
+    return totalCartPrice;
+};
+var showCartTolPrice = function(){
+    $("#price-current").html("$"+calCartTolPrice());
+};
+var changeNum = function(opr){
+    // if($("#choose-num").val()==0)
+    console.log($("#choose-num").val());
+    var oldVal = parseInt($("#choose-num").val());
+    oldVal = parseInt($("#choose-num").val());
+    if(opr=='+')
+        $("#choose-num").val(oldVal);
+    else if (opr=='-')
+        $("#choose-num").val(oldVal);
+    console.log($("#choose-num").val());
+    showCartTolPrice();
+};
+
 var testJsp = function(jspObj){
     console.log(jspObj);
 };
@@ -125,12 +163,16 @@ var addToCart = function(configSpecs,name,picture,num,spuId,userId){
         alert("adding to cart...");
         var accessory = $("#accessory-str")[0].attributes[1].value;
         var totalPrice = $("#price-current")[0].attributes[2].value;
+        num = $("#choose-num").val();
+        if(num==0)
+            alert("num cannot be 0");
         $.post(
             "/cart/post", {configSpecs,accessory,name,picture,num,totalPrice,spuId,userId},function (data) {
                 console.log(data);
                 alert(data);
+                location.reload();
             }
-        ).then(location.reload);
+        );
     }
 };
 
@@ -143,7 +185,7 @@ var goToCart = function(userId){
 };
 var goToOrder = function(userId){
     if(userId!="" && userId!=null){
-        location.href = "/front-end/orders.jsp"+"?userId="+userId;
+        location.href = "/front-end/orders.jsp";
     }else{
         notifyLogin(window.location.href);
     }
@@ -196,7 +238,6 @@ var logout = function(){
         $.post(
             "/logout",function(data){
                 alert("successful logout");
-                location.reload()
             }
         );
     }
@@ -297,7 +338,6 @@ var loadBestSellSPU = function(pageNum){
                 ribbonText:"best seller",
                 ribbonType:"ribbon red"
             });
-            console.log(html);
             $("#div-bs-spu").append('</div>'+html+'<div>');
         }
     )
@@ -322,4 +362,58 @@ var loadNewSPU = function(pageNum){
             $("#div-new-spu").append('</div>'+html+'<div>');
         }
     )
+};
+//orders.jsp
+var filterPayStatus = function(userId){
+    // $.get(
+    //     "orders.jsp",
+    //     {
+    //         userId,
+    //         payStatus
+    //     },
+    //     function(data){
+    //         console.log("orders.jsp: successful filter");
+    //         console.log(data);
+    //     }
+    // );
+    userId = 3;
+    var payStatus = $('#select-payStatus  option:selected').val();
+    // console.log(userId);
+    // console.log(payStatus);
+    location.href = "orders.jsp?userId="+userId+"&payStatus="+payStatus;
+};
+var payBill = function(idStr){
+    if(confirm("do you want to pay the bill?")) {
+        var orderIdArr = idStr.split(';');
+        for (var i = 0; i < orderIdArr.length - 1; i++) {//最后一项为空
+            // console.log(orderIdArr[i]);
+            $.post(
+                "/order/pay",
+                {orderId: orderIdArr[i]},
+                function () {
+                    console.log("payBill completed");
+                }
+            )
+        }
+        confirm("successful paid the bill");
+        location.reload();
+    }
+};
+var cancelBill = function(idStr){
+    if(confirm("do you want to cancel the bill?")){
+        var orderIdArr = idStr.split(';');
+        for(var i=0; i<orderIdArr.length-1; i++){
+            // console.log(orderIdArr[i]);
+            $.post(
+                "/order/cancel",
+                {orderId:orderIdArr[i]},
+                function(){
+                    console.log("payBill completed");
+                }
+            )
+        }
+        confirm("successful canceled the bill");
+        location.reload();
+    }
+
 };

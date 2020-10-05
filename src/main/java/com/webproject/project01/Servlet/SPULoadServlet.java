@@ -57,7 +57,7 @@ public class SPULoadServlet extends HttpServlet {
         Type type = new TypeToken<List<SPUVO>>(){}.getType();
         Gson gson = new Gson();
         String str = gson.toJson(spuVoList,type);
-        System.out.println(str);
+        resp.setContentType("text/text;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.print(str);
         out.close();

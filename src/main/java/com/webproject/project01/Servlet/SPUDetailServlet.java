@@ -2,9 +2,11 @@ package com.webproject.project01.Servlet;
 
 import com.webproject.project01.Dao.SPUDao;
 import com.webproject.project01.PO.SKU;
+import com.webproject.project01.PO.SPU;
 import com.webproject.project01.Service.SKUService;
 import com.webproject.project01.Service.SPUService;
 import com.webproject.project01.VO.SKUVO;
+import com.webproject.project01.VO.SPUVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -23,6 +25,10 @@ import java.util.List;
 
 /**
  * 根据spuId获取该spu所有sku信息
+ * @param 'spuId'
+ *
+ * @returnSession: skuVoList
+ * @returnSession: spuVo
  */
 @Component
 @WebServlet(urlPatterns = "/detail")
@@ -40,11 +46,15 @@ public class SPUDetailServlet extends HttpServlet {
         HttpSession session = req.getSession();
         long spuId = Long.parseLong(req.getParameter("spuId"));
         List<SKU> skuList = skuService.getSkuListBySpu(spuId);
+        SPU spu = skuList.get(0).getSPU();
         List<SKUVO> skuVoList = skuService.buildVoList(skuList);
+        SPUVO spuVo = spu.toVO();
         session.setAttribute("skuVoList",skuVoList);
-        System.out.println(spuId);
-        System.out.println(skuVoList);
-        System.out.println("I'm here");
+        session.setAttribute("spuVo",spuVo);
+
+//        System.out.println(spuId);
+//        System.out.println(skuVoList);
+//        System.out.println("I'm here");
 
 //        PrintWriter out = resp.getWriter();
 //        out.print("here");

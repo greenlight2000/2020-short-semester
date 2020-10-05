@@ -7,7 +7,15 @@
 <%@ page import="com.webproject.project01.VO.AccessoryVO" %>
 <%@ page import="com.webproject.project01.VO.CartVO" %>
 <%@ page import="java.util.HashMap" %>
-
+<!--
+    @param:     skuIndex : 0
+    @session:   userId : ""
+                userName : ""
+                cartVoList : new ArrayList()
+                spuVo : null                    ``\ <= "/detail"
+                skuVoList : new ArrayList()      _/
+    @query:     "/accessory" => session: accessoryVoList
+-->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"  errorPage="exception-page.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,16 +61,16 @@
  
 	</head>
 <body>
+<%--    <script src="assets/js/fun.js"></script>--%>
+<%--    <script src="assets/js/jquery-1.10.2.min.js"></script>--%>
     <script type="text/javascript">
         var accessoryStrList = [];
         var axStr;
-        var axPrice = 0;
     </script>
-    <%//navigation
+    <%
+        //navigation  登录/登出相关显示
         String userName = session.getAttribute("userName")==null?"":(String)session.getAttribute("userName");
-    %>
-    <%//header
-        //获取cartVoList   req里需要有userId, 否则session里的cartVoList 为 new ArrayList<>
+        //header   小购物车相关
         request.getRequestDispatcher("/cart/get").include(request,response);
         List<CartVO> cartVoList = session.getAttribute("cartVoList")==null?new ArrayList<>():(List<CartVO>) session.getAttribute("cartVoList");
         double cartTotalPrice = 0;
@@ -72,18 +80,18 @@
             cartNum++;
         }
         String userId = session.getAttribute("userId")==null?"":(String) session.getAttribute("userId");
-    %>
-	<%
+        //content
         request.getRequestDispatcher("/accessory").include(request,response);
         List<AccessoryVO> accessoryVoList = session.getAttribute("accessoryVoList")==null?new ArrayList<>():(List<AccessoryVO>) session.getAttribute("accessoryVoList");
-
-        int spuIndex = Integer.parseInt(request.getParameter("spuIndex")==null?"0":request.getParameter("spuIndex"));//product-list.jsp中 选中的spuVoList[spuIndex]
+        //从请求获取skuIndex（默认0）
         int skuIndex = Integer.parseInt(request.getParameter("skuIndex")==null?"0":request.getParameter("skuIndex"));//本页面加载的并当前显示的skuVoList[skuIndex]
 
-        SPUVO spuVo = ((List<SPUVO>) session.getAttribute("spuVoList")).get(spuIndex);
+        //获取spu
+        SPUVO spuVo = (SPUVO) session.getAttribute("spuVo");
+        //获取skuList
         List<SKUVO> skuVoList = session.getAttribute("skuVoList")==null?new ArrayList<>():(List<SKUVO>) session.getAttribute("skuVoList");
-        SKUVO skuVo = skuVoList.isEmpty()?new SKUVO():skuVoList.get(skuIndex);
 
+        //构造configMapList（包含所有sku的config键值map）
         Gson gson = new Gson();
         List<Map<String,String>> configMapList = new ArrayList<>();
         for(int i=0;i<skuVoList.size();i++){
@@ -94,10 +102,12 @@
 //                out.print("key= " + entry.getKey() + " and value= " + entry.getValue() + "\n");
 //            }
         }
+
+        //选中一个sku
+        SKUVO skuVo = skuVoList.isEmpty()?new SKUVO():skuVoList.get(skuIndex);
+        //选中当前sku的config map
         Map<String,String> curConfigMap = configMapList.isEmpty()?new HashMap<>() : configMapList.get(skuIndex);
-//        for(Map.Entry<String,String> entry : curConfigMap.entrySet()){
-//            out.print("key= " + entry.getKey() + " and value= " + entry.getValue() + "\n");
-//        }
+
         //test
         if(skuVoList!=null) {
             if (skuVoList.isEmpty())
@@ -116,8 +126,8 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
-                        <li><a onclick="goToCart(<%=userId%>)">My Cart</a></li>
-                        <li><a onclick="goToOrder(<%=userId%>)">My Order</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
                     </ul>
                 </div><!-- /.col -->
 
@@ -660,7 +670,7 @@
                                 <%
                                     List<String> configStrArr = new ArrayList<>();
                                     for(int i=0; i<skuVoList.size(); i++){%>
-                                <option <%if(i==skuIndex){%>selected<%}%> onclick="chooseSku(<%=spuIndex%>,<%=i%>)">
+                                <option <%if(i==skuIndex){%>selected<%}%> onclick="chooseSku(<%=i%>)">
                                     <%
                                         StringBuilder configStr = new StringBuilder();
                                         //获取当前sku的config键值对map
@@ -720,7 +730,7 @@
                     <div id="chosen-ax"></div>
                     <div class="prices">
                         <div id="price-accessory" hidden="true" price="0"></div>
-                        <div id="price-current" class="price-current" price="<%=skuVo.getTotalPrice()%>">$<%=skuVo.getTotalPrice()%><text id="axTotalPrice"></text></div>
+                        <div id="price-current" class="price-current" price="<%=skuVo.getTotalPrice()%>">$<%=skuVo.getTotalPrice()%></div>
                         <div id="price-prev" class="price-prev">$<%=spuVo.getPrice()%></div>
                     </div>
 
@@ -728,9 +738,9 @@
                     <div class="qnt-holder">
                         <div class="le-quantity">
                             <form>
-                                <a class="minus" href="#reduce"></a>
-                                <input name="quantity" readonly="readonly" type="text" value="1" />
-                                <a class="plus" href="#add"></a>
+                                <a class="minus" href="#reduce" onclick="changeNum('-')"></a>
+                                <input id="choose-num" name="quantity" readonly="readonly" type="text" value="1"/>
+                                <a class="plus" href="#add" onclick="changeNum('+')"></a>
                             </form>
                         </div>
                         <%--            <%//配置配置信息json(包含嵌套引号) --》 spec1✖️spec2✖️...--%>

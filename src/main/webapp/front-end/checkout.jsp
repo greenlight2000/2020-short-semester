@@ -66,8 +66,8 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
-                        <li><a href="" onclick="goToCart(<%=userId%>)">My Cart</a></li>
-                        <li><a href="" onclick="goToOrder(<%=userId%>)">My Order</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
                     </ul>
                 </div><!-- /.col -->
 
@@ -79,7 +79,7 @@
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
                             <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
-                            <li><a href="" onclick="logout()">log out</a></li>
+                            <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
                     </ul>
@@ -116,13 +116,13 @@
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" href="product-list.jsp" id="search-by-box" tabindex="0">Search By</a>
                                         <ul class="dropdown-menu" role="menu" >
-                                            <li role="presentation"><a role="menuitem" tabindex="0" onclick="chooseSearchBy(this)" >By Name</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="2" onclick="chooseSearchBy(this)">By Description</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="3" onclick="chooseSearchBy(this)">By Brand</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="0" href="javascript:void(0);" onclick="chooseSearchBy(this)" >By Name</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="2" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Description</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="3" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Brand</a></li>
                                         </ul>
                                     </li>
                                 </ul>
-                                <a style="padding:15px 15px 13px 12px" class="search-button" href="#" onclick="clickSearch()"></a>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onclick="clickSearch()"></a>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -176,7 +176,7 @@
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <a class="le-button inverse" onclick="goToCart(<%=userId%>)">View Cart</a>
+                                                    <a class="le-button inverse" href="javascript:void(0);" onclick="goToCart(<%=userId%>)">View Cart</a>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <a href="checkout.jsp" class="le-button">Check Out</a>
@@ -323,7 +323,7 @@
             </div><!-- /#total-area -->
             <br/><br/>
             <div class="place-order-button" style="text-align: center">
-                <button class="le-button big" onclick="confirmCheckOut(<%=userId%>)">Confirm</button>
+                <button class="le-button big" href="javascript:void(0);" onclick="confirmCheckOut(<%=userId%>)">Confirm</button>
             </div><!-- /.place-order-button -->
 
         </div><!-- /.col -->

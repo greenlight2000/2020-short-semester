@@ -1,7 +1,7 @@
 <%@ page import="com.webproject.project01.VO.CartVO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.webproject.project01.VO.ClassificationVO" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="exception-page.jsp"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-cn">
 	<head>
@@ -56,7 +56,7 @@
             <div class="body">
                 <div class="label-discount clear"></div>
                 <div class="title">
-                    <a onclick="checkProduct('{{$value.id}}')">{{$value.name}}1</a>
+                    <a href="javascript:void(0);" onclick="checkProduct('{{$value.id}}')">{{$value.name}}1</a>
                 </div>
                 <div class="brand">{{$value.classificationVO.name}}</div>
             </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="hover-area">
                 <div class="add-cart-button">
-                    <a class="le-button" onclick="checkProduct('{{$value.id}}')">Add To Cart</a>
+                    <a class="le-button" href="javascript:void(0);" onclick="checkProduct('{{$value.id}}')">Add To Cart</a>
                 </div>
                 <div class="wish-compare">
                     <a class="btn-add-to-wishlist" href="#">add to wishlist</a>
@@ -115,8 +115,8 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
-                        <li><a onclick="goToCart(<%=userId%>)">My Cart</a></li>
-                        <li><a onclick="goToOrder(<%=userId%>)">My Order</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
                     </ul>
                 </div><!-- /.col -->
 
@@ -128,7 +128,7 @@
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
                             <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
-                            <li><a href="" onclick="logout()">log out</a></li>
+                            <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
                     </ul>
@@ -165,13 +165,13 @@
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" href="product-list.jsp" id="search-by-box" tabindex="0">Search By</a>
                                         <ul class="dropdown-menu" role="menu" >
-                                            <li role="presentation"><a role="menuitem" tabindex="0" onclick="chooseSearchBy(this)" >By Name</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="2" onclick="chooseSearchBy(this)">By Description</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="3" onclick="chooseSearchBy(this)">By Brand</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="0" href="javascript:void(0);" onclick="chooseSearchBy(this)" >By Name</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="2" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Description</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="3" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Brand</a></li>
                                         </ul>
                                     </li>
                                 </ul>
-                                <a style="padding:15px 15px 13px 12px" class="search-button" href="#" onclick="clickSearch()"></a>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onclick="clickSearch()"></a>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -225,7 +225,7 @@
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <a class="le-button inverse" onclick="goToCart(<%=userId%>)">View Cart</a>
+                                                    <a class="le-button inverse" href="javascript:void(0);" onclick="goToCart(<%=userId%>)">View Cart</a>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <a href="checkout.jsp" class="le-button">Check Out</a>
@@ -253,7 +253,7 @@
         <ul class="nav">
             <%for (ClassificationVO classVo : rootClassVoList){%>
             <li class="dropdown menu-item">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="loadChildClass(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" onclick="loadChildClass(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
                 <ul class="dropdown-menu mega-menu">
                     <li class="yamm-content">
                         <!-- ================================== MEGAMENU VERTICAL ================================== -->
@@ -380,7 +380,7 @@
                         <!-- 待插入 -->
                     </div>
                     <div class="loadmore-holder text-center">
-                        <a class="btn-loadmore" onclick="loadRecommendSPU(++recPageNum)">
+                        <a class="btn-loadmore" href="javascript:void(0);" onclick="loadRecommendSPU(++recPageNum)">
                             <i class="fa fa-plus"></i>
                             load more</a>
                     </div> 
@@ -392,7 +392,7 @@
                         <!-- 待插入 -->
                     </div>
                     <div class="loadmore-holder text-center">
-                        <a class="btn-loadmore" onclick=loadNewSPU(++newPageNum)>
+                        <a class="btn-loadmore" href="javascript:void(0);" onclick=loadNewSPU(++newPageNum)>
                             <i class="fa fa-plus"></i>
                             load more</a>
                     </div> 
@@ -404,7 +404,7 @@
                         <!-- 待插入 -->
                     </div>
                     <div class="loadmore-holder text-center">
-                        <a class="btn-loadmore" onclick="loadBestSellSPU(++bsPageNum)">
+                        <a class="btn-loadmore" href="javascript:void(0);" onclick="loadBestSellSPU(++bsPageNum)">
                             <i class="fa fa-plus"></i>
                             load more</a>
                     </div> 
@@ -1259,7 +1259,6 @@
         </div><!-- /.container -->
     </div><!-- /.copyright-bar -->
 
-</footer><!-- /#footer -->
 <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->

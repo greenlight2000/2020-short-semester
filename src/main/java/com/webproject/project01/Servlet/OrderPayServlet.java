@@ -1,6 +1,5 @@
 package com.webproject.project01.Servlet;
 
-import com.webproject.project01.Service.CartService;
 import com.webproject.project01.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,23 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@WebServlet(urlPatterns = "/postOrder")
-public class OrderPostServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/order/pay")
+public class OrderPayServlet extends HttpServlet {
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private CartService cartService;
-
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext application = this.getServletContext();
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long userId = Long.parseLong(req.getParameter("userId"));
-        cartService.dumpCartToOrder(userId,"unpaid");
+        long orderId = Long.parseLong(req.getParameter("orderId"));
+        orderService.payOrder(orderId);
     }
 
     @Override

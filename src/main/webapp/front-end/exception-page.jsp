@@ -12,7 +12,7 @@
 </head>
 <body>
     <div>
-        <h1>the resource queried may be outdated, please return to <a href="product-list.jsp">home page</a></h1>
+        <h1>the resource queried may be outdated, please return to <a href="index.jsp">home page</a></h1>
         <text>error: <%=exception.toString()%></text><br>
         <text>cause: <%=exception.getCause()%></text><br>
         <text>trace: <%=Arrays.toString(exception.getStackTrace())%></text><br>

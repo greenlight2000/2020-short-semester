@@ -41,17 +41,21 @@ public class OrderShowServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sortKey = req.getParameter("sortKey")==null?"orderTime":req.getParameter("sortKey");
         boolean sortAsc = Boolean.parseBoolean(req.getParameter("sortAsc")==null?"false":req.getParameter("sortAsc"));
-        long userId = Long.parseLong(req.getParameter("userId"));
+        long userId = Long.parseLong((String)req.getSession().getAttribute("userId"));
         int pageNum = Integer.parseInt(req.getParameter("pageNum")==null?"1":req.getParameter("pageNum"));
 
-        String payStatus = req.getParameter("payStatus")==null?"paid":req.getParameter("payStatus");
+        String payStatus = req.getParameter("payStatus");
         //排序查询
-        List<Order> orderList = orderService.getOrderWithSort(userId, orderService.makeSort(sortKey,sortAsc));
+//        List<Order> orderList = orderService.getOrderWithSort(userId, orderService.makeSort(sortKey,sortAsc));
         //分页查询
 //        Page<Order> orderPage = orderService.getOrderWithPage(userId,orderService.makePage(pageNum, UtilVar.orderPageSize, orderService.makeSort(sortKey,sortAsc)));
+        Page<Order> orderPage = orderService.getOrderWithPage(userId, orderService.makePage(1,100,orderService.makeSort(sortKey,sortAsc)),payStatus);
+        List<Order> orderList = orderPage.getContent();
+        //转vo
         List<OrderVO> orderVoList = orderService.buildOrderVoList(orderList,payStatus);
-
+        //放入session
         req.getSession().setAttribute("orderVoList",orderVoList);
+
 //        resp.sendRedirect("orderPage.jsp");
 //        PrintWriter out = resp.getWriter();
 //        Gson gson = new Gson();

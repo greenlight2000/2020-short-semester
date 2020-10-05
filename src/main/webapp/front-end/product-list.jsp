@@ -9,7 +9,7 @@
   Time: 9:02 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="exception-page.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-cn">
 	<head>
@@ -81,22 +81,20 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
-                        <li><a onclick="goToCart(<%=userId%>)">My Cart</a></li>
-                        <li><a onclick="goToOrder(<%=userId%>)">My Order</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
                     </ul>
                 </div><!-- /.col -->
 
                 <div class="col-xs-12 col-sm-6 no-margin">
                     <ul class="right">
                         <ul class="right">
-                            <%if(userName.equals("")){
-                                System.out.println("if"+userName);%>
+                            <%if(userName.equals("")){%>
                             <li><a href="authentication.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
-                            <%}else{
-                                System.out.println("else"+userName);%>
+                            <%}else{%>
                             <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
-                            <li><a href="" onclick="logout()">log out</a></li>
+                            <li><a href="index.jsp" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
                     </ul>
@@ -134,13 +132,13 @@
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" href="product-list.jsp" id="search-by-box" tabindex="0">Search By</a>
                                     <ul class="dropdown-menu" role="menu" >
-                                        <li role="presentation"><a role="menuitem" tabindex="0" onclick="chooseSearchBy(this)" >By Name</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="2" onclick="chooseSearchBy(this)">By Description</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="3" onclick="chooseSearchBy(this)">By Brand</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="0" href="javascript:void(0);" onclick="chooseSearchBy(this)" >By Name</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="2" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Description</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="3" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Brand</a></li>
                                     </ul>
                                     </li>
                                 </ul>
-                                <a style="padding:15px 15px 13px 12px" class="search-button" href="#" onclick="clickSearch()"></a>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onclick="clickSearch()"></a>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -194,7 +192,7 @@
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <a class="le-button inverse" onclick="goToCart(<%=userId%>)">View Cart</a>
+                                                    <a class="le-button inverse" href="javascript:void(0);" onclick="goToCart(<%=userId%>)">View Cart</a>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <a href="checkout.jsp" class="le-button">Check Out</a>
@@ -731,17 +729,17 @@
                                                             <div class="body">
                                                                 <div class="label-discount green">-50% sale</div>
                                                                 <div class="title">
-                                                                    <a href="single-product.jsp?spuIndex=<%=cnt%>&skuIndex=0" onclick="checkProduct(<%=spuvo.getId()%>)"><%=spuvo.getName()%></a>
+                                                                    <a href="javascript:void(0);" onclick="checkProduct(<%=spuvo.getId()%>)"><%=spuvo.getName()%></a>
                                                                 </div>
                                                                 <div class="brand"><%=spuvo.getClassificationVO().getName()%></div>
                                                             </div>
                                                             <div class="prices">
-                                                                <div class="price-prev">$<%=spuvo.getPrice()%></div>
+                                                                <div class="price-prev">🔥<%=spuvo.getSales()%></div>
                                                                 <div class="price-current pull-right">$<%=spuvo.getPrice()%></div>
                                                             </div>
                                                             <div class="hover-area">
-                                                                <div class="add-cart-button">
-                                                                    <a href="single-product.jsp?spuIndex=<%=cnt%>&skuIndex=0" onclick="checkProduct(<%=spuvo.getId()%>)" class="le-button">Add To Cart</a>
+                                                                <div class="add-cart-button"><%-- href="single-product.jsp?spuIndex=<%=cnt%>&skuIndex=0" --%>
+                                                                    <a href="javascript:void(0);" onclick="if(confirm('please choose configuration first'))checkProduct(<%=spuvo.getId()%>);" class="le-button">Add To Cart</a>
                                                                 </div>
                                                             </div>
                                                         </div><!-- /.product-item -->
@@ -965,11 +963,11 @@
                                                 <ul class="pagination ">
                                                     <li>
                                                         <% if(hasPrev){%>
-                                                        <a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
+                                                        <a href="javascript: void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
                                                         <%}%>
                                                     </li>
                                                     <%for(int i=1;i<=totalPage;i++){%>
-                                                        <li><a <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a></li>
+                                                        <li><a href="javascript: void(0);" <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a></li>
                                                     <%}%>
 <%--                                                    <% if(curPage != 1){%>--%>
 <%--                                                    <li><a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)">1</a></li>--%>
@@ -986,7 +984,7 @@
 <%--                                                    <%}%>--%>
                                                     <li>
                                                         <% if(hasNext){%>
-                                                        <a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
+                                                        <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
                                                         <%}%>
                                                     </li>
                                                 </ul>
@@ -1030,7 +1028,7 @@
                                                     <div class="no-margin col-xs-12 col-sm-3 price-area">
                                                         <div class="right-clmn">
                                                             <div class="price-current">$<%=spuVo.getPrice()%></div>
-                                                            <div class="price-prev">$<%=spuVo.getPrice()%></div>
+                                                            <div class="price-prev">🔥<%=spuVo.getSales()%></div>
                                                             <div class="availability"><label>launch time:</label><span class="available"> <%=spuVo.getLaunchTime()%></span></div>
                                                             <a class="le-button" href="#">Add To Cart</a>
                                                         </div>
@@ -1209,15 +1207,17 @@
                                                 <ul class="pagination ">
                                                     <li>
                                                         <% if(hasPrev){%>
-                                                        <a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
+                                                        <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
                                                         <%}%>
                                                     </li>
                                                     <%for(int i=1;i<=totalPage;i++){%>
-                                                    <li><a <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a></li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a>
+                                                    </li>
                                                     <%}%>
                                                     <li>
                                                         <% if(hasNext){%>
-                                                        <a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
+                                                        <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
                                                         <%}%>
                                                     </li>
                                                 </ul>
