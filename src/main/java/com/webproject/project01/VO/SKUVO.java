@@ -11,6 +11,7 @@ public class SKUVO {
     private String name;
     private double totalPrice;
     private String stockNum;
+    private String picture;
     private String configSpecs;
     private long SPUId;
 
@@ -62,11 +63,20 @@ public class SKUVO {
         this.SPUId = SPUId;
     }
 
-    public SKUVO(long id, String name, double totalPrice, String stockNum, String configSpecs, long SPUId) {
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public SKUVO(long id, String name, double totalPrice, String stockNum, String picture, String configSpecs, long SPUId) {
         this.id = id;
         this.name = name;
         this.totalPrice = totalPrice;
         this.stockNum = stockNum;
+        this.picture = picture;
         this.configSpecs = configSpecs;
         this.SPUId = SPUId;
     }

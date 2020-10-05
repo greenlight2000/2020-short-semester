@@ -97,7 +97,6 @@ public class SPUService extends BaseService<SPU>{
                 predicatesList.add(
                         criteriaBuilder.equal(
                                 root.get("store").get("id"), storeId));
-                System.out.println("size="+predicatesList.size());
 
                 //PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
                 return criteriaBuilder.and(

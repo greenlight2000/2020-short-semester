@@ -31,7 +31,7 @@ public class SKUService {
      * @return 一条vo层数据
      */
     public SKUVO buildVo(SKU sku){
-        return new SKUVO(sku.getId(),sku.getName(), sku.getTotalPrice(),sku.getStockNum(),sku.getConfigSpecs(),sku.getSPU().getId());
+        return new SKUVO(sku.getId(),sku.getName(), sku.getTotalPrice(),sku.getStockNum(),sku.getPicture(), sku.getConfigSpecs(),sku.getSPU().getId());
     }
 
     /**

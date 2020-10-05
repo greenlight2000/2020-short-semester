@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet{
             System.out.println("no such user");
             out.close();
         }else if(userList.get(0).getPassword().equals(password)){//如果用户名和密码都对了
-            String preUrl = req.getParameter("preUrl").equals("null") ? "/front-end/authentication.jsp" :req.getParameter("preUrl");
+            String preUrl = req.getParameter("preUrl").equals("null") ? "/front-end/index.jsp" :req.getParameter("preUrl");
             System.out.println("front end href to previous page "+preUrl);
             //返回信息
             PrintWriter out = res.getWriter();

@@ -238,6 +238,7 @@ var logout = function(){
         $.post(
             "/logout",function(data){
                 alert("successful logout");
+                location.href = "index.jsp";
             }
         );
     }

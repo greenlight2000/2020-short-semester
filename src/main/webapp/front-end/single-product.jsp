@@ -97,7 +97,7 @@
         for(int i=0;i<skuVoList.size();i++){
             Map<String,String> configMap = gson.fromJson(skuVoList.get(i).getConfigSpecs(),Map.class);
             configMapList.add(configMap);
-            //test: print the current map contrent
+            //test: print the current map content
 //            for(Map.Entry<String,String> entry : configMap.entrySet()){
 //                out.print("key= " + entry.getKey() + " and value= " + entry.getValue() + "\n");
 //            }
@@ -124,7 +124,7 @@
             <div class="container">
                 <div class="col-xs-12 col-sm-6 no-margin">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.jsp">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
                         <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
                         <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
@@ -134,14 +134,12 @@
                 <div class="col-xs-12 col-sm-6 no-margin">
                     <ul class="right">
                         <ul class="right">
-                            <%if(userName.equals("")){
-                                System.out.println("if"+userName);%>
-                            <li><a href="authentication.jsp">register</a></li>
+                            <%if(userName.equals("")){%>
+                            <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
-                            <%}else{
-                                System.out.println("else"+userName);%>
+                            <%}else{%>
                             <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
-                            <li><a href="" onclick="logout()">log out</a></li>
+                            <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
                     </ul>
@@ -155,7 +153,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.jsp">
                             <img alt="logo" src="assets/images/group57-logo.png" width="333" height="70"/>
                         </a>
                     </div><!-- /.logo -->
@@ -176,15 +174,15 @@
                             <div class="control-group">
                                 <input class="search-field" placeholder="Search Product" id="keywords-input"/>
                                 <ul class="categories-filter animate-dropdown">
-                                    <li class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" href="product-list.jsp" id="search-by-box" tabindex="0">Search By</a>
+                                    <li class="dropdown"><a class="dropdown-toggle"  data-toggle="dropdown" href="javascript:void(0);" id="search-by-box" tabindex="0">Search By</a>
                                         <ul class="dropdown-menu" role="menu" >
-                                            <li role="presentation"><a role="menuitem" tabindex="0" onclick="chooseSearchBy(this)" >By Name</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="2" onclick="chooseSearchBy(this)">By Description</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="3" onclick="chooseSearchBy(this)">By Brand</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="0" href="javascript:void(0);" onclick="chooseSearchBy(this)" >By Name</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="2" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Description</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="3" href="javascript:void(0);" onclick="chooseSearchBy(this)">By Brand</a></li>
                                         </ul>
                                     </li>
                                 </ul>
-                                <a style="padding:15px 15px 13px 12px" class="search-button" href="#" onclick="clickSearch()"></a>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onclick="clickSearch()"></a>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -237,7 +235,7 @@
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <a class="le-button inverse" onclick="goToCart(<%=userId%>)">View Cart</a>
+                                                    <a class="le-button inverse" href="javascript:void(0);" onclick="goToCart(<%=userId%>)">View Cart</a>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <a href="checkout.jsp" class="le-button">Check Out</a>
@@ -572,21 +570,24 @@
                 <div class="product-item-holder size-big single-product-gallery small-gallery">
 
                     <div id="owl-single-product">
-                        <div class="single-product-gallery-item" id="slide1">
+                        <%--  第一个图片放当前sku的图  --%>
+                        <div class="single-product-gallery-item" id="slide0">
+                            <a data-rel="prettyphoto" href="<%=skuVo.getPicture()%>">
+                                <img class="img-responsive" alt="" src="<%=skuVo.getPicture()%>"  style="height: 325px;width: 433px"/>
+                            </a>
+                        </div><!-- /.single-product-gallery-item -->
+                        <%--  中间的图片放依次所有的sku的图  --%>
+                        <%int picCnt=0; for(SKUVO aSkuVo : skuVoList){picCnt++;%>
+                        <div class="single-product-gallery-item" id="slide<%=picCnt%>">
+                            <a data-rel="prettyphoto" href="<%=aSkuVo.getPicture()%>">
+                                <img class="img-responsive" alt="" src="<%=aSkuVo.getPicture()%>" style="height: 325px;width: 433px"/>
+                            </a>
+                        </div><!-- /.single-product-gallery-item -->
+                        <%}%>
+                        <%--  最后一个图片放spu的图  --%>
+                        <div class="single-product-gallery-item active" id="slide<%=picCnt+1%>">
                             <a data-rel="prettyphoto" href="<%=spuVo.getPicture()%>">
                                 <img class="img-responsive" alt="" src="<%=spuVo.getPicture()%>"  style="height: 325px;width: 433px"/>
-                            </a>
-                        </div><!-- /.single-product-gallery-item -->
-
-                        <div class="single-product-gallery-item" id="slide2">
-                            <a data-rel="prettyphoto" href="<%=spuVo.getPicture()%>">
-                                <img class="img-responsive" alt="" src="<%=spuVo.getPicture()%>" style="height: 325px;width: 433px"/>
-                            </a>
-                        </div><!-- /.single-product-gallery-item -->
-
-                        <div class="single-product-gallery-item" id="slide3">
-                            <a data-rel="prettyphoto" href="<%=spuVo.getPicture()%>">
-                                <img class="img-responsive" alt="" src="<%=spuVo.getPicture()%>" style="height: 325px;width: 433px"/>
                             </a>
                         </div><!-- /.single-product-gallery-item -->
                     </div><!-- /.single-product-slider -->
@@ -595,40 +596,16 @@
                     <div class="single-product-gallery-thumbs gallery-thumbs">
 
                         <div id="owl-single-product-thumbnails">
-                            <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
+                            <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide0">
+                                <img width="67" alt="" src="<%=skuVo.getPicture()%>" style="height: 60px;width: 67px"/>
+                            </a>
+                            <%int sldCnt=0; for(SKUVO aSkuVo : skuVoList){ sldCnt++;%>
+                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt%>" href="#slide<%=sldCnt%>">
+                                <img width="67" alt="" src="<%=aSkuVo.getPicture()%>" style="height: 60px;width: 67px"/>
+                            </a>
+                            <%}%>
+                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt+1%>" href="#slide<%=sldCnt+1%>">
                                 <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                                <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                                <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="0" href="#slide1">
-                                <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                                <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                                <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="0" href="#slide1">
-                                <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
-                                <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
-                            </a>
-
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
-                                <img width="67" alt="" src="assets/images/blank.gif" data-echo="assets/images/products/gallery-thumb-01.jpg" />
                             </a>
                         </div><!-- /#owl-single-product-thumbnails -->
 
@@ -720,7 +697,7 @@
 
                                     <%int cnt=0;for(AccessoryVO accessoryVo : accessoryVoList){%>
                                     <tr>
-                                        <td class="spefic-acc"><label><input class="acc_list" type="checkbox" value="<%=accessoryVo.getName()%>" prop="<%=accessoryVo.getName()%>" onclick="chooseAccessory(this, accessoryStrList,'<%=accessoryVo.getName()%>',axStr,<%=accessoryVo.getPrice()%>)"> <%=accessoryVo.getName()%> ($<%=accessoryVo.getPrice()%>)</label></td>
+                                        <td class="spefic-acc"><label><input class="acc_list" type="checkbox" value="<%=accessoryVo.getName()%>" prop="<%=accessoryVo.getName()%>" href="javascript:void(0);" onclick="chooseAccessory(this, accessoryStrList,'<%=accessoryVo.getName()%>',axStr,<%=accessoryVo.getPrice()%>)"> <%=accessoryVo.getName()%> ($<%=accessoryVo.getPrice()%>)</label></td>
                                     </tr>
                                     <%cnt++;}%>
                                 </table>
@@ -1503,12 +1480,8 @@
                 </div><!-- /.container -->
             </div><!-- /.copyright-bar -->
 
-        </footer><!-- /#footer -->
         <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
-<%--    <%}catch (IndexOutOfBoundsException e){--%>
-<%--        System.out.println("single-product:"+e);%>--%>
 
-<%--    <%}%>--%>
 
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->

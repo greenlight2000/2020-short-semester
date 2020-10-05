@@ -43,7 +43,6 @@
  
 	</head>
 <body>
-    //navigation和header里的参数请求
     <%
         //header
         //获取cartVoList   req里需要有userId, 否则session里的cartVoList 为 new ArrayList<>
@@ -75,7 +74,7 @@
                     <ul class="right">
                         <ul class="right">
                             <%if(userName.equals("")){%>
-                            <li><a href="authentication.jsp">register</a></li>
+                            <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
                             <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>

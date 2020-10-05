@@ -15,6 +15,8 @@ public class SKU {
     private double totalPrice;
     @Column(name = "stock_num")
     private String stockNum;
+    @Column(name = "picture")
+    private String picture;
     @Column(name = "config_specs")
     private String configSpecs;
     @ManyToOne(targetEntity = SPU.class)
@@ -70,6 +72,14 @@ public class SKU {
     }
 
     public SKU() {
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public SKU(String name, double totalPrice, String stockNum, String configSpecs, com.webproject.project01.PO.SPU SPU) {
