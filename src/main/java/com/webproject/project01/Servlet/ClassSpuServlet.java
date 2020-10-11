@@ -38,20 +38,18 @@ public class ClassSpuServlet extends HttpServlet {
     //获取该class下的所有spu
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long classId = Long.parseLong(req.getParameter("id"));
+        long classId = Long.parseLong(req.getParameter("classId"));
         List<SPU> spuList = classService.showSPU(classId);
         List<SPUVO> spuVoList = spuService.buildVoList(spuList);
-        for(SPUVO spuVo : spuVoList){
-            System.out.println(spuVo.toString());
-        }
+
         Gson gson = new Gson();
-//        Type type = new TypeToken<List<SPU>>(){}.getType();
-//        String spuVoJson = gson.toJson(spuVoList,type);
-//        System.out.println(spuVoJson);
+        Type type = new TypeToken<List<SPU>>(){}.getType();
+        String spuVoJson = gson.toJson(spuVoList,type);
         PrintWriter out = resp.getWriter();
-        for(SPUVO spuvo : spuVoList){
-            out.println(gson.toJson(spuvo,SPUVO.class)+"\n");
-        }
+//        for(SPUVO spuvo : spuVoList){
+//            out.println(gson.toJson(spuvo,SPUVO.class)+"\n");
+//        }
+        out.println(spuVoJson);
         out.close();
 
     }

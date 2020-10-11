@@ -1,12 +1,9 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.webproject.project01.VO.SPUVO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.webproject.project01.VO.SKUVO" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.webproject.project01.VO.AccessoryVO" %>
-<%@ page import="com.webproject.project01.VO.CartVO" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="com.webproject.project01.VO.*" %>
 <!--
     @param:     skuIndex : 0
     @session:   userId : ""
@@ -109,13 +106,21 @@
         Map<String,String> curConfigMap = configMapList.isEmpty()?new HashMap<>() : configMapList.get(skuIndex);
 
         //test
-        if(skuVoList!=null) {
-            if (skuVoList.isEmpty())
-                System.out.print("single-product.jsp:  skuVoList is empty");
-            else
-                System.out.print("single-product.jsp:  skuVoList is ok");
-        } else
-            System.out.print("single-product.jsp:  skuVoList is null");
+//        if(skuVoList!=null) {
+//            if (skuVoList.isEmpty())
+//                System.out.print("single-product.jsp:  skuVoList is empty");
+//            else
+//                System.out.print("single-product.jsp:  skuVoList is ok");
+//        } else
+//            System.out.print("single-product.jsp:  skuVoList is null");
+
+        //nav2
+        //category navigation
+        request.getRequestDispatcher("/class?param=root").include(request,response);
+        List<ClassificationVO> rootClassVoList = (List<ClassificationVO>) session.getAttribute("rootClassVoList");
+
+        request.getRequestDispatcher("/class/hierarchy"+"?classId="+spuVo.getClassificationVO().getId()).include(request,response);
+        List<ClassificationVO> ancestorClassVoList = (List<ClassificationVO>) session.getAttribute("ancestorClassVoList");
     %>
 <%--    <%try {%>--%>
     <div id="wrapper" class="wrapper">
@@ -267,294 +272,29 @@
 
                         <div class="collapse navbar-collapse" id="mc-horizontal-menu-collapse">
                             <ul class="nav navbar-nav">
+                                <li class="dropdown menu-item">
+                                    <a>Categories: </a>
+                                </li>
+                                <%for (ClassificationVO classVo : rootClassVoList){%>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" onclick="loadChildClass(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
                                     <ul class="dropdown-menu">
                                         <li><div class="yamm-content">
                                             <div class="row">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Laptops &amp; Notebooks</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound </a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
+                                                <div class="col-xs-12 col-sm-4" >
+                                                    <h2 style="width: 200px">sub-categories</h2>
+                                                    <ul id="class-list-<%=classVo.getId()%>" style="width: 200px">
+                                                        <!-- 待插入 -->
                                                     </ul>
                                                 </div><!-- /.col -->
-
                                                 <div class="col-xs-12 col-sm-4">
-                                                    <h2>Computers &amp; Laptops</h2>
-                                                    <ul>
-                                                        <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                                        <li><a href="#">CPUs, Processors</a></li>
-                                                        <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                                        <li><a href="#">Graphics, Video Cards</a></li>
-                                                        <li><a href="#">Interface, Add-On Cards</a></li>
-                                                        <li><a href="#">Laptop Replacement Parts</a></li>
-                                                        <li><a href="#">Memory (RAM)</a></li>
-                                                        <li><a href="#">Motherboards</a></li>
-                                                        <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                                        <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Dekstop Parts</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound</a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
+                                                    <h2></h2>
                                                 </div><!-- /.col -->
                                             </div><!-- /.row -->
                                         </div><!-- /.yamm-content --></li>
                                     </ul>
                                 </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><div class="yamm-content">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Laptops &amp; Notebooks</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound </a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Computers &amp; Laptops</h2>
-                                                    <ul>
-                                                        <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                                        <li><a href="#">CPUs, Processors</a></li>
-                                                        <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                                        <li><a href="#">Graphics, Video Cards</a></li>
-                                                        <li><a href="#">Interface, Add-On Cards</a></li>
-                                                        <li><a href="#">Laptop Replacement Parts</a></li>
-                                                        <li><a href="#">Memory (RAM)</a></li>
-                                                        <li><a href="#">Motherboards</a></li>
-                                                        <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                                        <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Dekstop Parts</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound</a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-                                            </div><!-- /.row -->
-                                        </div><!-- /.yamm-content --></li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                        <li><a href="#">CPUs, Processors</a></li>
-                                        <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                        <li><a href="#">Graphics, Video Cards</a></li>
-                                        <li><a href="#">Interface, Add-On Cards</a></li>
-                                        <li><a href="#">Laptop Replacement Parts</a></li>
-                                        <li><a href="#">Memory (RAM)</a></li>
-                                        <li><a href="#">Motherboards</a></li>
-                                        <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><div class="yamm-content">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Laptops &amp; Notebooks</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound </a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Computers &amp; Laptops</h2>
-                                                    <ul>
-                                                        <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                                        <li><a href="#">CPUs, Processors</a></li>
-                                                        <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                                        <li><a href="#">Graphics, Video Cards</a></li>
-                                                        <li><a href="#">Interface, Add-On Cards</a></li>
-                                                        <li><a href="#">Laptop Replacement Parts</a></li>
-                                                        <li><a href="#">Memory (RAM)</a></li>
-                                                        <li><a href="#">Motherboards</a></li>
-                                                        <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                                        <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Dekstop Parts</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound</a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-                                            </div><!-- /.row -->
-                                        </div><!-- /.yamm-content --></li>
-                                    </ul>
-                                </li>
-
-
-                                <li class="dropdown yamm-fw">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="yamm-content">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-3">
-                                                        <h2>Laptops &amp; Notebooks</h2>
-                                                        <ul>
-                                                            <li><a href="#">Power Supplies Power</a></li>
-                                                            <li><a href="#">Power Supply Testers Sound </a></li>
-                                                            <li><a href="#">Sound Cards (Internal)</a></li>
-                                                            <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                            <li><a href="#">Other</a></li>
-                                                        </ul>
-                                                    </div><!-- /.col -->
-
-                                                    <div class="col-xs-12 col-sm-3">
-                                                        <h2>Computers &amp; Laptops</h2>
-                                                        <ul>
-                                                            <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                                            <li><a href="#">CPUs, Processors</a></li>
-                                                            <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                                            <li><a href="#">Graphics, Video Cards</a></li>
-                                                            <li><a href="#">Interface, Add-On Cards</a></li>
-                                                            <li><a href="#">Laptop Replacement Parts</a></li>
-                                                            <li><a href="#">Memory (RAM)</a></li>
-                                                            <li><a href="#">Motherboards</a></li>
-                                                            <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                                            <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                                        </ul>
-                                                    </div><!-- /.col -->
-
-                                                    <div class="col-xs-12 col-sm-3">
-                                                        <h2>Desktop Parts</h2>
-                                                        <ul>
-                                                            <li><a href="#">Power Supplies Power</a></li>
-                                                            <li><a href="#">Power Supply Testers Sound</a></li>
-                                                            <li><a href="#">Sound Cards (Internal)</a></li>
-                                                            <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                            <li><a href="#">Other</a></li>
-                                                        </ul>
-                                                    </div><!-- /.col -->
-
-                                                    <div class="col-xs-12 col-sm-3">
-                                                        <h2>Laptops &amp; Notebooks</h2>
-                                                        <ul>
-                                                            <li><a href="#">Power Supplies Power</a></li>
-                                                            <li><a href="#">Power Supply Testers Sound </a></li>
-                                                            <li><a href="#">Sound Cards (Internal)</a></li>
-                                                            <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                            <li><a href="#">Other</a></li>
-                                                        </ul>
-                                                    </div><!-- /.col -->
-                                                </div><!-- /.row -->
-                                            </div><!-- /.yamm-content -->
-                                        </li>
-                                    </ul>
-                                </li><!-- /.yamm-fw -->
-
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                        <li><a href="#">Power Supplies Power</a></li>
-                                        <li><a href="#">Power Supply TestersSound </a></li>
-                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                        <li><a href="#">Other</a></li>
-                                    </ul>
-                                </li>
-
-
-                                <li class="dropdown hidden-md">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Laptops &amp; Notebooks</a></li>
-                                        <li><a href="#">RTV</a></li>
-                                        <li><a href="#">TV &amp; Audio</a></li>
-                                        <li><a href="#">Gadgets</a></li>
-                                        <li><a href="#">Cameras</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown navbar-right hidden-md">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">电子产品</a>
-                                    <ul class="dropdown-menu">
-                                        <li><div class="yamm-content">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Laptops &amp; Notebooks</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound </a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Computers &amp; Laptops</h2>
-                                                    <ul>
-                                                        <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                                                        <li><a href="#">CPUs, Processors</a></li>
-                                                        <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                                                        <li><a href="#">Graphics, Video Cards</a></li>
-                                                        <li><a href="#">Interface, Add-On Cards</a></li>
-                                                        <li><a href="#">Laptop Replacement Parts</a></li>
-                                                        <li><a href="#">Memory (RAM)</a></li>
-                                                        <li><a href="#">Motherboards</a></li>
-                                                        <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                                                        <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <h2>Dekstop Parts</h2>
-                                                    <ul>
-                                                        <li><a href="#">Power Supplies Power</a></li>
-                                                        <li><a href="#">Power Supply Testers Sound</a></li>
-                                                        <li><a href="#">Sound Cards (Internal)</a></li>
-                                                        <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                                                        <li><a href="#">Other</a></li>
-                                                    </ul>
-                                                </div><!-- /.col -->
-                                            </div><!-- /.row -->
-                                        </div><!-- /.yamm-content --></li>
-                                    </ul>
-                                </li>
+                                <%}%>
                             </ul><!-- /.navbar-nav -->
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.navbar -->
@@ -623,7 +363,7 @@
             </div><!-- /.gallery-holder -->
             <div class="no-margin col-xs-12 col-sm-7 body-holder">
                 <div class="body">
-                    <div class="star-holder inline"><div class="star" data-score="4"></div></div>
+<%--                    <div class="star-holder inline"><div class="star" data-score="4"></div></div>--%>
                     <div class="availability"><label>launchTime:</label><span class="available">  <%=spuVo.getLaunchTime()%></span></div>
                     <div class="availability"><label>inventory:</label><span class="available">  <%=skuVo.getStockNum()%></span></div>
 
@@ -715,9 +455,9 @@
                     <div class="qnt-holder">
                         <div class="le-quantity">
                             <form>
-                                <a class="minus" href="#reduce" onclick="changeNum('-')"></a>
-                                <input id="choose-num" name="quantity" readonly="readonly" type="text" value="1"/>
-                                <a class="plus" href="#add" onclick="changeNum('+')"></a>
+                                <a class="minus" href="javascript:void(0);" onclick="changeNum('-')"></a>
+                                <input id="choose-num" readonly="readonly" type="text" value="1"/>
+                                <a class="plus" href="javascript:void(0);" onclick="changeNum('+')"></a>
                             </form>
                         </div>
                         <%--            <%//配置配置信息json(包含嵌套引号) --》 spec1✖️spec2✖️...--%>
@@ -762,26 +502,23 @@
                             <div class="meta-row">
                                 <div class="inline">
                                     <label>SKU-id:</label>
-                                    <span><%=skuVo.getId()%>>%></span>
+                                    <span><%=skuVo.getId()%></span>
                                 </div><!-- /.inline -->
 
                                 <span class="seperator">/</span>
 
-                                <div class="inline">
-                                    <label>categories:</label>
-                                    <span><a href="#">-50% sale</a>,</span>
-                                    <span><a href="#">gaming</a>,</span>
-                                    <span><a href="#">desktop PC</a></span>
-                                </div><!-- /.inline -->
-
-                                <span class="seperator">/</span>
 
                                 <div class="inline">
-                                    <label>tag:</label>
-                                    <span><a href="#">fast</a>,</span>
-                                    <span><a href="#">gaming</a>,</span>
-                                    <span><a href="#">strong</a></span>
+                                    <label>categories-hierarchy:</label>
+                                    <%int cnt0=0;for(ClassificationVO classVo : ancestorClassVoList){cnt0++;%>
+                                    <span><a href="javascript:void(0);" onclick="goToCatSpu(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
+                                    <%if(cnt0!=ancestorClassVoList.size()){%>
+                                        <label>></label>
+                                    <%}%>
+                                    </span>
+                                    <%}%>
                                 </div><!-- /.inline -->
+
                             </div><!-- /.meta-row -->
                         </div><!-- /.tab-pane #description -->
 
@@ -804,20 +541,16 @@
                                 <span class="seperator">/</span>
 
                                 <div class="inline">
-                                    <label>categories:</label>
-                                    <span><a href="#">-50% sale</a>,</span>
-                                    <span><a href="#">gaming</a>,</span>
-                                    <span><a href="#">desktop PC</a></span>
+                                    <label>categories-hierarchy:</label>
+                                    <%int cnt1=0;for(ClassificationVO classVo : ancestorClassVoList){cnt1++;%>
+                                    <span><a href="javascript:void(0);" onclick="goToCatSpu(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
+                                    <%if(cnt1!=ancestorClassVoList.size()){%>
+                                        <label>></label>
+                                    <%}%>
+                                    </span>
+                                    <%}%>
                                 </div><!-- /.inline -->
 
-                                <span class="seperator">/</span>
-
-                                <div class="inline">
-                                    <label>tag:</label>
-                                    <span><a href="#">fast</a>,</span>
-                                    <span><a href="#">gaming</a>,</span>
-                                    <span><a href="#">strong</a></span>
-                                </div><!-- /.inline -->
                             </div><!-- /.meta-row -->
                         </div><!-- /.tab-pane #additional-info -->
 
@@ -962,207 +695,7 @@
         </section><!-- /#single-product-tab -->
         <!-- ========================================= SINGLE PRODUCT TAB : END ========================================= -->
         <!-- ========================================= RECENTLY VIEWED ========================================= -->
-        <section id="recently-reviewd" class="wow fadeInUp">
-            <div class="container">
-                <div class="carousel-holder hover">
 
-                    <div class="title-nav">
-                        <h2 class="h1">最近浏览</h2>
-                        <div class="nav-holder">
-                            <a href="#prev" data-target="#owl-recently-viewed" class="slider-prev btn-prev fa fa-angle-left"></a>
-                            <a href="#next" data-target="#owl-recently-viewed" class="slider-next btn-next fa fa-angle-right"></a>
-                        </div>
-                    </div><!-- /.title-nav -->
-
-                    <div id="owl-recently-viewed" class="owl-carousel product-grid-holder">
-                        <div class="no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-                                <div class="ribbon red"><span>sale</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-11.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">LC-70UD1U 70" class aquos 4K ultra HD</a>
-                                    </div>
-                                    <div class="brand">Sharp</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class="no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>new!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-12.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">cinemizer OLED 3D virtual reality TV Video</a>
-                                    </div>
-                                    <div class="brand">zeiss</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-13.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">s2340T23" full HD multi-Touch Monitor</a>
-                                    </div>
-                                    <div class="brand">dell</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>new!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-14.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">kardon BDS 7772/120 integrated 3D</a>
-                                    </div>
-                                    <div class="brand">harman</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-                                <div class="ribbon green"><span>bestseller</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-15.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">netbook acer travel B113-E-10072</a>
-                                    </div>
-                                    <div class="brand">acer</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-16.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">iPod touch 5th generation,64GB, blue</a>
-                                    </div>
-                                    <div class="brand">apple</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-13.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">s2340T23" full HD multi-Touch Monitor</a>
-                                    </div>
-                                    <div class="brand">dell</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-
-                        <div class=" no-margin carousel-item product-item-holder size-small hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>new!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-14.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.jsp">kardon BDS 7772/120 integrated 3D</a>
-                                    </div>
-                                    <div class="brand">harman</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-current text-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.jsp" class="le-button">加入购物车</a>
-                                    </div>
-                                </div>
-                            </div><!-- /.product-item -->
-                        </div><!-- /.product-item-holder -->
-                    </div><!-- /#recently-carousel -->
-
-                </div><!-- /.carousel-holder -->
-            </div><!-- /.container -->
-        </section><!-- /#recently-reviewd -->
         <!-- ========================================= RECENTLY VIEWED : END ========================================= -->		<!-- ============================================================= FOOTER ============================================================= -->
         <footer id="footer" class="color-bg">
 
@@ -1170,194 +703,17 @@
                 <div class="row no-margin widgets-row">
                     <div class="col-xs-12  col-sm-4 no-margin-left">
                         <!-- ============================================================= FEATURED PRODUCTS ============================================================= -->
-                        <div class="widget">
-                            <h2>推荐商品</h2>
-                            <div class="body">
-                                <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">Netbook Acer Travel B113-E-10072</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-03.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /.body -->
-                        </div> <!-- /.widget -->
                         <!-- ============================================================= FEATURED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
 
                     <div class="col-xs-12 col-sm-4 ">
                         <!-- ============================================================= ON SALE PRODUCTS ============================================================= -->
-                        <div class="widget">
-                            <h2>促销商品</h2>
-                            <div class="body">
-                                <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">HP Scanner 2910P</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-04.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">Galaxy Tab 3 GT-P5210 16GB, Wi-Fi, 10.1in - White</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-05.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-06.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /.body -->
-                        </div> <!-- /.widget -->
                         <!-- ============================================================= ON SALE PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
 
                     <div class="col-xs-12 col-sm-4 ">
                         <!-- ============================================================= TOP RATED PRODUCTS ============================================================= -->
-                        <div class="widget">
-                            <h2>最热商品</h2>
-                            <div class="body">
-                                <ul>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">Galaxy Tab GT-P5210, 10" 16GB Wi-Fi</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-07.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-08.jpg" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-9 no-margin">
-                                                <a href="single-product.jsp">Surface RT 64GB, Wi-Fi, 10.6in - Dark Titanium</a>
-                                                <div class="price">
-                                                    <div class="price-prev">￥2000</div>
-                                                    <div class="price-current">￥1873</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-sm-3 no-margin">
-                                                <a href="#" class="thumb-holder">
-                                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-09.jpg" />
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /.body -->
-                        </div><!-- /.widget -->
                         <!-- ============================================================= TOP RATED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
 
                 </div><!-- /.widgets-row-->

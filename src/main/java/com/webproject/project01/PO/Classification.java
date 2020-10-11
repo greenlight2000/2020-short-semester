@@ -102,13 +102,21 @@ public class Classification {
         classificationVO.setId(id);
         classificationVO.setName(name);
         classificationVO.setStoreId(store.getId());
-        if(parentClass==null)
+        classificationVO.setSpuNum(SPUList.size());
+
+        if(parentClass==null){
             classificationVO.setParentId(0);
-        else
+            classificationVO.setParentName("");
+        } else {
             classificationVO.setParentId(parentClass.getId());
+            classificationVO.setParentName(parentClass.getName());
+        }
+
         for(Classification child : childClassList){
             classificationVO.getChildIdList().add(child.getId());
         }
+
+
         return classificationVO;
     }
 

@@ -18,7 +18,11 @@ public class ClassificationVO{
 
     private long parentId;
 
+    private String parentName;
+
     private List<Long> childIdList = new ArrayList<>();
+
+    private int spuNum;
 
     public long getId() {
         return id;
@@ -60,15 +64,33 @@ public class ClassificationVO{
         this.childIdList = childIdList;
     }
 
+    public int getSpuNum() {
+        return spuNum;
+    }
+
+    public void setSpuNum(int spuNum) {
+        this.spuNum = spuNum;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
     public ClassificationVO() {
     }
 
-    public ClassificationVO(long id, String name, long storeId, long parentId, List<Long> childIdList) {
+    public ClassificationVO(long id, String name, long storeId, long parentId, String parentName, List<Long> childIdList, int spuNum) {
         this.id = id;
         this.name = name;
         this.storeId = storeId;
         this.parentId = parentId;
+        this.parentName = parentName;
         this.childIdList = childIdList;
+        this.spuNum = spuNum;
     }
 
     @Override

@@ -140,13 +140,16 @@ var showCartTolPrice = function(){
 var changeNum = function(opr){
     // if($("#choose-num").val()==0)
     console.log($("#choose-num").val());
-    var oldVal = parseInt($("#choose-num").val());
-    oldVal = parseInt($("#choose-num").val());
+    var oldVal = oldVal = parseInt($("#choose-num").val());
     if(opr=='+')
         $("#choose-num").val(oldVal);
     else if (opr=='-')
         $("#choose-num").val(oldVal);
     console.log($("#choose-num").val());
+    // var start = new Date().getTime();
+    // var delay = 3000;
+    // while(new Date().getTime() < start + delay);
+    showCartTolPrice();
     showCartTolPrice();
 };
 
@@ -295,7 +298,7 @@ var loadChildClass = function(classId){
             // console.log(childVoList[0].name);
             var li = "";
             for(let element of childVoList){
-                li+='<li>'+'<a href="#">'+element.name+'</a>'+'</li>';
+                li+='<li>'+'<a href="javascript:void(0);" onclick="goToCatSpu('+element.id+')">'+element.name+'</a>'+'<div style="float: right">('+element.spuNum +')</div></li>';
             }
             $("#class-list-"+classId).html(li);
 
@@ -417,4 +420,30 @@ var cancelBill = function(idStr){
         location.reload();
     }
 
+};
+var goToCatSpu = function(catId){
+    location.href = "cat-spu.jsp?catId="+catId;
+};
+
+var loadCatSpu = function(catId){
+    $.post(
+        "/class/spu",
+        {classId: catId},
+        function(data){
+            var spuVoList = JSON.parse(data);
+            var html = template("tpl",{
+                spuVoList: spuVoList,
+            });
+            $("#div-cat-spu").append(html);
+        }
+    )
+};
+var loadCatHierarchy = function(catId){
+    $.post(
+        "/class/hierarchy",
+        {classId: catId},
+        function(){
+            console.log("cat-spu.jsp: successful load cat hierarchy");
+        }
+    )
 };

@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -46,6 +47,17 @@ public class ClassService extends BaseService<Classification> {
             }
         };
         return classificationDao.findAll(spec);
+    }
+    public List<Classification> showAncestorClass(long id){
+        Classification initClass = classificationDao.getOne(id);
+        List<Classification> ancestorClassList = new ArrayList<>();
+        ancestorClassList.add(initClass);
+
+        for(Classification p = initClass.getParentClass(); p!=null; p = p.getParentClass()){
+            ancestorClassList.add(p);
+        }
+        Collections.reverse(ancestorClassList);
+        return ancestorClassList;
     }
     /**
      * 查询某一父分类的下一层孩子分类

@@ -73,6 +73,33 @@
         request.getRequestDispatcher("/class?param=root").include(request,response);
         List<ClassificationVO> rootClassVoList = (List<ClassificationVO>) session.getAttribute("rootClassVoList");
     %>
+    <script src="assets/js/fun.js"></script>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <script src="assets/js/template.js"></script>
+    <script id="tpl" type="text/html">
+        {{each spuVoList}}
+        <li class="sidebar-product-list-item">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 no-margin">
+                    <a href="{{$value.picture}}" class="thumb-holder">
+                        <img alt="" src="{{$value.picture}}" width="73" height="73" />
+                    </a>
+                </div>
+                <div class="col-xs-8 col-sm-8 no-margin">
+                    <a href="javascript:void(0);" onclick="checkProduct('{{$value.id}}')">{{$value.name}}</a>
+                    <div class="price">
+                        <div class="price-prev">🔥{{$value.sales}}</div>
+                        <div class="price-current">&nbsp&nbsp \${{$value.price}}</div>
+                    </div>
+                </div>
+            </div>
+        </li><!-- /.sidebar-product-list-item -->
+        {{/each}}
+    </script>
+    <script type="text/javascript">
+        loadBestSellSPU(1);
+        loadNewSPU(1);
+    </script>
 	<div class="wrapper">
         <!-- ============================================================= TOP NAVIGATION ============================================================= -->
         <nav class="top-bar animate-dropdown">
@@ -224,9 +251,12 @@
             </div><!-- /.navbar-header -->
             <div class="collapse navbar-collapse" id="mc-horizontal-menu-collapse">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown menu-item">
+                        <a>Categories: </a>
+                    </li>
                     <%for (ClassificationVO classVo : rootClassVoList){%>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="loadChildClass(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" onclick="loadChildClass(<%=classVo.getId()%>)"><%=classVo.getName()%></a>
                         <ul class="dropdown-menu">
                             <li><div class="yamm-content">
                                 <div class="row">
@@ -292,185 +322,21 @@
             </div><!-- /.body -->
         </div><!-- /.widget -->
         <!-- ========================================= PRODUCT FILTER : END ========================================= -->
-                    <div class="widget">
-            <h1 class="border">特价商品</h1>
-            <ul class="product-list">
-                <li>
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">Netbook Acer </a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-03.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">Netbook Acer</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                                <div class="price">
-                                    <div class="price-prev">￥2000</div>
-                                    <div class="price-current">￥1873</div>
-                                </div>
-                        </div>
-                    </div>
-                </li>
+        <div class="widget">
+            <h1 class="border">Newest SPU</h1>
+            <ul  class="product-list">
+                <div id="div-new-spu">
+                    <!-- 待插入 -->
+                </div>
             </ul>
         </div><!-- /.widget -->
         <!-- ========================================= FEATURED PRODUCTS ========================================= -->
         <div class="widget">
-            <h1 class="border">推荐商品</h1>
+            <h1 class="border">Best Seller</h1>
             <ul class="product-list">
-
-                <li class="sidebar-product-list-item">
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">Netbook Acer </a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.sidebar-product-list-item -->
-
-                <li class="sidebar-product-list-item">
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.sidebar-product-list-item -->
-
-                <li class="sidebar-product-list-item">
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-03.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.sidebar-product-list-item -->
-
-                <li class="sidebar-product-list-item">
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">Netbook Acer </a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.sidebar-product-list-item -->
-
-                <li class="sidebar-product-list-item">
-                    <div class="row">
-                        <div class="col-xs-4 col-sm-4 no-margin">
-                            <a href="#" class="thumb-holder">
-                                <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                            </a>
-                        </div>
-                        <div class="col-xs-8 col-sm-8 no-margin">
-                            <a href="#">PowerShot Elph 115 16MP Digital Camera</a>
-                            <div class="price">
-                                <div class="price-prev">￥2000</div>
-                                <div class="price-current">￥1873</div>
-                            </div>
-                        </div>
-                    </div>
-                </li><!-- /.sidebar-product-list-item -->
-
+                <div id="div-bs-spu">
+                    <!-- 待插入 -->
+                </div>
             </ul><!-- /.product-list -->
         </div><!-- /.widget -->
         <!-- ========================================= FEATURED PRODUCTS : END ========================================= -->
@@ -691,20 +557,20 @@
                             <h2 class="section-title"><%=totalResult%> results found</h2>
 
                             <div class="control-bar">
-                                <button class="le-button" onclick="clickSort('<%=key%>','<%=value%>')">Sort</button>
-                                <div id="popularity-sort" class="le-select" >
-                                    <label for="select-sort-key"></label><select id="select-sort-key">
+                                <div id="popularity-sort" class="le-select" style="left: 8px; right: 10px; top: 4px; border-color: #E74C3C; border-radius: 5px;">
+                                    <select id="select-sort-key" style="font-weight: 600">
                                         <option value="sales" selected>sort by: popularity</option>
                                         <option value="price">sort by: price</option>
                                         <option value="launchTime">sort by: launch time</option>
                                     </select>
                                 </div>
-                                <div id="item-count" class="le-select">
-                                    <label for="select-sort-dir"></label><select id="select-sort-dir">
+                                <div id="item-count" class="le-select" style="right: 5px; top: 4px; border-color: #E74C3C; border-radius: 5px;">
+                                    <select id="select-sort-dir" style="font-weight: 600">
                                         <option value="true" selected>ascendent</option>
                                         <option value="false">descendent</option>
                                     </select>
                                 </div>
+                                <button class="le-button" onclick="clickSort('<%=key%>','<%=value%>')" style="padding: 5 10 5 10">Sort</button>
                                 <div class="grid-list-buttons">
                                     <ul>
                                         <li id="grid-href" class="grid-list-button-item active"><a data-toggle="tab" href="#grid-view"><i class="fa fa-th-large"></i> Grid</a></li>
@@ -1030,7 +896,7 @@
                                                             <div class="price-current">$<%=spuVo.getPrice()%></div>
                                                             <div class="price-prev">🔥<%=spuVo.getSales()%></div>
                                                             <div class="availability"><label>launch time:</label><span class="available"> <%=spuVo.getLaunchTime()%></span></div>
-                                                            <a class="le-button" href="#">Add To Cart</a>
+                                                            <a class="le-button" href="javascript:void(0);" onclick="checkProduct(<%=spuVo.getId()%>)">Add To Cart</a>
                                                         </div>
                                                     </div><!-- /.price-area -->
                                                 </div><!-- /.row -->

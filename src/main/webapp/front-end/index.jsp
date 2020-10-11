@@ -56,12 +56,12 @@
             <div class="body">
                 <div class="label-discount clear"></div>
                 <div class="title">
-                    <a href="javascript:void(0);" onclick="checkProduct('{{$value.id}}')">{{$value.name}}1</a>
+                    <a href="javascript:void(0);" onclick="checkProduct('{{$value.id}}')">{{$value.name}}</a>
                 </div>
                 <div class="brand">{{$value.classificationVO.name}}</div>
             </div>
             <div class="prices">
-                <div class="price-prev">\${{$value.price}}</div>
+                <div class="price-prev">🔥{{$value.sales}}</div>
                 <div class="price-current pull-right">\${{$value.price}}</div>
             </div>
             <div class="hover-area">
@@ -171,7 +171,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onclick="clickSearch()"></a>
+                                <a style="padding:15px 15px 13px 12px" class="search-button" href="javascript:void(0);" onkeydown="clickSearch()" onclick="clickSearch()"></a>
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -258,7 +258,7 @@
                     <li class="yamm-content">
                         <!-- ================================== MEGAMENU VERTICAL ================================== -->
                         <div class="row">
-                            <div class="col-xs-12 col-lg-4">
+                            <div class="col-xs-3 col-lg-4">
                                 <ul id="class-list-<%=classVo.getId()%>">
                                     <%-- loadChildClass()写入 --%>
                                 </ul>

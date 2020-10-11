@@ -246,242 +246,239 @@
                         preTime = orderVo.getOrderTime();
                         billOrderIdSB = new StringBuilder();
                     %>
-                        <%--     time label table     --%>
-                            </tbody>
-                        </table>
+                <%--     time label table     --%>
+                    </tbody>
+                </table>
+                <%-- 日期时间拦 --%>
+                <table style="width:100%;border-collapse:collapse;border-spacing:0px;">
+                    <colgroup>
+                        <col style="width:38%;">
+                        <col style="width:10%;">
+                        <col style="width:5%;">
+                        <col style="width:12%;">
+                        <col style="width:12%;">
+                        <col style="width:11%;">
+                        <col style="width:12%;">
+                    </colgroup>
+                    <tbody>
+                    <tr style="background-color:#F5F5F5;width:100%">
+                        <td style="padding:10px 20px;text-align:left;">
+                            <label>
+                                <input type="checkbox" disabled="" style="margin-right:8px;">
+                                <strong title="2016-02-17 15:55:26" style="margin-right:8px;font-weight:bold;">
+                                    <%=orderVo.getOrderTime()%>
+                                </strong>
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-                        <table style="width:100%;border-collapse:collapse;border-spacing:0px;">
-                        <colgroup>
-                            <col style="width:38%;">
-                            <col style="width:10%;">
-                            <col style="width:5%;">
-                            <col style="width:12%;">
-                            <col style="width:12%;">
-                            <col style="width:11%;">
-                            <col style="width:12%;">
-                        </colgroup>
-                        <tbody>
-                        <tr style="background-color:#F5F5F5;width:100%">
-                            <td style="padding:10px 20px;text-align:left;">
-                                <label>
-                                    <input type="checkbox" disabled="" style="margin-right:8px;">
-                                    <strong title="2016-02-17 15:55:26" style="margin-right:8px;font-weight:bold;">
-                                        <%=orderVo.getOrderTime()%>
-                                    </strong>
-                                </label>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                        <table style="width:100%;border-collapse:collapse;border-spacing:0px;">
-                            <colgroup>
-                                <col style="width:38%;">
-                                <col style="width:10%;">
-                                <col style="width:5%;">
-                                <col style="width:12%;">
-                                <col style="width:12%;">
-                                <col style="width:11%;">
-                                <col style="width:12%;">
-                            </colgroup>
-                            <tbody>
+                <table style="width:100%;border-collapse:collapse;border-spacing:0px;">
+                    <colgroup>
+                        <col style="width:38%;">
+                        <col style="width:10%;">
+                        <col style="width:5%;">
+                        <col style="width:12%;">
+                        <col style="width:12%;">
+                        <col style="width:11%;">
+                        <col style="width:12%;">
+                    </colgroup>
+                    <tbody>
                     <%}%>
-
-                          <tr>
-                            <td style="text-align:left;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;padding-left:20px;" >
-                              <div style="overflow:hidden;">
+                        <tr>
+                        <td style="text-align:left;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;padding-left:20px;" >
+                            <div style="overflow:hidden;">
                                 <a class="tp-tag-a" href="<%=orderVo.getPicture()%>" style="float:left;width:27%;margin-right:2%;text-align:center;" target="_blank">
-                                  <img src="<%=orderVo.getPicture()%>" style="width: 73px; height: 73px; border:1px solid #E8E8E8;max-width:80px;">
+                                    <img src="<%=orderVo.getPicture()%>" style="width: 73px; height: 73px; border:1px solid #E8E8E8;max-width:80px;">
                                 </a>
                                 <div style="float:left;width:71%;word-wrap:break-word;">
-                                  <div style="margin:0px;">
-                                    <a class="tp-tag-a" href="javascript:void(0);" onclick="checkProduct(<%=orderVo.getSpuId()%>)">
-                                      <span>
-                                        <%=orderVo.getName()%><br><%=orderVo.getConfigSpecs()%><br>
-                                      </span>
-                                    </a>
-                                    <span>
-                                    </span>
-                                  </div>
-                                  <div style="margin-top:8px;margin-bottom:0;color:#9C9C9C;">
-                                    <span style="margin-right:6px;">
-                                      <span>
-                                      <%if(orderVo.getAccessory()!=null && !orderVo.getAccessory().equals("")){%>
-                                        Accessory:
-                                      </span>
-                                      <span>
-                                      <%=orderVo.getAccessory()%>
-                                      <%}%>
-                                      </span>
-                                    </span>
-                                  </div>
+                                    <div style="margin:0px;">
+                                        <a class="tp-tag-a" href="javascript:void(0);" onclick="checkProduct(<%=orderVo.getSpuId()%>)">
+                              <span>
+                                <%=orderVo.getName()%><br><%=orderVo.getConfigSpecs()%><br>
+                              </span>
+                                        </a>
+                                        <span>
+                            </span>
+                                    </div>
+                                    <div style="margin-top:8px;margin-bottom:0;color:#9C9C9C;">
+                            <span style="margin-right:6px;">
+                              <span>
+                              <%if(orderVo.getAccessory()!=null && !orderVo.getAccessory().equals("")){%>
+                                Accessory:
+                              </span>
+                              <span>
+                              <%=orderVo.getAccessory()%>
+                              <%}%>
+                              </span>
+                            </span>
+                                    </div>
 
                                     <span>
-                                    </span>
+                            </span>
                                 </div>
-                              </div>
-                            </td>
-                            <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
-                              <div>
-                                  <div>
-                                      <%=orderVo.getNum()%>
-                                  </div>
-                              </div>
-                            </td>
-                            <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
-                              <div style="font-family:verdana;font-style:normal;">
-    <%--                            <p>--%>
-    <%--                              <del style="color:#9C9C9C;">--%>
-    <%--                                <%=orderVo.getTotalPrice()%>--%>
-    <%--                              </del>--%>
-    <%--                            </p>--%>
+                            </div>
+                        </td>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
+                            <div style="font-family:verdana;font-style:normal;">
+                                <div>
+                                    <%=orderVo.getNum()%>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
+                            <div style="font-family:verdana;font-style:normal;">
+                                <%--                            <p>--%>
+                                <%--                              <del style="color:#9C9C9C;">--%>
+                                <%--                                <%=orderVo.getTotalPrice()%>--%>
+                                <%--                              </del>--%>
+                                <%--                            </p>--%>
                                 <p>
                                     $<%=orderVo.getTotalPrice()%>
                                 </p>
-                              </div>
-                            </td>
-                            <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
-                              <div>
+                            </div>
+                        </td>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
+                            <div>
                                 <div style="margin-bottom:3px;">
-                                  <span>
-                                    <span class="trade-ajax">
-                                      <span class="trade-tooltip-wrap">
-                                        <span>
-                                            <%
-                                                String color = "green";
-                                                switch (orderVo.getPayStatus()){
-                                                    case "paid":
-                                                        break;
-                                                    case "unpaid":
-                                                        color = "orange";
-                                                        break;
-                                                    case "canceled":
-                                                        color = "grey";
-                                                        break;
-                                                }
-                                            %>
-                                          <span class="trade-operate-text" style="color: <%=color%>">
-                                            <%=orderVo.getPayStatus()%>
-                                          </span>
-                                        </span>
-                                      </span>
-                                    </span>
+                          <span>
+                            <span class="trade-ajax">
+                              <span class="trade-tooltip-wrap">
+                                <span>
+                                    <%
+                                        String color = "green";
+                                        switch (orderVo.getPayStatus()){
+                                            case "paid":
+                                                break;
+                                            case "unpaid":
+                                                color = "orange";
+                                                break;
+                                            case "canceled":
+                                                color = "grey";
+                                                break;
+                                        }
+                                    %>
+                                  <span class="trade-operate-text" style="color: <%=color%>">
+                                    <%=orderVo.getPayStatus()%>
                                   </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
                                 </div>
-                              </div>
-                            </td>
-                              <%
-                                  billOrderIdSB.append(orderVo.getId());
-                                  billOrderIdSB.append(';');
-                              %>
-                            <%boolean isShowBillProp = i==orderVoList.size()-1 || !orderVoList.get(i + 1).getOrderTime().equals(orderVo.getOrderTime());%>
-                                <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
-                                  <div>
-                                    <div style="font-family:verdana;font-style:normal;">
-                                      <p>
-                                        <strong>
-                                        <%if(isShowBillProp){%>
-                                            <%=billPrice+10%>
-                                        <%}%>
-                                        </strong>
-                                      </p>
-                                    </div>
+                            </div>
+                        </td>
+                        <%
+                            billOrderIdSB.append(orderVo.getId());
+                            billOrderIdSB.append(';');
+                        %>
+                        <%boolean isShowBillProp = i==orderVoList.size()-1 || !orderVoList.get(i + 1).getOrderTime().equals(orderVo.getOrderTime());%>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
+                            <div>
+                                <div style="font-family:verdana;font-style:normal;">
                                     <p>
-                                      <span>
-                                      <%if(isShowBillProp){%>
-                                        (freight fee: $10)
-                                      <%}%>
-                                      </span>
-                                        <span>
-                                         </span>
-                                        <span>
-                                        </span>
-                                    </p>
-                                  <div>
-                                  </div>
-                                  </div>
-
-                                </td>
-                                <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
-                                  <div>
-                                    <div style="margin-bottom:3px;">
-                                      <%if(isShowBillProp){
-                                          String str = "";
-                                          String href = "";
-                                          switch (orderVo.getPayStatus()){
-                                              case "unpaid":
-                                                  str = "go to pay";
-                                                  href = "payBill(this.attributes[1].value);";
-                                                  break;
-                                              case "paid":
-                                                  str = "Transfer complete";
-                                                  href = "";
-                                                  break;
-                                              case "canceled":
-                                                  str = "orders canceled";
-                                                  href = "";
-                                                  break;
-                                          }%>
-                                          <a class="tp-tag-a" href="javascript: void(0);" orders-id="<%=billOrderIdSB.toString()%>" onclick="<%=href%>">
-                                              <%=str%>
-                                          </a>
-                                      <%}%>
-                                    </div>
-                                    <div>
-                                      <div style="margin-bottom:3px;">
-                                        <span>
-                                            <%if(isShowBillProp){
-                                                String str = "";
-                                                String href = "";
-                                                switch (orderVo.getPayStatus()){
-                                                    case "unpaid":
-                                                        str = "cancel orders";
-                                                        href = "cancelBill(this.attributes[1].value);";
-                                                        break;
-                                                    case "paid":
-                                                        str = "track logistics";
-                                                        href = "";
-                                                        break;
-                                                    case "canceled":
-                                                        str = "";
-                                                        href = "";
-                                                        break;
-                                                }%>
-                                                <a class="tp-tag-a" href="javascript:void(0);" orders-id="<%=billOrderIdSB.toString()%>" onclick="<%=href%>">
-                                                    <span class="trade-operate-text">
-                                                    <%=str%>
-                                                    </span>
-                                                </a>
+                                        <strong>
+                                            <%if(isShowBillProp){%>
+                                            <%=billPrice+10%>
                                             <%}%>
-                                        </span>
-                                      </div>
-
-                                    </div>
-                                  </div>
-                            </td>
-                            <%
-                              if(isShowBillProp)
-                                billPrice = 0;
-                            %>
-                            <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
-                              <div>
-                                <div style="margin-bottom: 3px;">
-                                  <span>
-                                    <a class="tp-tag-a" href="javascript:void(0);" target="_blank">
-                                      <span class="trade-operate-text">
-                                        comment
-                                      </span>
-                                    </a>
-                                  </span>
+                                        </strong>
+                                    </p>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-<%--                        </tbody>--%>
-<%--                    </table>--%>
+                                <p>
+                              <span>
+                              <%if(isShowBillProp){%>
+                                (freight fee: $10)
+                              <%}%>
+                              </span>
+                                    <span>
+                                 </span>
+                                    <span>
+                                </span>
+                                </p>
+                                <div>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:1px;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
+                            <div>
+                                <div style="margin-bottom:3px;">
+                                    <%if(isShowBillProp){
+                                        String str = "";
+                                        String href = "";
+                                        switch (orderVo.getPayStatus()){
+                                            case "unpaid":
+                                                str = "go to pay";
+                                                href = "payBill(this.attributes[1].value);";
+                                                break;
+                                            case "paid":
+                                                str = "Transfer complete";
+                                                href = "";
+                                                break;
+                                            case "canceled":
+                                                str = "orders canceled";
+                                                href = "";
+                                                break;
+                                        }%>
+                                    <a class="tp-tag-a" orders-id="<%=billOrderIdSB.toString()%>"  href="javascript: void(0);" onclick="<%=href%>">
+                                        <%=str%>
+                                    </a>
+                                    <%}%>
+                                </div>
+                                <div>
+                                    <div style="margin-bottom:3px;">
+                                <span>
+                                    <%if(isShowBillProp){
+                                        String str = "";
+                                        String href = "";
+                                        switch (orderVo.getPayStatus()){
+                                            case "unpaid":
+                                                str = "cancel orders";
+                                                href = "cancelBill(this.attributes[1].value);";
+                                                break;
+                                            case "paid":
+                                                str = "track logistics";
+                                                href = "";
+                                                break;
+                                            case "canceled":
+                                                str = "";
+                                                href = "";
+                                                break;
+                                        }%>
+                                        <a class="tp-tag-a" orders-id="<%=billOrderIdSB.toString()%>" href="javascript:void(0);"  onclick="<%=href%>">
+                                            <span class="trade-operate-text">
+                                            <%=str%>
+                                            </span>
+                                        </a>
+                                    <%}%>
+                                </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                        <%
+                            if(isShowBillProp)
+                                billPrice = 0;
+                        %>
+                        <td style="text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;" >
+                            <div>
+                                <div style="margin-bottom: 3px;">
+                          <span>
+                            <a class="tp-tag-a" href="javascript:void(0);" target="_blank">
+                              <span class="trade-operate-text">
+                                comment
+                              </span>
+                            </a>
+                          </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 <%}%>
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
             </div>
           </div>
         </div>
