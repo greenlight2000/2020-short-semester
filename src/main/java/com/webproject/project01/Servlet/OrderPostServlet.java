@@ -32,7 +32,8 @@ public class OrderPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long userId = Long.parseLong(req.getParameter("userId"));
-        cartService.dumpCartToOrder(userId,"unpaid");
+        String payStatus = req.getParameter("payStatus")==null?"unpaid":req.getParameter("payStatus");
+        cartService.dumpCartToOrder(userId,payStatus);
     }
 
     @Override

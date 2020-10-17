@@ -110,20 +110,25 @@ public class OrderService extends BaseService<Order>{
      * @param order po层单条order数据
      */
     public void uploadOrder(Order order){
-        if(order.getPayStatus().equals("paid")){
-            SPU spu = order.getSKU().getSPU();
-            int sale = spu.getSales()+order.getNum();//增加SPU销量
-            spu.setSales(sale);
-            spuDao.save(spu);
+        String payStatus = order.getPayStatus();
+        SKU sku = order.getSKU();
+        SPU spu = order.getSKU().getSPU();
+        switch (payStatus){
+            case "paid":
+                int sale = spu.getSales()+order.getNum();//增加SPU销量
+                spu.setSales(sale);
+                spuDao.save(spu);
+            case "unpaid":
+                int stockNum = order.getSKU().getStockNum() - order.getNum();
+                sku.setStockNum(stockNum);
+                skuDao.save(sku);
+                break;
+            case "canceled":
+                stockNum = order.getSKU().getStockNum() + order.getNum();
+                sku.setStockNum(stockNum);
+                skuDao.save(sku);
+                break;
         }
-        if(!order.getPayStatus().equals("canceled")) {
-            int stockNum = order.getSKU().getStockNum() - order.getNum();
-            order.getSKU().setStockNum(stockNum);
-        }else{
-            int stockNum = order.getSKU().getStockNum() + order.getNum();
-            order.getSKU().setStockNum(stockNum);
-        }
-        orderDao.save(order);
     }
     /**
      * 将一条po层数据转化为vo层数据
@@ -149,7 +154,6 @@ public class OrderService extends BaseService<Order>{
      * @param orderId 要删除的订单id
      */
     public void cancelOrder(long orderId){
-//        orderDao.deleteById(orderId);
         Order order = orderDao.getOne(orderId);
         order.setPayStatus("canceled");
         uploadOrder(order);
@@ -161,10 +165,10 @@ public class OrderService extends BaseService<Order>{
     public void payOrder(long orderId){
         Order order = orderDao.getOne(orderId);
         order.setPayStatus("paid");
-        uploadOrder(order);
-        //增加SPU销量
-        SPU spu = order.getSPU();
-        int sale = spu.getSales()+order.getNum();
+        orderDao.save(order);
+        //这里不能直接用uploadOrder，因为会重新减一遍库存，逻辑没设计好
+        SPU spu = order.getSKU().getSPU();
+        int sale = spu.getSales()+order.getNum();//增加SPU销量
         spu.setSales(sale);
         spuDao.save(spu);
     }

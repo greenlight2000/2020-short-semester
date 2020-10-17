@@ -66,12 +66,25 @@ public class CartService extends BaseService<Cart>{
         String orderTime = getRealTime();
         for(Cart cart : cartList){
             //把cart里的数据dump进order
-            Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSPU(),cart.getSKU(),cart.getUser());
+            Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSKU().getSPU(),cart.getSKU(),cart.getUser());
             orderDao.save(order);
-            if(payStatus.equals("paid")){//若已经支付，则增加销量
-                SPU spu = spuDao.getOne(cart.getSPU().getId());
-                spu.setSales(spu.getSales() + cart.getNum());
-                spuDao.save(spu);
+            SKU sku = order.getSKU();
+            SPU spu = order.getSKU().getSPU();
+            switch (payStatus){
+                case "paid":
+                    int sale = spu.getSales()+order.getNum();//增加SPU销量
+                    spu.setSales(sale);
+                    spuDao.save(spu);
+                case "unpaid":
+                    int stockNum = order.getSKU().getStockNum() - order.getNum();
+                    sku.setStockNum(stockNum);
+                    skuDao.save(sku);
+                    break;
+                case "canceled":
+                    stockNum = order.getSKU().getStockNum() + order.getNum();
+                    sku.setStockNum(stockNum);
+                    skuDao.save(sku);
+                    break;
             }
             //删除cart
             delCartById(cart.getId());
