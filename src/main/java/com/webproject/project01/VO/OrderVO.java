@@ -18,6 +18,7 @@ public class OrderVO {
     private String payStatus;
     private String picture;
     private long spuId;
+    private long skuId;
     private long userId;
 
     public long getId() {
@@ -108,9 +109,17 @@ public class OrderVO {
         this.picture = picture;
     }
 
+    public long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(long skuId) {
+        this.skuId = skuId;
+    }
+
     public OrderVO(){}
 
-    public OrderVO(long id, String orderTime, String configSpecs, String accessory, String name, int num, double totalPrice, String payStatus, String picture, long spuId, long userId) {
+    public OrderVO(long id, String orderTime, String configSpecs, String accessory, String name, int num, double totalPrice, String payStatus, String picture, long spuId, long skuId, long userId) {
         this.id = id;
         this.orderTime = orderTime;
         this.configSpecs = configSpecs;
@@ -121,6 +130,7 @@ public class OrderVO {
         this.payStatus = payStatus;
         this.picture = picture;
         this.spuId = spuId;
+        this.skuId = skuId;
         this.userId = userId;
     }
 }

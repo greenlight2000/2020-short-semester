@@ -45,15 +45,15 @@ public class CartPostServlet extends HttpServlet {
             int num = Integer.parseInt(req.getParameter("num"));
             double totalPrice = Double.parseDouble(req.getParameter("totalPrice"));
             long spuId = Long.parseLong(req.getParameter("spuId"));
+            long skuId = Long.parseLong(req.getParameter("skuId"));
             long userId = Long.parseLong(req.getParameter("userId"));
 
-            CartVO cartVo = new CartVO(0,configSpecs,accessory,name,picture,num,totalPrice,spuId,userId);
+            CartVO cartVo = new CartVO(0,configSpecs,accessory,name,picture,num,totalPrice,spuId,skuId,userId);
             cartService.postNewCartVo(cartVo);
             PrintWriter out = resp.getWriter();
             out.println("successful adding to cart");
             out.close();
         }catch (ConversionException e1){
-            System.out.println(e1);
             PrintWriter out = resp.getWriter();
             out.println("fail to post cart");
             out.close();

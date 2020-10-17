@@ -1,13 +1,7 @@
 package com.webproject.project01.Service;
 
-import com.webproject.project01.Dao.CartDao;
-import com.webproject.project01.Dao.OrderDao;
-import com.webproject.project01.Dao.SPUDao;
-import com.webproject.project01.Dao.UserDao;
-import com.webproject.project01.PO.Cart;
-import com.webproject.project01.PO.Order;
-import com.webproject.project01.PO.SPU;
-import com.webproject.project01.PO.User;
+import com.webproject.project01.Dao.*;
+import com.webproject.project01.PO.*;
 import com.webproject.project01.VO.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,6 +22,8 @@ public class CartService extends BaseService<Cart>{
     private CartDao cartDao;
     @Autowired
     private SPUDao spuDao;
+    @Autowired
+    private SKUDao skuDao;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -62,8 +58,7 @@ public class CartService extends BaseService<Cart>{
         cart.setNum(newNum);
         cartDao.save(cart);
     }
-    @Deprecated
-    ////弃用，直接从前端传表单给order，这样cart就可以不用管理num，（这里cart.num就暂时不删了，默认都为1就好）
+
     //购物车上传到订单
     public void dumpCartToOrder(long userId, String payStatus){
         List<Cart> cartList = getCartByUserId(userId);
@@ -71,7 +66,7 @@ public class CartService extends BaseService<Cart>{
         String orderTime = getRealTime();
         for(Cart cart : cartList){
             //把cart里的数据dump进order
-            Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSPU(),cart.getUser());
+            Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSPU(),cart.getSKU(),cart.getUser());
             orderDao.save(order);
             if(payStatus.equals("paid")){//若已经支付，则增加销量
                 SPU spu = spuDao.getOne(cart.getSPU().getId());
@@ -103,15 +98,17 @@ public class CartService extends BaseService<Cart>{
         return cartVoList;
     }
     public CartVO buildOneCartVo(Cart cart){
-        CartVO cartVo = new CartVO(cart.getId(),cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getPicture(),cart.getNum(),cart.getTotalPrice(),cart.getSPU().getId(),cart.getUser().getId());
+        CartVO cartVo = new CartVO(cart.getId(),cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getPicture(),cart.getNum(),cart.getTotalPrice(),cart.getSPU().getId(),cart.getSKU().getId(),cart.getUser().getId());
         return cartVo;
     }
     public Cart buildOneCart(CartVO cartVo){
         Cart cart = new Cart(cartVo.getId(),cartVo.getConfigSpecs(),cartVo.getAccessory(),cartVo.getName(),cartVo.getPicture(),cartVo.getNum(),cartVo.getTotalPrice());
         User user = userDao.getOne(cartVo.getUserId());
-        SPU spu = spuDao.getOne(cartVo.getSpuId());
+        SKU sku = skuDao.getOne(cartVo.getSkuId());
+        SPU spu = sku.getSPU();
         cart.setUser(user);
         cart.setSPU(spu);
+        cart.setSKU(sku);
 
         return cart;
     }

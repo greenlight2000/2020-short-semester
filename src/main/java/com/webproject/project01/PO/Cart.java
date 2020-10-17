@@ -24,6 +24,9 @@ public class Cart {
     @ManyToOne(targetEntity = SPU.class)
     @JoinColumn(name = "SPU_id",referencedColumnName = "id")
     private SPU SPU;
+    @ManyToOne(targetEntity = SKU.class)
+    @JoinColumn(name = "SKU_id",referencedColumnName = "id")
+    private SKU SKU;
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
@@ -100,8 +103,17 @@ public class Cart {
         this.user = user;
     }
 
+    public com.webproject.project01.PO.SKU getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(com.webproject.project01.PO.SKU SKU) {
+        this.SKU = SKU;
+    }
+
     public Cart() {
     }
+
 
     public Cart(long id, String configSpecs, String accessory, String name, String picture, int num, double totalPrice) {
         this.id = id;

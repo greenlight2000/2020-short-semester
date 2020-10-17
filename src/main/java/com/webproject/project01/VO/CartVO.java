@@ -9,6 +9,7 @@ public class CartVO {
     private int num;
     private double totalPrice;
     private long spuId;
+    private long skuId;
     private long userId;
 
     public long getId() {
@@ -83,10 +84,18 @@ public class CartVO {
         this.userId = userId;
     }
 
+    public long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(long skuId) {
+        this.skuId = skuId;
+    }
+
     public CartVO() {
     }
 
-    public CartVO(long id, String configSpecs, String accessory, String name, String picture, int num, double totalPrice, long spuId, long userId) {
+    public CartVO(long id, String configSpecs, String accessory, String name, String picture, int num, double totalPrice, long spuId, long skuId, long userId) {
         this.id = id;
         this.configSpecs = configSpecs;
         this.accessory = accessory;
@@ -95,6 +104,7 @@ public class CartVO {
         this.num = num;
         this.totalPrice = totalPrice;
         this.spuId = spuId;
+        this.skuId = skuId;
         this.userId = userId;
     }
 }

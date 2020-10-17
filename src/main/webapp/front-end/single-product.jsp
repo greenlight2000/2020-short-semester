@@ -374,16 +374,11 @@
                         <p><%=spuVo.getDescription()%></p>
                     </div>
                     <div>
-                        <%--            <div>--%>
-                        <%--                <h3 class="acc-config-title">Configurations:</h3>--%>
-                        <%--            </div>--%>
-                        <div style="float: left">
-                            <h2 style="color: grey">Configuration:&nbsp&nbsp&nbsp</h2>
-                        </div>
-                        <div class="le-select">
-                            <%--                <text>Configuration:</text>--%>
-                            <%--            Configuration:--%>
-                            <select>
+                        <h2 style="color: grey">Configuration:&nbsp&nbsp&nbsp</h2>
+                    </div>
+                    <div>
+                        <div class="le-select" style="left: 8px; right: 10px; top: 4px; border-color: #E74C3C; border-radius: 5px;">
+                            <select style="font-weight: 600">
                                 <%
                                     List<String> configStrArr = new ArrayList<>();
                                     for(int i=0; i<skuVoList.size(); i++){%>
@@ -407,22 +402,6 @@
 
                                     &nbsp&nbsp&nbsp&nbsp<%=configStrArr.get(i)%></option>
                                 <%}%>
-                                <%--                        <%=entry.getValue()%>--%>
-                                <%--                        <%if(cnt!=map.size()){%>--%>
-                                <%--                        ✖--%>
-                                <%--                        <%}%>--%>
-                                <%--                        <%}%>--%>
-
-                                <%--                        int cnt2=0;--%>
-                                <%--                        StringBuilder configStr = new StringBuilder();--%>
-                                <%--                        Map<String,String> map = configMapList.get(skuIndex);--%>
-                                <%--                        for(Map.Entry<String,String> entry : map.entrySet()){--%>
-                                <%--                        cnt2++;--%>
-                                <%--                        configStr.append(entry.getValue());--%>
-                                <%--                        if(cnt2!=map.size()){--%>
-                                <%--                        configStr.append("✖️");--%>
-                                <%--                        }--%>
-                                <%--                        }--%>
 
                             </select>
                         </div>
@@ -430,7 +409,7 @@
                     </div><br/>
 
                     <div class="dropdown">
-                        <a data-hover="dropdown" data-toggle="dropdown"><h2 style="color: grey">Accessories of choice:</h2><div id="accessory-str" axStr=""></div></a>
+                        <a data-hover="dropdown" data-toggle="dropdown"><h2 style="color: grey">Accessories of choice:</h2><input id="accessory-str" axStr="" style="border-color: #E74C3C; border-radius: 5px;" value="no accessory chosen"></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <table class="acc-table">
@@ -444,7 +423,7 @@
                             </li>
                         </ul>
                     </div><br/>
-                    <div id="chosen-ax"></div>
+<%--                    <div><input id="chosen-ax" value="" readonly style="left: 8px; right: 10px; top: 4px; border-color: #E74C3C; border-radius: 5px;"></div>--%>
                     <div class="prices">
                         <div id="price-accessory" hidden="true" price="0"></div>
                         <div id="price-current" class="price-current" price="<%=skuVo.getTotalPrice()%>">$<%=skuVo.getTotalPrice()%></div>
@@ -460,19 +439,7 @@
                                 <a class="plus" href="javascript:void(0);" onclick="changeNum('+')"></a>
                             </form>
                         </div>
-                        <%--            <%//配置配置信息json(包含嵌套引号) --》 spec1✖️spec2✖️...--%>
-                        <%--                int cnt2=0;--%>
-                        <%--                StringBuilder configStr = new StringBuilder();--%>
-                        <%--                Map<String,String> map = configMapList.get(skuIndex);--%>
-                        <%--                for(Map.Entry<String,String> entry : map.entrySet()){--%>
-                        <%--                    cnt2++;--%>
-                        <%--                    configStr.append(entry.getValue());--%>
-                        <%--                    if(cnt2!=map.size()){--%>
-                        <%--                        configStr.append("✖️");--%>
-                        <%--                    }--%>
-                        <%--                }--%>
-                        <%--            %>--%>
-                        <button id="addto-cart" class="le-button huge" onclick='addToCart("<%=configStrArr.get(skuIndex)%>","<%=skuVo.getName()%>","<%=spuVo.getPicture()%>","1",<%=skuVo.getSPUId()%>,<%=userId%>)'>Add To Cart</button>
+                        <button id="addto-cart" class="le-button huge" onclick='addToCart("<%=configStrArr.get(skuIndex)%>","<%=skuVo.getName()%>","<%=skuVo.getPicture()%>","1",<%=skuVo.getSPUId()%>,<%=skuVo.getId()%>,<%=userId%>)'>Add To Cart</button>
                         <%--            "<%=configStrArr.get(skuIndex)%>","",<%=skuVo.getName()%>,"<%=spuVo.getPicture()%>","1","1",<%=skuVo.getSPUId()%>,<%=userId%>--%>
                     </div><!-- /.qnt-holder -->
 

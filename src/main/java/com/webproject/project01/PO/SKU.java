@@ -14,7 +14,7 @@ public class SKU {
     @Column(name = "total_price")
     private double totalPrice;
     @Column(name = "stock_num")
-    private String stockNum;
+    private int stockNum;
     @Column(name = "picture")
     private String picture;
     @Column(name = "config_specs")
@@ -47,11 +47,11 @@ public class SKU {
         this.totalPrice = totalPrice;
     }
 
-    public String getStockNum() {
+    public int getStockNum() {
         return stockNum;
     }
 
-    public void setStockNum(String stockNum) {
+    public void setStockNum(int stockNum) {
         this.stockNum = stockNum;
     }
 
@@ -82,7 +82,7 @@ public class SKU {
         this.picture = picture;
     }
 
-    public SKU(String name, double totalPrice, String stockNum, String configSpecs, com.webproject.project01.PO.SPU SPU) {
+    public SKU(String name, double totalPrice, int stockNum, String configSpecs, com.webproject.project01.PO.SPU SPU) {
         this.name = name;
         this.totalPrice = totalPrice;
         this.stockNum = stockNum;

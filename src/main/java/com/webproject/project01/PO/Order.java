@@ -28,6 +28,9 @@ public class Order {
     @ManyToOne(targetEntity = SPU.class)
     @JoinColumn(name = "SPU_id",referencedColumnName = "id")
     private SPU SPU;
+    @ManyToOne(targetEntity = SKU.class)
+    @JoinColumn(name = "SKU_id",referencedColumnName = "id")
+    private SKU SKU;
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
@@ -121,10 +124,18 @@ public class Order {
         this.picture = picture;
     }
 
+    public com.webproject.project01.PO.SKU getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(com.webproject.project01.PO.SKU SKU) {
+        this.SKU = SKU;
+    }
+
     public Order() {
     }
 
-    public Order(String orderTime, String configSpecs, String accessory, String name, int num, double totalPrice, String payStatus, String picture, com.webproject.project01.PO.SPU SPU, User user) {
+    public Order(String orderTime, String configSpecs, String accessory, String name, int num, double totalPrice, String payStatus, String picture, com.webproject.project01.PO.SPU SPU, SKU SKU,User user) {
         this.orderTime = orderTime;
         this.configSpecs = configSpecs;
         this.accessory = accessory;
@@ -134,6 +145,7 @@ public class Order {
         this.payStatus = payStatus;
         this.picture = picture;
         this.SPU = SPU;
+        this.SKU = SKU;
         this.user = user;
     }
 

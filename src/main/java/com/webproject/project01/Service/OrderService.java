@@ -1,9 +1,11 @@
 package com.webproject.project01.Service;
 
 import com.webproject.project01.Dao.OrderDao;
+import com.webproject.project01.Dao.SKUDao;
 import com.webproject.project01.Dao.SPUDao;
 import com.webproject.project01.Dao.UserDao;
 import com.webproject.project01.PO.Order;
+import com.webproject.project01.PO.SKU;
 import com.webproject.project01.PO.SPU;
 import com.webproject.project01.PO.User;
 import com.webproject.project01.VO.OrderVO;
@@ -29,7 +31,8 @@ public class OrderService extends BaseService<Order>{
     private UserDao userDao;
     @Autowired
     private SPUDao spuDao;
-
+    @Autowired
+    private SKUDao skuDao;
     /**
      * 查询某用户的所有订单
      * @param userId 用户的id
@@ -108,10 +111,17 @@ public class OrderService extends BaseService<Order>{
      */
     public void uploadOrder(Order order){
         if(order.getPayStatus().equals("paid")){
-            SPU spu = order.getSPU();
+            SPU spu = order.getSKU().getSPU();
             int sale = spu.getSales()+order.getNum();//增加SPU销量
             spu.setSales(sale);
             spuDao.save(spu);
+        }
+        if(!order.getPayStatus().equals("canceled")) {
+            int stockNum = order.getSKU().getStockNum() - order.getNum();
+            order.getSKU().setStockNum(stockNum);
+        }else{
+            int stockNum = order.getSKU().getStockNum() + order.getNum();
+            order.getSKU().setStockNum(stockNum);
         }
         orderDao.save(order);
     }
@@ -121,7 +131,7 @@ public class OrderService extends BaseService<Order>{
      * @return 一条vo层数据
      */
     public OrderVO buildOrderVo(Order order){
-        return new OrderVO(order.getId(),order.getOrderTime(),order.getConfigSpecs(),order.getAccessory(),order.getName(),order.getNum(),order.getTotalPrice(),order.getPayStatus(),order.getPicture(),order.getSPU().getId(),order.getUser().getId());
+        return new OrderVO(order.getId(),order.getOrderTime(),order.getConfigSpecs(),order.getAccessory(),order.getName(),order.getNum(),order.getTotalPrice(),order.getPayStatus(),order.getPicture(),order.getSKU().getSPU().getId(),order.getSKU().getId(),order.getUser().getId());
     }
     /**
      * 将一条vp层数据转换层数据
@@ -129,9 +139,10 @@ public class OrderService extends BaseService<Order>{
      * @return 一条po层数据
      */
     public Order buildOrder(OrderVO orderVO){
-        SPU spu = spuDao.getOne(orderVO.getSpuId());
+        SKU sku = skuDao.getOne(orderVO.getSkuId());
+        SPU spu = sku.getSPU();
         User user = userDao.getOne(orderVO.getUserId());
-        return new Order(orderVO.getOrderTime(),orderVO.getConfigSpecs(),orderVO.getAccessory(),orderVO.getName(),orderVO.getNum(),orderVO.getTotalPrice(),orderVO.getPayStatus(),orderVO.getPicture(),spu,user);
+        return new Order(orderVO.getOrderTime(),orderVO.getConfigSpecs(),orderVO.getAccessory(),orderVO.getName(),orderVO.getNum(),orderVO.getTotalPrice(),orderVO.getPayStatus(),orderVO.getPicture(),spu,sku,user);
     }
     /**
      * 删除订单（取消未支付订单）
@@ -151,6 +162,11 @@ public class OrderService extends BaseService<Order>{
         Order order = orderDao.getOne(orderId);
         order.setPayStatus("paid");
         uploadOrder(order);
+        //增加SPU销量
+        SPU spu = order.getSPU();
+        int sale = spu.getSales()+order.getNum();
+        spu.setSales(sale);
+        spuDao.save(spu);
     }
 
 }

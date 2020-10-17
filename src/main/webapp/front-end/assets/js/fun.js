@@ -83,20 +83,12 @@ var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
         //展示ax字符串
         var accessoryStr = $("#accessory-str");
         accessoryStr[0].attributes[1].value = axStr;
-        accessoryStr.html(axStr);
+        accessoryStr.val(axStr);
 
         //将axPrice存进hiiden标签
         var priceAccessory = $("#price-accessory");
         priceAccessory[0].attributes[1].value = (parseFloat(priceAccessory[0].attributes[1].value)+axPrice).toString();
-        //将总价格存进price-current标签的price属性
-        // var cartTotalPrice = $("#price-current");
-        // cartTotalPrice[0].attributes[2].value = (parseFloat( cartTotalPrice[0].attributes[2].value)+axPrice).toString();
 
-        //将axPrice展示在后面
-        // if(axStr!='')
-        //     $("#axTotalPrice").html(' + $'+priceAccessory[0].attributes[1].value);
-        // else
-        //     $("#axTotalPrice").html("");
 
     }else{//如果退选一个ax
         var index = axStrList.indexOf(axName);
@@ -105,7 +97,7 @@ var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
         axStr = axStrList.join("➕");
         var accessoryStr = $("#accessory-str");
         accessoryStr[0].attributes[1].value = axStr;
-        accessoryStr.html(axStr);
+        accessoryStr.val(axStr);
 
         var axTotalPrice = $("#price-accessory");
         axTotalPrice[0].attributes[1].value = (parseFloat(axTotalPrice[0].attributes[1].value)-axPrice).toString();
@@ -158,7 +150,7 @@ var testJsp = function(jspObj){
 };
 
 //cart.jsp
-var addToCart = function(configSpecs,name,picture,num,spuId,userId){
+var addToCart = function(configSpecs,name,picture,num,spuId,skuId,userId){
     if(userId==""||userId==null){
         // console.log(window.location.href);
         notifyLogin(window.location.href);
@@ -170,7 +162,7 @@ var addToCart = function(configSpecs,name,picture,num,spuId,userId){
         if(num==0)
             alert("num cannot be 0");
         $.post(
-            "/cart/post", {configSpecs,accessory,name,picture,num,totalPrice,spuId,userId},function (data) {
+            "/cart/post", {configSpecs,accessory,name,picture,num,totalPrice,spuId,skuId,userId},function (data) {
                 console.log(data);
                 alert(data);
                 location.reload();
