@@ -216,12 +216,21 @@
 
                                 <ul class="dropdown-menu">
                                     <%for(CartVO cartVo : cartVoList){%>
+                                    <%if(cartVoList.isEmpty()){%>
+                                    <li>
+                                        <div class="basket-item">
+                                            <div class="row">
+                                                <text style="margin-left: 90px">the Cart is Empty ~</text>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                     <div class="thumb">
-                                                        <img alt="" src="<%=cartVo.getPicture()%>" />
+                                                        <img alt="" src="<%=cartVo.getPicture()%>" width="85px" height="73px"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-8 col-sm-8 no-margin">
@@ -317,13 +326,13 @@
                             </a>
                         </div><!-- /.single-product-gallery-item -->
                         <%--  中间的图片放依次所有的sku的图  --%>
-                        <%int picCnt=0; for(SKUVO aSkuVo : skuVoList){picCnt++;%>
+                        <%int picCnt=0; for(SKUVO aSkuVo : skuVoList){picCnt++;if(aSkuVo.getId()!=skuVo.getId()){%>
                         <div class="single-product-gallery-item" id="slide<%=picCnt%>">
                             <a data-rel="prettyphoto" href="<%=aSkuVo.getPicture()%>">
                                 <img class="img-responsive" alt="" src="<%=aSkuVo.getPicture()%>" style="height: 325px;width: 433px"/>
                             </a>
                         </div><!-- /.single-product-gallery-item -->
-                        <%}%>
+                        <%}}%>
                         <%--  最后一个图片放spu的图  --%>
                         <div class="single-product-gallery-item active" id="slide<%=picCnt+1%>">
                             <a data-rel="prettyphoto" href="<%=spuVo.getPicture()%>">
@@ -339,11 +348,11 @@
                             <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide0">
                                 <img width="67" alt="" src="<%=skuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
-                            <%int sldCnt=0; for(SKUVO aSkuVo : skuVoList){ sldCnt++;%>
+                            <%int sldCnt=0; for(SKUVO aSkuVo : skuVoList){ sldCnt++;if(aSkuVo.getId()!=skuVo.getId()){%>
                             <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt%>" href="#slide<%=sldCnt%>">
                                 <img width="67" alt="" src="<%=aSkuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
-                            <%}%>
+                            <%}}%>
                             <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt+1%>" href="#slide<%=sldCnt+1%>">
                                 <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
@@ -364,21 +373,20 @@
             <div class="no-margin col-xs-12 col-sm-7 body-holder">
                 <div class="body">
 <%--                    <div class="star-holder inline"><div class="star" data-score="4"></div></div>--%>
-                    <div class="availability"><label>launchTime:</label><span class="available">  <%=spuVo.getLaunchTime()%></span></div>
+                    <div class="availability" style="margin-left: 0px"><label>launchTime:</label><span class="available">  <%=spuVo.getLaunchTime()%></span></div>
                     <div class="availability"><label>inventory:</label><span class="available">  <%=skuVo.getStockNum()%></span></div>
-
-                    <div class="title"><a href="#"><%=skuVo.getName()%></a></div>
-                    <div class="brand"><%=spuVo.getClassificationVO()==null?"":spuVo.getClassificationVO().getName()%></div>
+                    <div class="title"><a href="javascript:void(0)"><%=skuVo.getName()%></a></div>
+                    <div class="brand"><a style="color: grey" href="javascript:void(0)" onclick="goToCatSpu(<%=spuVo.getClassificationVO().getId()%>)"><%=spuVo.getClassificationVO()==null?"":spuVo.getClassificationVO().getName()%></a></div>
 
                     <div class="excerpt">
                         <p><%=spuVo.getDescription()%></p>
                     </div>
                     <div>
-                        <h2 style="color: grey">Configuration:&nbsp&nbsp&nbsp</h2>
+                        <h2 style="color: black">Configuration:&nbsp&nbsp&nbsp</h2>
                     </div>
                     <div>
-                        <div class="le-select" style="left: 8px; right: 10px; top: 4px; border-color: #E74C3C; border-radius: 5px;">
-                            <select style="font-weight: 600">
+                        <div class="le-select" style="left: 0px; right: 10px; top: 4px; border-color: #E74C3C; border-radius: 5px;">
+                            <select style="font-weight: 600; margin-left: -3px; width:300px">
                                 <%
                                     List<String> configStrArr = new ArrayList<>();
                                     for(int i=0; i<skuVoList.size(); i++){%>
@@ -392,8 +400,9 @@
                                         for(Map.Entry<String,String> entry : map.entrySet()) {
                                             cnt++;
                                             configStr.append(entry.getKey()).append(": ").append(entry.getValue());
+//                                            configStr.append(entry.getValue());
                                             if (cnt != map.size()) {
-                                                configStr.append(" ✖ ️");
+                                                configStr.append(" &times ️");
                                             }
                                         }
                                         //将配置好的str放入list
@@ -409,7 +418,7 @@
                     </div><br/>
 
                     <div class="dropdown">
-                        <a data-hover="dropdown" data-toggle="dropdown"><h2 style="color: grey">Accessories of choice:</h2><input id="accessory-str" axStr="" style="border-color: #E74C3C; border-radius: 5px;" value="no accessory chosen"></a>
+                        <a data-hover="dropdown" data-toggle="dropdown"><h2 style="color: black">Accessories of choice:</h2><div id="accessory-str" axStr="" ></div></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <table class="acc-table">
@@ -427,16 +436,16 @@
                     <div class="prices">
                         <div id="price-accessory" hidden="true" price="0"></div>
                         <div id="price-current" class="price-current" price="<%=skuVo.getTotalPrice()%>">$<%=skuVo.getTotalPrice()%></div>
-                        <div id="price-prev" class="price-prev">$<%=spuVo.getPrice()%></div>
+<%--                        <div id="price-prev" class="price-prev">$<%=spuVo.getPrice()%></div>--%>
                     </div>
 
 
                     <div class="qnt-holder">
                         <div class="le-quantity">
                             <form>
-                                <a class="minus" href="javascript:void(0);" onclick="changeNum('-')"></a>
+                                <span class="minus" href="javascript:void(0);" onclick="changeNum('-',<%=skuVo.getStockNum()%>)"></span>
                                 <input id="choose-num" readonly="readonly" type="text" value="1"/>
-                                <a class="plus" href="javascript:void(0);" onclick="changeNum('+')"></a>
+                                <span class="plus" href="javascript:void(0);" onclick="changeNum('+',<%=skuVo.getStockNum()%>)"></span>
                             </form>
                         </div>
                         <button id="addto-cart" class="le-button huge" onclick='addToCart("<%=configStrArr.get(skuIndex)%>","<%=skuVo.getName()%>","<%=skuVo.getPicture()%>","1",<%=skuVo.getSPUId()%>,<%=skuVo.getId()%>,<%=userId%>)'>Add To Cart</button>
@@ -462,6 +471,7 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
+
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet porttitor eros. Praesent quis diam placerat, accumsan velit interdum, accumsan orci. Nunc libero sem, elementum in semper in, sollicitudin vitae dolor. Etiam sed tempus nisl. Integer vel diam nulla. Suspendisse et aliquam est. Nulla molestie ante et tortor sollicitudin, at elementum odio lobortis. Pellentesque neque enim, feugiat in elit sed, pharetra tempus metus. Pellentesque non lorem nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
                             <p>Sed consequat orci vel rutrum blandit. Nam non leo vel risus cursus porta quis non nulla. Vestibulum vitae pellentesque nunc. In hac habitasse platea dictumst. Cras egestas, turpis a malesuada mollis, magna tortor scelerisque urna, in pellentesque diam tellus sit amet velit. Donec vel rhoncus nisi, eget placerat elit. Phasellus dignissim nisl vel lectus vehicula, eget vehicula nisl egestas. Duis pretium sed risus dapibus egestas. Nam lectus felis, sodales sit amet turpis se.</p>

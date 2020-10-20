@@ -1,6 +1,6 @@
 package com.webproject.project01.Servlet;
 
-import com.webproject.project01.Service.CartService;
+import com.webproject.project01.Service.SKUService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
-@WebServlet(urlPatterns = "/cart/changeNum")
-public class CartChangeNumServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = "/sku/stockNum")
+public class SKUStockServlet extends HttpServlet {
     @Autowired
-    private CartService cartService;
+    private SKUService skuService;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -34,8 +34,10 @@ public class CartChangeNumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long cartId = Long.parseLong(req.getParameter("cartId"));
-        int newNum = Integer.parseInt(req.getParameter("newNum"));
-        cartService.changeCartNum(cartId, newNum);
+        long skuId = Long.parseLong(req.getParameter("skuId"));
+        int stockNum = skuService.getStockNum(skuId);
+        PrintWriter out = resp.getWriter();
+        out.println(stockNum);
+        out.close();
     }
 }

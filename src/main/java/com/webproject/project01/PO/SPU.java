@@ -26,6 +26,8 @@ public class SPU {
     private String description;
     @Column(name = "sales")
     private int sales;
+    @Column(name = "more_detail")
+    private String moreDetail;
     @ManyToOne(targetEntity = Classification.class)
     @JoinColumn(name = "classification_id",referencedColumnName = "id")
     private Classification classification;
@@ -124,6 +126,14 @@ public class SPU {
 
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    public String getMoreDetail() {
+        return moreDetail;
+    }
+
+    public void setMoreDetail(String moreDetail) {
+        this.moreDetail = moreDetail;
     }
 
     public SPU() {

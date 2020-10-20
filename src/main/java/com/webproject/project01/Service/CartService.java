@@ -58,7 +58,16 @@ public class CartService extends BaseService<Cart>{
         cart.setNum(newNum);
         cartDao.save(cart);
     }
-
+    //获取某用户当前购物车内所有商品的总价
+    public double getTotCartPrice(long userId){
+        User user = userDao.getOne(userId);
+        List<Cart> cartList = user.getCartList();
+        double totCartPrice = 0;
+        for(Cart cart : cartList){
+            totCartPrice += cart.getTotalPrice();
+        }
+        return totCartPrice;
+    }
     //购物车上传到订单
     public void dumpCartToOrder(long userId, String payStatus){
         List<Cart> cartList = getCartByUserId(userId);

@@ -1,6 +1,7 @@
 package com.webproject.project01.Servlet;
 
 import com.webproject.project01.Service.CartService;
+import com.webproject.project01.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -13,11 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
-@WebServlet(urlPatterns = "/cart/changeNum")
-public class CartChangeNumServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = "/cart/getTotPrice")
+public class CartCalTotPrice extends HttpServlet {
     @Autowired
     private CartService cartService;
 
@@ -34,8 +35,11 @@ public class CartChangeNumServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long cartId = Long.parseLong(req.getParameter("cartId"));
-        int newNum = Integer.parseInt(req.getParameter("newNum"));
-        cartService.changeCartNum(cartId, newNum);
+        long userId = Long.parseLong(req.getParameter("userId"));
+        double totCartPrice = cartService.getTotCartPrice(userId);
+        PrintWriter out = resp.getWriter();
+        out.println(totCartPrice);
+        out.close();
     }
 }
+

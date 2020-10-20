@@ -1154,7 +1154,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   top: 0;
   left: 100%;
   margin: 0;
-  min-width: 365%;
+  min-width: 120%;
 }
 .megamenu-horizontal .nav > li {
   position: relative;

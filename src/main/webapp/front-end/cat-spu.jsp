@@ -209,6 +209,15 @@
 
                             <ul class="dropdown-menu">
                                 <%for(CartVO cartVo : cartVoList){%>
+                                <%if(cartVoList.isEmpty()){%>
+                                <li>
+                                    <div class="basket-item">
+                                        <div class="row">
+                                            <text style="margin-left: 90px">the Cart is Empty ~</text>
+                                        </div>
+                                    </div>
+                                </li>
+                                <%}%>
                                 <li>
                                     <div class="basket-item">
                                         <div class="row">
@@ -317,144 +326,35 @@
     </section><!-- /#top-brands -->
     <!-- ========================================= TOP BRANDS : END ========================================= -->		<!-- ============================================================= FOOTER ============================================================= -->
     <footer id="footer" class="color-bg">
-
-        <div class="container">
-            <div class="row no-margin widgets-row">
-                <div class="col-xs-12  col-sm-4 no-margin-left">
-                    <!-- ============================================================= FEATURED PRODUCTS ============================================================= -->
-
-                    <!-- ============================================================= FEATURED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-
-                <div class="col-xs-12 col-sm-4 ">
-                    <!-- ============================================================= ON SALE PRODUCTS ============================================================= -->
-
-                    <!-- ============================================================= ON SALE PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-                <div class="col-xs-12 col-sm-4 ">
-                    <!-- ============================================================= TOP RATED PRODUCTS ============================================================= -->
-
-                    <!-- ============================================================= TOP RATED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-
-            </div><!-- /.widgets-row-->
-        </div><!-- /.container -->
-
-        <div class="sub-form-row">
-            <!--<div class="container">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-                    <form role="form">
-                        <input placeholder="Subscribe to our newsletter">
-                        <button class="le-button">Subscribe</button>
-                    </form>
-                </div>
-            </div>--><!-- /.container -->
-        </div><!-- /.sub-form-row -->
-
-        <div class="link-list-row">
+        <div class="link-list-row" style="margin-top: 0px;">
             <div class="container no-padding">
                 <div class="col-xs-12 col-md-4 ">
-                    <!-- ============================================================= CONTACT INFO ============================================================= -->
                     <div class="contact-info">
                         <div class="footer-logo">
-                            <img alt="logo" src="assets/images/logo.PNG" width="233" height="54"/>
+                            <img alt="logo" src="assets/images/group57-logo.png" width="233" height="60"/>
                         </div><!-- /.footer-logo -->
-
-                        <p class="regular-bold"> 请通过电话，电子邮件随时联系我们</p>
-
-                        <p>
-                            西城区二环到三环德胜门外大街10号TCL大厦3层(马甸桥南), 北京市西城区, 中国
-                            <br>慕课网 (QQ群:416465236)
-                        </p>
-
-                        <!--<div class="social-icons">
-                            <h3>Get in touch</h3>
-                            <ul>
-                                <li><a href="http://facebook.com/transvelo" class="fa fa-facebook"></a></li>
-                                <li><a href="#" class="fa fa-twitter"></a></li>
-                                <li><a href="#" class="fa fa-pinterest"></a></li>
-                                <li><a href="#" class="fa fa-linkedin"></a></li>
-                                <li><a href="#" class="fa fa-stumbleupon"></a></li>
-                                <li><a href="#" class="fa fa-dribbble"></a></li>
-                                <li><a href="#" class="fa fa-vk"></a></li>
-                            </ul>
-                        </div>--><!-- /.social-icons -->
-
                     </div>
-                    <!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
-
-                <div class="col-xs-12 col-md-8 no-margin">
-                    <!-- ============================================================= LINKS FOOTER ============================================================= -->
-                    <div class="link-widget">
-                        <div class="widget">
-                            <h3>快速检索</h3>
-                            <ul>
-                                <li><a href="product-list.jsp">laptops &amp; computers</a></li>
-                                <li><a href="product-list.jsp">Cameras &amp; Photography</a></li>
-                                <li><a href="product-list.jsp">Smart Phones &amp; Tablets</a></li>
-                                <li><a href="product-list.jsp">Video Games &amp; Consoles</a></li>
-                                <li><a href="product-list.jsp">TV &amp; Audio</a></li>
-                                <li><a href="product-list.jsp">Gadgets</a></li>
-                                <li><a href="product-list.jsp">Car Electronic &amp; GPS</a></li>
-                                <li><a href="product-list.jsp">Accesories</a></li>
-                            </ul>
-                        </div><!-- /.widget -->
-                    </div><!-- /.link-widget -->
-
-                    <div class="link-widget">
-                        <div class="widget">
-                            <h3>热门商品</h3>
-                            <ul>
-                                <li><a href="product-list.jsp">Find a Store</a></li>
-                                <li><a href="product-list.jsp">About Us</a></li>
-                                <li><a href="product-list.jsp">Contact Us</a></li>
-                                <li><a href="product-list.jsp">Weekly Deals</a></li>
-                                <li><a href="product-list.jsp">Gift Cards</a></li>
-                                <li><a href="product-list.jsp">Recycling Program</a></li>
-                                <li><a href="product-list.jsp">Community</a></li>
-                                <li><a href="product-list.jsp">Careers</a></li>
-
-                            </ul>
-                        </div><!-- /.widget -->
-                    </div><!-- /.link-widget -->
-
-                    <div class="link-widget">
-                        <div class="widget">
-                            <h3>最近浏览</h3>
-                            <ul>
-                                <li><a href="product-list.jsp">My Account</a></li>
-                                <li><a href="product-list.jsp">Order Tracking</a></li>
-                                <li><a href="product-list.jsp">Wish List</a></li>
-                                <li><a href="product-list.jsp">Customer Service</a></li>
-                                <li><a href="product-list.jsp">Returns / Exchange</a></li>
-                                <li><a href="product-list.jsp">FAQs</a></li>
-                                <li><a href="product-list.jsp">Product Support</a></li>
-                                <li><a href="product-list.jsp">Extended Service Plans</a></li>
-                            </ul>
-                        </div><!-- /.widget -->
-                    </div><!-- /.link-widget -->
-                    <!-- ============================================================= LINKS FOOTER : END ============================================================= -->            </div>
-            </div><!-- /.container -->
-        </div><!-- /.link-list-row -->
-
-        <div class="copyright-bar">
-            <div class="container">
-                <div class="col-xs-12 col-sm-6 no-margin">
-                    <div class="copyright">
-                        &copy; <a href="index.html">Imooc.com</a> - all rights reserved
-                    </div><!-- /.copyright -->
                 </div>
-                <div class="col-xs-12 col-sm-6 no-margin">
-                    <div class="payment-methods ">
-                        <ul>
-                            <li><img alt="" src="assets/images/payments/payment-visa.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-master.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-paypal.png"></li>
-                            <li><img alt="" src="assets/images/payments/payment-skrill.png"></li>
-                        </ul>
-                    </div><!-- /.payment-methods -->
+                <div class="link-widget">
+                    <div class="widget">
+                        <p class="regular-bold">Developers</p>
+                        <p>Wang Yunkun</p>
+                        <p>Gu Yue</p>
+                        <p>Shu Nan</p>
+                    </div>
                 </div>
-            </div><!-- /.container -->
-        </div><!-- /.copyright-bar -->
+                <div class="link-widget">
+                    <div class="widget">
+                        <p class="regular-bold" style="width: 1000px">Contact us if you have any questions</p>
+                        <p style="width: 1000px">Phone number: (+086) 666-6666-6666</p>
+                        <p style="width: 1000px">E-mail: group_57@bupt.edu.cn</p>
+                        <p style="width: 1000px">Company Address: Beijing University of Posts and Telecommunications<br> Nanfeng Road, Changping District<br> Beijing, China</p>
+                    </div>
+                </div>
 
-        <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
+            </div>
+        </div>
+    </footer><!-- /.wrapper -->
 
 <!-- JavaScripts placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery-1.10.2.min.js"></script>

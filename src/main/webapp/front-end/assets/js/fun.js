@@ -79,11 +79,11 @@ var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
         //将新ax添加进List
         axStrList.push(axName);
         //构造ax字符串
-        axStr = axStrList.join("➕");
+        axStr = axStrList.join(" + ");
         //展示ax字符串
         var accessoryStr = $("#accessory-str");
         accessoryStr[0].attributes[1].value = axStr;
-        accessoryStr.val(axStr);
+        accessoryStr.html('<text style="color:dimgrey">'+axStr+'</text>');
 
         //将axPrice存进hiiden标签
         var priceAccessory = $("#price-accessory");
@@ -94,10 +94,10 @@ var chooseAccessory = function(checkbox, axStrList, axName, axStr, axPrice){
         var index = axStrList.indexOf(axName);
         axStrList.splice(index,1);
 
-        axStr = axStrList.join("➕");
+        axStr = axStrList.join("+");
         var accessoryStr = $("#accessory-str");
         accessoryStr[0].attributes[1].value = axStr;
-        accessoryStr.val(axStr);
+        accessoryStr.html('<text style="color:dimgrey">'+axStr+'</text>');
 
         var axTotalPrice = $("#price-accessory");
         axTotalPrice[0].attributes[1].value = (parseFloat(axTotalPrice[0].attributes[1].value)-axPrice).toString();
@@ -122,26 +122,76 @@ var calCartTolPrice = function(){
     //订货数
     var num = parseFloat($("#choose-num").val());
 
-    var totalCartPrice = num * (skuPrice + axPrice);
-    console.log("totalCartPrice = "+totalCartPrice);
-    return totalCartPrice;
+    var CartTotPrice = num * (skuPrice + axPrice);
+    console.log("CartTotPrice = "+totalCartPrice);
+    return CartTotPrice.toFixed(1);
 };
 var showCartTolPrice = function(){
     $("#price-current").html("$"+calCartTolPrice());
 };
-var changeNum = function(opr){
+var showTotCartPrice = function(userId){
+    var totCartPrice = 0;
+    $.get(
+        "/cart/getTotPrice",{userId:userId},function(data){
+            totCartPrice = parseFloat(data);
+            $("#tot-cart-price").html("$"+totCartPrice.toFixed(1));
+            var transferFee = totCartPrice+10;
+            $("#tot-transfer-price").html("$"+transferFee.toFixed(1));
+        }
+    );
+};
+//在cart.jsp修改商品数量
+var changeNum2 = function(opr, skuId, cartId, userId){
+    var oldNum = parseInt($("#choose-num-"+skuId).val());
+    var stockNum = 1000;
+    $.get(
+        "/sku/stockNum",{skuId:skuId},
+        function(data){
+            stockNum = data;
+            console.log("stockNum="+stockNum);
+        }
+    );
+    if(opr=='+') {
+        if(oldNum+1 > stockNum)
+            alert("inventory stock shortage");
+        else
+            $("#choose-num-"+skuId).val(oldNum + 1);
+    }
+    else if (opr=='-') {
+        if(oldNum-1 > 0)
+            $("#choose-num-"+skuId).val(oldNum - 1);
+    }
+    var totPrice = parseFloat($('#cart-tot-price-'+skuId)[0].attributes.value.value);
+    var newNum = parseInt($("#choose-num-"+skuId).val());
+    var newTotPrice = totPrice * newNum / oldNum;
+    // console.log($('#cart-tot-price')[0].attributes.value.value);
+    $('#cart-tot-price-'+skuId)[0].attributes.value.value = newTotPrice;
+    $('#cart-tot-price-'+skuId).html("$"+(newTotPrice.toFixed(1)));
+    $.get(
+        "/cart/changeNum",{cartId,newNum},
+        function(data){
+            console.log("successful change num in db");
+            showTotCartPrice(userId);
+        }
+    );
+};
+//在single-product.jsp修改商品数
+var changeNum = function(opr,stockNum){
     // if($("#choose-num").val()==0)
-    console.log($("#choose-num").val());
-    var oldVal = oldVal = parseInt($("#choose-num").val());
-    if(opr=='+')
-        $("#choose-num").val(oldVal);
-    else if (opr=='-')
-        $("#choose-num").val(oldVal);
-    console.log($("#choose-num").val());
+    var oldVal = parseInt($("#choose-num").val());
+    if(opr=='+') {
+        if(oldVal+1 > stockNum)
+            alert("inventory stock shortage");
+        else
+            $("#choose-num").val(oldVal + 1);
+    }
+    else if (opr=='-') {
+        if(oldVal-1 > 0)
+            $("#choose-num").val(oldVal - 1);
+    }
     // var start = new Date().getTime();
     // var delay = 3000;
     // while(new Date().getTime() < start + delay);
-    showCartTolPrice();
     showCartTolPrice();
 };
 

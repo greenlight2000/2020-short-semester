@@ -152,12 +152,21 @@
 
                                 <ul class="dropdown-menu">
                                     <%for(CartVO cartVo : cartVoList){%>
+                                    <%if(cartVoList.isEmpty()){%>
+                                    <li>
+                                        <div class="basket-item">
+                                            <div class="row">
+                                                <text style="margin-left: 90px">the Cart is Empty ~</text>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                     <div class="thumb">
-                                                        <img alt="" src="<%=cartVo.getPicture()%>" />
+                                                        <img alt="" src="<%=cartVo.getPicture()%>" width="85px" height="73px"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-8 col-sm-8 no-margin">
@@ -259,7 +268,7 @@
                         <div class="col-xs-12 col-sm-9 ">
                             <div class="title"><a href="#"><%=cartVo.getName()%> </a></div>
                             <div class="brand"><%=cartVo.getConfigSpecs()%></div>
-                            <div class="brand"><%=cartVo.getAccessory()%></div>
+                            <div class="brand"><%if(cartVo.getAccessory()!=null && !cartVo.getAccessory().equals("")){%>+ <%=cartVo.getAccessory()%><%}%></div>
                         </div>
                         <div class="col-xs-12 col-sm-2 no-margin">
                             <div class="price">$<%=cartVo.getTotalPrice()%></div>
@@ -330,115 +339,36 @@
     </div><!-- /.container -->    
 </section><!-- /#checkout-page -->
 <!-- ========================================= CONTENT : END ========================================= -->		<!-- ============================================================= FOOTER ============================================================= -->
-<footer id="footer" class="color-bg">
+        <footer id="footer" class="color-bg">
+            <div class="link-list-row" style="margin-top: 0px;">
+                <div class="container no-padding">
+                    <div class="col-xs-12 col-md-4 ">
+                        <div class="contact-info">
+                            <div class="footer-logo">
+                                <img alt="logo" src="assets/images/group57-logo.png" width="233" height="60"/>
+                            </div><!-- /.footer-logo -->
+                        </div>
+                    </div>
+                    <div class="link-widget">
+                        <div class="widget">
+                            <p class="regular-bold">Developers</p>
+                            <p>Wang Yunkun</p>
+                            <p>Gu Yue</p>
+                            <p>Shu Nan</p>
+                        </div>
+                    </div>
+                    <div class="link-widget">
+                        <div class="widget">
+                            <p class="regular-bold" style="width: 1000px">Contact us if you have any questions</p>
+                            <p style="width: 1000px">Phone number: (+086) 666-6666-6666</p>
+                            <p style="width: 1000px">E-mail: group_57@bupt.edu.cn</p>
+                            <p style="width: 1000px">Company Address: Beijing University of Posts and Telecommunications<br> Nanfeng Road, Changping District<br> Beijing, China</p>
+                        </div>
+                    </div>
 
-    <div class="link-list-row">
-        <div class="container no-padding">
-            <div class="col-xs-12 col-md-4 ">
-                <!-- ============================================================= CONTACT INFO ============================================================= -->
-<div class="contact-info">
-    <div class="footer-logo">
-		<img alt="logo" src="assets/images/logo.PNG" width="233" height="54"/>
-    </div><!-- /.footer-logo -->
-    
-    <p class="regular-bold"> 请通过电话，电子邮件随时联系我们</p>
-    
-    <p>
-        西城区二环到三环德胜门外大街10号TCL大厦3层(马甸桥南), 北京市西城区, 中国
-        <br>慕课网 (QQ群:416465236)
-    </p>
-    
-    <!--<div class="social-icons">
-        <h3>Get in touch</h3>
-        <ul>
-            <li><a href="http://facebook.com/transvelo" class="fa fa-facebook"></a></li>
-            <li><a href="#" class="fa fa-twitter"></a></li>
-            <li><a href="#" class="fa fa-pinterest"></a></li>
-            <li><a href="#" class="fa fa-linkedin"></a></li>
-            <li><a href="#" class="fa fa-stumbleupon"></a></li>
-            <li><a href="#" class="fa fa-dribbble"></a></li>
-            <li><a href="#" class="fa fa-vk"></a></li>
-        </ul>
-    </div>--><!-- /.social-icons -->
-
-</div>
-<!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
-
-            <div class="col-xs-12 col-md-8 no-margin">
-                <!-- ============================================================= LINKS FOOTER ============================================================= -->
-<div class="link-widget">
-    <div class="widget">
-        <h3>快速检索</h3>
-        <ul>
-            <li><a href="category-grid.html">laptops &amp; computers</a></li>
-            <li><a href="category-grid.html">Cameras &amp; Photography</a></li>
-            <li><a href="category-grid.html">Smart Phones &amp; Tablets</a></li>
-            <li><a href="category-grid.html">Video Games &amp; Consoles</a></li>
-            <li><a href="category-grid.html">TV &amp; Audio</a></li>
-            <li><a href="category-grid.html">Gadgets</a></li>
-            <li><a href="category-grid.html">Car Electronic &amp; GPS</a></li>
-            <li><a href="category-grid.html">Accesories</a></li>
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-        <h3>热门商品</h3>
-        <ul>
-            <li><a href="category-grid.html">Find a Store</a></li>
-            <li><a href="category-grid.html">About Us</a></li>
-            <li><a href="category-grid.html">Contact Us</a></li>
-            <li><a href="category-grid.html">Weekly Deals</a></li>
-            <li><a href="category-grid.html">Gift Cards</a></li>
-            <li><a href="category-grid.html">Recycling Program</a></li>
-            <li><a href="category-grid.html">Community</a></li>
-            <li><a href="category-grid.html">Careers</a></li>
-
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-        <h3>最近浏览</h3>
-        <ul>
-            <li><a href="category-grid.html">My Account</a></li>
-            <li><a href="category-grid.html">Order Tracking</a></li>
-            <li><a href="category-grid.html">Wish List</a></li>
-            <li><a href="category-grid.html">Customer Service</a></li>
-            <li><a href="category-grid.html">Returns / Exchange</a></li>
-            <li><a href="category-grid.html">FAQs</a></li>
-            <li><a href="category-grid.html">Product Support</a></li>
-            <li><a href="category-grid.html">Extended Service Plans</a></li>
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-<!-- ============================================================= LINKS FOOTER : END ============================================================= -->            </div>
-        </div><!-- /.container -->
-    </div><!-- /.link-list-row -->
-
-    <div class="copyright-bar">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="copyright">
-                    &copy; <a href="index.html">Imooc.com</a> - all rights reserved
-                </div><!-- /.copyright -->
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="payment-methods ">
-                    <ul>
-                        <li><img alt="" src="assets/images/payments/payment-visa.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-master.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-paypal.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-skrill.png"></li>
-                    </ul>
-                </div><!-- /.payment-methods -->
-            </div>
-        </div><!-- /.container -->
-    </div><!-- /.copyright-bar -->
-
-</footer><!-- /#footer -->
+        </footer>
 <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->

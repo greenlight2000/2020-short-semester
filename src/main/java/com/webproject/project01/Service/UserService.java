@@ -112,5 +112,4 @@ public class UserService extends BaseService<User> {
     public void upload(User user){
         userDao.save(user);
     }
-
 }

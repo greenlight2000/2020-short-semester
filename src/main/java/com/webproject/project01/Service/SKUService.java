@@ -1,5 +1,6 @@
 package com.webproject.project01.Service;
 
+import com.webproject.project01.Dao.SKUDao;
 import com.webproject.project01.Dao.SPUDao;
 import com.webproject.project01.PO.SKU;
 import com.webproject.project01.PO.SPU;
@@ -14,6 +15,8 @@ import java.util.List;
 public class SKUService {
     @Autowired
     SPUDao spuDao;
+    @Autowired
+    SKUDao skuDao;
 
     /**
      * 查询某spu下属的sku信息
@@ -24,7 +27,10 @@ public class SKUService {
         SPU spu = spuDao.getOne(spuId);
         return spu.getSKUList();
     }
-
+    public int getStockNum(long skuId){
+        SKU sku = skuDao.getOne(skuId);
+        return sku.getStockNum();
+    }
     /**
      * 将一条po层数据转成po层数据
      * @param sku 一条po层数据

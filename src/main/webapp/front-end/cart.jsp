@@ -20,7 +20,7 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-	    <title>慕课商城</title>
+	    <title>Group 57 - My Cart</title>
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	    
@@ -157,13 +157,22 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <%if(cartVoList.isEmpty()){%>
+                                    <li>
+                                        <div class="basket-item">
+                                            <div class="row">
+                                                <text style="margin-left: 90px">the Cart is Empty ~</text>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                     <%for(CartVO cartVo : cartVoList){%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 no-margin text-center">
                                                     <div class="thumb">
-                                                        <img alt="" src="<%=cartVo.getPicture()%>" />
+                                                        <img alt="" src="<%=cartVo.getPicture()%>" width="85px" height="73px"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-8 col-sm-8 no-margin">
@@ -221,7 +230,7 @@
             <div class="row no-margin cart-item">
                 <div class="col-xs-12 col-sm-2 no-margin">
                     <a href="#" class="thumb-holder">
-                        <img class="lazy" alt="" src="<%=cartVO.getPicture()%>" />
+                        <img class="lazy" alt="" src="<%=cartVO.getPicture()%>" width="100px" height="90px"/>
                     </a>
                 </div>
 
@@ -229,17 +238,17 @@
                     <div class="title">
                         <a href="#"><%=cartVO.getName()%></a>
                     </div>
-                    <div class="brand">configurations: <%=cartVO.getConfigSpecs()%></div>
-                    <div class="brand">accessory: <%=cartVO.getAccessory()%></div>
+                    <div class="brand"><%=cartVO.getConfigSpecs()%></div>
+                    <div class="brand">accessory: <%=cartVO.getAccessory().equals("")?"no accessory selected":cartVO.getAccessory()%></div>
                 </div>
 
                 <div class="col-xs-12 col-sm-3 no-margin">
                     <div class="quantity">
                         <div class="le-quantity">
                             <form>
-                                <a class="minus" href="#reduce"></a>
-                                <input name="quantity" readonly="readonly" type="text" value="<%=cartVO.getNum()%>" />
-                                <a class="plus" href="#add"></a>
+                                <span class="minus" href="javascript:void(0);" onclick="changeNum2('-',<%=cartVO.getSkuId()%>, <%=cartVO.getId()%>, <%=userId%>)"></span>
+                                <input id="choose-num-<%=cartVO.getSkuId()%>" readonly="readonly" type="text" value="<%=cartVO.getNum()%>"/>
+                                <span class="plus" href="javascript:void(0);" onclick="changeNum2('+',<%=cartVO.getSkuId()%>, <%=cartVO.getId()%>, <%=userId%>)"></span>
                             </form>
                         </div>
                     </div>
@@ -247,7 +256,7 @@
 
                 <div class="col-xs-12 col-sm-2 no-margin">
                     <div class="price">
-                        $<%=cartVO.getTotalPrice()%>
+                        <div id="cart-tot-price-<%=cartVO.getSkuId()%>" value="<%=cartVO.getTotalPrice()%>">$<%=cartVO.getTotalPrice()%></div>
                     </div>
                     <a class="close-btn" onclick="clickDelCart(<%=cartVO.getId()%>)" href="<%=request.getRequestURI()+"?"+request.getQueryString()%>"></a>
                 </div>
@@ -366,7 +375,7 @@
                     <ul class="tabled-data no-border inverse-bold">
                         <li>
                             <label>Cart Price</label>
-                            <div class="value pull-right">$<%=cartTotalPrice%></div>
+                            <div class="value pull-right" id="tot-cart-price">$<%=cartTotalPrice%></div>
                         </li>
                         <li>
                             <label>freight fee</label>
@@ -376,12 +385,12 @@
                     <ul id="total-price" class="tabled-data inverse-bold no-border">
                         <li>
                             <label>Total Price</label>
-                            <div class="value pull-right">$<%=cartTotalPrice + 10%></div>
+                            <div class="value pull-right" id="tot-transfer-price">$<%=cartTotalPrice + 10%></div>
                         </li>
                     </ul>
                     <div class="buttons-holder">
-                        <a class="le-button big" href="checkout.jsp" >check out</a>
-                        <a class="simple-link block" href="index.html" >keep shopping</a>
+                        <a class="le-button big" href="checkout.jsp">check out</a>
+                        <a class="simple-link block" href="index.jsp" >keep shopping</a>
                     </div>
                 </div>
             </div><!-- /.widget -->
@@ -402,323 +411,36 @@
         <!-- ========================================= SIDEBAR : END ========================================= -->
     </div>
 </section>		<!-- ============================================================= FOOTER ============================================================= -->
-<footer id="footer" class="color-bg">
-    
-    <div class="container">
-        <div class="row no-margin widgets-row">
-            <div class="col-xs-12  col-sm-4 no-margin-left">
-                <!-- ============================================================= FEATURED PRODUCTS ============================================================= -->
-<div class="widget">
-    <h2>推荐商品</h2>
-    <div class="body">
-        <ul>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">Netbook Acer Travel B113-E-10072</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-01.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
+        <footer id="footer" class="color-bg">
+            <div class="link-list-row" style="margin-top: 0px;">
+                <div class="container no-padding">
+                    <div class="col-xs-12 col-md-4 ">
+                        <div class="contact-info">
+                            <div class="footer-logo">
+                                <img alt="logo" src="assets/images/group57-logo.png" width="233" height="60"/>
+                            </div><!-- /.footer-logo -->
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-02.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-            
-            <li>
-                <div class="row">                        
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
+                    <div class="link-widget">
+                        <div class="widget">
+                            <p class="regular-bold">Developers</p>
+                            <p>Wang Yunkun</p>
+                            <p>Gu Yue</p>
+                            <p>Shu Nan</p>
                         </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-03.jpg" />
-                        </a>
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div><!-- /.body -->
-</div> <!-- /.widget -->
-<!-- ============================================================= FEATURED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-
-            <div class="col-xs-12 col-sm-4 ">
-                <!-- ============================================================= ON SALE PRODUCTS ============================================================= -->
-<div class="widget">
-    <h2>促销商品</h2>
-    <div class="body">
-        <ul>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">HP Scanner 2910P</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
+                    <div class="link-widget">
+                        <div class="widget">
+                            <p class="regular-bold" style="width: 1000px">Contact us if you have any questions</p>
+                            <p style="width: 1000px">Phone number: (+086) 666-6666-6666</p>
+                            <p style="width: 1000px">E-mail: group_57@bupt.edu.cn</p>
+                            <p style="width: 1000px">Company Address: Beijing University of Posts and Telecommunications<br> Nanfeng Road, Changping District<br> Beijing, China</p>
                         </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-04.jpg" />
-                        </a>
-                    </div>
-                </div>
-
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">Galaxy Tab 3 GT-P5210 16GB, Wi-Fi, 10.1in - White</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-05.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-06.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div><!-- /.body -->
-</div> <!-- /.widget -->
-<!-- ============================================================= ON SALE PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-
-            <div class="col-xs-12 col-sm-4 ">
-                <!-- ============================================================= TOP RATED PRODUCTS ============================================================= -->
-<div class="widget">
-    <h2>最热商品</h2>
-    <div class="body">
-        <ul>
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">Galaxy Tab GT-P5210, 10" 16GB Wi-Fi</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-07.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">PowerShot Elph 115 16MP Digital Camera</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-08.jpg" />
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 no-margin">
-                        <a href="single-product.jsp">Surface RT 64GB, Wi-Fi, 10.6in - Dark Titanium</a>
-                        <div class="price">
-                            <div class="price-prev">￥2000</div>
-                            <div class="price-current">￥1873</div>
-                        </div>
-                    </div>  
-
-                    <div class="col-xs-12 col-sm-3 no-margin">
-                        <a href="#" class="thumb-holder">
-                            <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-small-09.jpg" />
-                        </a>
                     </div>
 
                 </div>
-            </li>
-        </ul>
-    </div><!-- /.body -->
-</div><!-- /.widget -->
-<!-- ============================================================= TOP RATED PRODUCTS : END ============================================================= -->            </div><!-- /.col -->
-
-        </div><!-- /.widgets-row-->
-    </div><!-- /.container -->
-
-    <div class="sub-form-row">
-        <!--<div class="container">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-                <form role="form">
-                    <input placeholder="Subscribe to our newsletter">
-                    <button class="le-button">Subscribe</button>
-                </form>
             </div>
-        </div>--><!-- /.container -->
-    </div><!-- /.sub-form-row -->
-
-    <div class="link-list-row">
-        <div class="container no-padding">
-            <div class="col-xs-12 col-md-4 ">
-                <!-- ============================================================= CONTACT INFO ============================================================= -->
-<div class="contact-info">
-    <div class="footer-logo">
-		<img alt="logo" src="assets/images/logo.PNG" width="233" height="54"/>
-    </div><!-- /.footer-logo -->
-    
-    <p class="regular-bold"> 请通过电话，电子邮件随时联系我们</p>
-    
-    <p>
-        西城区二环到三环德胜门外大街10号TCL大厦3层(马甸桥南), 北京市西城区, 中国
-        <br>慕课网 (QQ群:416465236)
-    </p>
-    
-    <!--<div class="social-icons">
-        <h3>Get in touch</h3>
-        <ul>
-            <li><a href="http://facebook.com/transvelo" class="fa fa-facebook"></a></li>
-            <li><a href="#" class="fa fa-twitter"></a></li>
-            <li><a href="#" class="fa fa-pinterest"></a></li>
-            <li><a href="#" class="fa fa-linkedin"></a></li>
-            <li><a href="#" class="fa fa-stumbleupon"></a></li>
-            <li><a href="#" class="fa fa-dribbble"></a></li>
-            <li><a href="#" class="fa fa-vk"></a></li>
-        </ul>
-    </div>--><!-- /.social-icons -->
-
-</div>
-<!-- ============================================================= CONTACT INFO : END ============================================================= -->            </div>
-
-            <div class="col-xs-12 col-md-8 no-margin">
-                <!-- ============================================================= LINKS FOOTER ============================================================= -->
-<div class="link-widget">
-    <div class="widget">
-        <h3>快速检索</h3>
-        <ul>
-            <li><a href="product-list.jsp">laptops &amp; computers</a></li>
-            <li><a href="product-list.jsp">Cameras &amp; Photography</a></li>
-            <li><a href="product-list.jsp">Smart Phones &amp; Tablets</a></li>
-            <li><a href="product-list.jsp">Video Games &amp; Consoles</a></li>
-            <li><a href="product-list.jsp">TV &amp; Audio</a></li>
-            <li><a href="product-list.jsp">Gadgets</a></li>
-            <li><a href="product-list.jsp">Car Electronic &amp; GPS</a></li>
-            <li><a href="product-list.jsp">Accesories</a></li>
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-        <h3>热门商品</h3>
-        <ul>
-            <li><a href="product-list.jsp">Find a Store</a></li>
-            <li><a href="product-list.jsp">About Us</a></li>
-            <li><a href="product-list.jsp">Contact Us</a></li>
-            <li><a href="product-list.jsp">Weekly Deals</a></li>
-            <li><a href="product-list.jsp">Gift Cards</a></li>
-            <li><a href="product-list.jsp">Recycling Program</a></li>
-            <li><a href="product-list.jsp">Community</a></li>
-            <li><a href="product-list.jsp">Careers</a></li>
-
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-
-<div class="link-widget">
-    <div class="widget">
-        <h3>最近浏览</h3>
-        <ul>
-            <li><a href="product-list.jsp">My Account</a></li>
-            <li><a href="product-list.jsp">Order Tracking</a></li>
-            <li><a href="product-list.jsp">Wish List</a></li>
-            <li><a href="product-list.jsp">Customer Service</a></li>
-            <li><a href="product-list.jsp">Returns / Exchange</a></li>
-            <li><a href="product-list.jsp">FAQs</a></li>
-            <li><a href="product-list.jsp">Product Support</a></li>
-            <li><a href="product-list.jsp">Extended Service Plans</a></li>
-        </ul>
-    </div><!-- /.widget -->
-</div><!-- /.link-widget -->
-<!-- ============================================================= LINKS FOOTER : END ============================================================= -->            </div>
-        </div><!-- /.container -->
-    </div><!-- /.link-list-row -->
-
-    <div class="copyright-bar">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="copyright">
-                    &copy; <a href="index.html">Imooc.com</a> - all rights reserved
-                </div><!-- /.copyright -->
-            </div>
-            <div class="col-xs-12 col-sm-6 no-margin">
-                <div class="payment-methods ">
-                    <ul>
-                        <li><img alt="" src="assets/images/payments/payment-visa.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-master.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-paypal.png"></li>
-                        <li><img alt="" src="assets/images/payments/payment-skrill.png"></li>
-                    </ul>
-                </div><!-- /.payment-methods -->
-            </div>
-        </div><!-- /.container -->
-    </div><!-- /.copyright-bar -->
-
-</footer><!-- /#footer -->
+        </footer>
 <!-- ============================================================= FOOTER : END ============================================================= -->	</div><!-- /.wrapper -->
 
 	<!-- JavaScripts placed at the end of the document so the pages load faster -->
