@@ -32,13 +32,24 @@ var chooseSearchBy = function(choice){
 };
 
 var checkProduct = function(spuId){
-    console.log(spuId);
     $.get(
         "/detail",{spuId:spuId},function(){
             location.href = "single-product.jsp";
         }
     );
 
+};
+var goToComment = function(spuId){
+    $.get(
+        "/detail",{spuId:spuId},function(){
+            location.href = "single-product.jsp#reviews";
+        }
+    );
+    var body   = $('body');
+    var target = $("#reviews");
+    body.animate({
+        scrollTop:target.offset().top - body.offset().top + body.scrollTop()
+    }, 1000);
 };
 
 var clickSort = function(key,value){
@@ -123,7 +134,7 @@ var calCartTolPrice = function(){
     var num = parseFloat($("#choose-num").val());
 
     var CartTotPrice = num * (skuPrice + axPrice);
-    console.log("CartTotPrice = "+totalCartPrice);
+    console.log("CartTotPrice = "+CartTotPrice);
     return CartTotPrice.toFixed(1);
 };
 var showCartTolPrice = function(){
@@ -193,10 +204,6 @@ var changeNum = function(opr,stockNum){
     // var delay = 3000;
     // while(new Date().getTime() < start + delay);
     showCartTolPrice();
-};
-
-var testJsp = function(jspObj){
-    console.log(jspObj);
 };
 
 //cart.jsp
@@ -488,4 +495,60 @@ var loadCatHierarchy = function(catId){
             console.log("cat-spu.jsp: successful load cat hierarchy");
         }
     )
+};
+
+var loadMoreDetail = function(spuId){
+    $.post(
+        "/SPU/moreDetail",{spuId:spuId},function(data){
+            $("#more-detail").html(data);
+        }
+    )
+};
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        + " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();
+    return currentdate;
+}
+var submitComment = function(userName){
+    if(userName==null || userName==""){
+        notifyLogin(location.href);
+        return;
+    }
+    var date = getNowFormatDate();
+    var starNum = $("#star-num-div")[0].lastChild.defaultValue;
+    var stars = [];
+    for(var cnt=0; cnt<starNum; cnt++){
+        stars.push("assets/images/star-big-on.png");
+    }
+    for(var cnt=0; cnt<5-starNum; cnt++){
+        stars.push("assets/images/star-big-off.png");
+    }
+    var html = template("tpl",{
+        userName : userName,
+        starNum : starNum,
+        star1 : stars[0],
+        star2 : stars[1],
+        star3 : stars[2],
+        star4 : stars[3],
+        star5 : stars[4],
+        comment : $("#comment-text").val(),
+        time : date
+    });
+    $("#comments-list").append(html);
+    location.href = "#comments-list";
+    $("#star-num-div")[0].lastChild.defaultValue = 0;
+    $("#comment-text").val("");
+
 };

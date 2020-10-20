@@ -19,7 +19,7 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-	    <title>订单列表 - 慕课商城</title>
+	    <title>Group57 - orders</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -73,8 +73,8 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="product-list.jsp">All Categories</a></li>
-                        <li><a onclick="goToCart(<%=userId%>)">My Cart</a></li>
-                        <li><a onclick="goToOrder(<%=userId%>)">My Order</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToCart(<%=userId%>)">My Cart</a></li>
+                        <li><a href="javascript:void(0);" onclick="goToOrder(<%=userId%>)">My Order</a></li>
                     </ul>
                 </div><!-- /.col -->
 
@@ -158,7 +158,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <%for(CartVO cartVo : cartVoList){%>
                                     <%if(cartVoList.isEmpty()){%>
                                     <li>
                                         <div class="basket-item">
@@ -168,6 +167,7 @@
                                         </div>
                                     </li>
                                     <%}%>
+                                    <%for(CartVO cartVo : cartVoList){%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
@@ -478,7 +478,7 @@
                             <div>
                                 <div style="margin-bottom: 3px;">
                           <span>
-                            <a class="tp-tag-a" href="javascript:void(0);" target="_blank">
+                            <a class="tp-tag-a" href="javascript:void(0);" onclick="goToComment(<%=orderVo.getSpuId()%>)">
                               <span class="trade-operate-text">
                                 comment
                               </span>

@@ -25,7 +25,7 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-	    <title>商品分类 - 慕课商城</title>
+	    <title>Group57 - Product-List</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -194,7 +194,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <%for(CartVO cartVo : cartVoList){%>
                                     <%if(cartVoList.isEmpty()){%>
                                     <li>
                                         <div class="basket-item">
@@ -204,6 +203,7 @@
                                         </div>
                                     </li>
                                     <%}%>
+                                    <%for(CartVO cartVo : cartVoList){%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
@@ -302,13 +302,13 @@
             <div class="body bordered">
 
                 <div class="category-filter">
-                    <h2>Category</h2>
+                    <h2>Brand</h2>
                     <hr>
                     <ul>
-                        <li><input checked="" class="le-checkbox" type="checkbox"  /> <label>Samsung</label> <span class="pull-right">(2)</span></li>
-                        <li><input  class="le-checkbox" type="checkbox" /> <label>Dell</label> <span class="pull-right">(8)</span></li>
-                        <li><input  class="le-checkbox" type="checkbox" /> <label>Toshiba</label> <span class="pull-right">(1)</span></li>
-                        <li><input  class="le-checkbox" type="checkbox" /> <label>Apple</label> <span class="pull-right">(5)</span></li>
+                        <li><input checked="" class="le-checkbox" type="checkbox"  /> <label>Yamaha</label> <span class="pull-right">(21)</span></li>
+                        <li><input  class="le-checkbox" type="checkbox" /> <label>Casio</label> <span class="pull-right">(18)</span></li>
+                        <li><input  class="le-checkbox" type="checkbox" /> <label>Meike</label> <span class="pull-right">(17)</span></li>
+                        <li><input  class="le-checkbox" type="checkbox" /> <label>Bose</label> <span class="pull-right">(5)</span></li>
                     </ul>
                 </div><!-- /.category-filter -->
 
@@ -866,9 +866,11 @@
                                             </div>
 
                                             <div class="col-xs-12 col-sm-6">
+                                                <%if(!spuVoList.isEmpty()){%>
                                                 <div class="result-counter">
                                                     Showing <span><%=(curPage-1)*9+1%>-<%=(curPage-1)*9+spuVoList.size()%></span> of <span><%=totalResult%></span> results
                                                 </div>
+                                                <%}%>
                                             </div>
 
                                         </div><!-- /.row -->

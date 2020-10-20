@@ -31,7 +31,7 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-	    <title>商品分类 - 慕课商城</title>
+	    <title>Group57 - single-product</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -58,6 +58,46 @@
  
 	</head>
 <body>
+<script src="assets/js/fun.js"></script>
+<script src="assets/js/template.js"></script>
+<script id="tpl" type="text/html">
+    <div class="comment-item">
+        <div class="row no-margin">
+            <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
+                <div class="avatar">
+                    <img alt="avatar" src="assets/images/default-avatar.jpg">
+                </div><!-- /.avatar -->
+            </div><!-- /.col -->
+
+            <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
+                <div class="comment-body">
+                    <div class="meta-info">
+                        <div class="author inline">
+                            <a href="#" class="bold">{{userName}}</a>
+                        </div>
+                        <div class="star-holder inline">
+                            <div class="star" data-score="5" style="cursor: pointer; width: 80px;">
+                                <img src="{{star1}}" alt="1" width="20px" height="20px" style="margin-top: -5px">
+                                <img src="{{star2}}" alt="2" width="20px" height="20px" style="margin-top: -5px">
+                                <img src="{{star3}}" alt="3" width="20px" height="20px" style="margin-top: -5px">
+                                <img src="{{star4}}" alt="4" width="20px" height="20px" style="margin-top: -5px">
+                                <img src="{{star5}}" alt="5" width="20px" height="20px" style="margin-top: -5px">
+                            </div>
+                        </div>
+                        <div class="date inline pull-right">
+                            {{time}}
+                        </div>
+                    </div><!-- /.meta-info -->
+                    <p class="comment-text">
+                        {{comment}}
+                    </p><!-- /.comment-text -->
+                </div><!-- /.comment-body -->
+
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div>
+</script>
 <%--    <script src="assets/js/fun.js"></script>--%>
 <%--    <script src="assets/js/jquery-1.10.2.min.js"></script>--%>
     <script type="text/javascript">
@@ -122,6 +162,11 @@
         request.getRequestDispatcher("/class/hierarchy"+"?classId="+spuVo.getClassificationVO().getId()).include(request,response);
         List<ClassificationVO> ancestorClassVoList = (List<ClassificationVO>) session.getAttribute("ancestorClassVoList");
     %>
+    <script src="assets/js/fun.js"></script>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        loadMoreDetail(<%=spuVo.getId()%>)
+    </script>
 <%--    <%try {%>--%>
     <div id="wrapper" class="wrapper">
         <!-- ============================================================= TOP NAVIGATION ============================================================= -->
@@ -215,7 +260,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <%for(CartVO cartVo : cartVoList){%>
                                     <%if(cartVoList.isEmpty()){%>
                                     <li>
                                         <div class="basket-item">
@@ -225,6 +269,7 @@
                                         </div>
                                     </li>
                                     <%}%>
+                                    <%for(CartVO cartVo : cartVoList){%>
                                     <li>
                                         <div class="basket-item">
                                             <div class="row">
@@ -472,9 +517,9 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet porttitor eros. Praesent quis diam placerat, accumsan velit interdum, accumsan orci. Nunc libero sem, elementum in semper in, sollicitudin vitae dolor. Etiam sed tempus nisl. Integer vel diam nulla. Suspendisse et aliquam est. Nulla molestie ante et tortor sollicitudin, at elementum odio lobortis. Pellentesque neque enim, feugiat in elit sed, pharetra tempus metus. Pellentesque non lorem nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                            <p id="more-detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet porttitor eros. Praesent quis diam placerat, accumsan velit interdum, accumsan orci. Nunc libero sem, elementum in semper in, sollicitudin vitae dolor. Etiam sed tempus nisl. Integer vel diam nulla. Suspendisse et aliquam est. Nulla molestie ante et tortor sollicitudin, at elementum odio lobortis. Pellentesque neque enim, feugiat in elit sed, pharetra tempus metus. Pellentesque non lorem nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
-                            <p>Sed consequat orci vel rutrum blandit. Nam non leo vel risus cursus porta quis non nulla. Vestibulum vitae pellentesque nunc. In hac habitasse platea dictumst. Cras egestas, turpis a malesuada mollis, magna tortor scelerisque urna, in pellentesque diam tellus sit amet velit. Donec vel rhoncus nisi, eget placerat elit. Phasellus dignissim nisl vel lectus vehicula, eget vehicula nisl egestas. Duis pretium sed risus dapibus egestas. Nam lectus felis, sodales sit amet turpis se.</p>
+<%--                            <p>Sed consequat orci vel rutrum blandit. Nam non leo vel risus cursus porta quis non nulla. Vestibulum vitae pellentesque nunc. In hac habitasse platea dictumst. Cras egestas, turpis a malesuada mollis, magna tortor scelerisque urna, in pellentesque diam tellus sit amet velit. Donec vel rhoncus nisi, eget placerat elit. Phasellus dignissim nisl vel lectus vehicula, eget vehicula nisl egestas. Duis pretium sed risus dapibus egestas. Nam lectus felis, sodales sit amet turpis se.</p>--%>
 
                             <div class="meta-row">
                                 <div class="inline">
@@ -530,10 +575,10 @@
 
                             </div><!-- /.meta-row -->
                         </div><!-- /.tab-pane #additional-info -->
-
+                        <%-- comment-item 模版 --%>
 
                         <div class="tab-pane" id="reviews">
-                            <div class="comments">
+                            <div class="comments" id="comments-list">
                                 <div class="comment-item">
                                     <div class="row no-margin">
                                         <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
@@ -552,7 +597,7 @@
                                                         <div class="star" data-score="4"></div>
                                                     </div>
                                                     <div class="date inline pull-right">
-                                                        12.07.2013
+                                                        2020-10-20 17:35:50
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
@@ -577,13 +622,13 @@
                                             <div class="comment-body">
                                                 <div class="meta-info">
                                                     <div class="author inline">
-                                                        <a href="#" class="bold">Jane Smith</a>
+                                                        <a href="#" class="bold">Daisy Gatsby</a>
                                                     </div>
                                                     <div class="star-holder inline">
                                                         <div class="star" data-score="5"></div>
                                                     </div>
                                                     <div class="date inline pull-right">
-                                                        12.07.2013
+                                                        2020-10-20 17:35:50
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
@@ -608,13 +653,13 @@
                                             <div class="comment-body">
                                                 <div class="meta-info">
                                                     <div class="author inline">
-                                                        <a href="#" class="bold">John Doe</a>
+                                                        <a href="#" class="bold">Williams Johnson</a>
                                                     </div>
                                                     <div class="star-holder inline">
                                                         <div class="star" data-score="3"></div>
                                                     </div>
                                                     <div class="date inline pull-right">
-                                                        12.07.2013
+                                                        2020-10-20 17:35:50
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
@@ -633,31 +678,31 @@
                                     <div class="new-review-form">
                                         <h2>Add review</h2>
                                         <form id="contact-form" class="contact-form" method="post" >
-                                            <div class="row field-row">
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <label>name*</label>
-                                                    <input class="le-input" >
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <label>email*</label>
-                                                    <input class="le-input" >
-                                                </div>
-                                            </div><!-- /.field-row -->
+<%--                                            <div class="row field-row">--%>
+<%--                                                <div class="col-xs-12 col-sm-6">--%>
+<%--                                                    <label>name*</label>--%>
+<%--                                                    <input class="le-input" >--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-xs-12 col-sm-6">--%>
+<%--                                                    <label>email*</label>--%>
+<%--                                                    <input class="le-input" >--%>
+<%--                                                </div>--%>
+<%--                                            </div><!-- /.field-row -->--%>
 
                                             <div class="field-row star-row">
                                                 <label>your rating</label>
                                                 <div class="star-holder">
-                                                    <div class="star big" data-score="0"></div>
+                                                    <div id="star-num-div" class="star big" data-score="0" ></div>
                                                 </div>
                                             </div><!-- /.field-row -->
 
                                             <div class="field-row">
                                                 <label>your review</label>
-                                                <textarea rows="8" class="le-input"></textarea>
+                                                <textarea id="comment-text" rows="8" class="le-input"></textarea>
                                             </div><!-- /.field-row -->
 
                                             <div class="buttons-holder">
-                                                <button type="submit" class="le-button huge">submit</button>
+                                                <button type="button" class="le-button huge" onclick="submitComment('<%=userName%>')">submit</button>
                                             </div><!-- /.buttons-holder -->
                                         </form><!-- /.contact-form -->
                                     </div><!-- /.new-review-form -->

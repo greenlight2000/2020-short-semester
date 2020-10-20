@@ -67,6 +67,10 @@ public class SPUService extends BaseService<SPU>{
         List<SPU> spuList = spuDao.findAll(spec,sort);
         return spuList;
     }
+    public String getSpuMoreDetail(long spuId){
+        SPU spu = spuDao.getOne(spuId);
+        return spu.getMoreDetail();
+    }
 
     /**
      * 分页查询po层spu list
