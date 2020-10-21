@@ -120,7 +120,7 @@
                             <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
-                            <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
+                            <li><a href="user-info.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
                             <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
@@ -602,7 +602,7 @@
                                                                 <img alt="" src="<%=spuvo.getPicture()%>" width="246" height="186"/>
                                                             </div>
                                                             <div class="body">
-                                                                <div class="label-discount green">-50% sale</div>
+                                                                <div class="label-discount green"><%=spuvo.getBrand()%></div>
                                                                 <div class="title">
                                                                     <a href="javascript:void(0);" onclick="checkProduct(<%=spuvo.getId()%>)"><%=spuvo.getName()%></a>
                                                                 </div>
@@ -833,46 +833,31 @@
                                             Boolean sortAsc = session.getAttribute("sortAsc")==null?true:(Boolean) session.getAttribute("sortAsc");
                                         %>
                                         <div class="row">
-
-                                            <div class="col-xs-12 col-sm-6 text-left">
-                                                <ul class="pagination ">
+                                            <div class="col-xs-12 col-sm-6 text-left" style="width: 910px;">
+                                                <ul class="pagination" style="height: 13px">
                                                     <li>
                                                         <% if(hasPrev){%>
-                                                        <a href="javascript: void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
+                                                        <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
                                                         <%}%>
                                                     </li>
                                                     <%for(int i=1;i<=totalPage;i++){%>
-                                                        <li><a href="javascript: void(0);" <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a></li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" <%if(i==curPage){%>style="border-color: orangered"<%}%> onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)"><%=i%></a>
+                                                    </li>
                                                     <%}%>
-<%--                                                    <% if(curPage != 1){%>--%>
-<%--                                                    <li><a onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,this.innerText)">1</a></li>--%>
-<%--                                                    <% if(curPage != 2){%>--%>
-<%--                                                    <li><a href="#">...</a></li>--%>
-<%--                                                    <%}%>--%>
-<%--                                                    <%}%>--%>
-<%--                                                    <li class="current"><a href="#"><%=curPage%></a></li>--%>
-<%--                                                    <% if(curPage != totalPage){%>--%>
-<%--                                                    <% if(curPage != totalPage-1){%>--%>
-<%--                                                    <li><a href="#">...</a></li>--%>
-<%--                                                    <%}%>--%>
-<%--                                                    <li><a href="#"><%=totalPage%></a></li>--%>
-<%--                                                    <%}%>--%>
                                                     <li>
                                                         <% if(hasNext){%>
                                                         <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
                                                         <%}%>
                                                     </li>
+                                                    <li></li>
                                                 </ul>
+                                                    <%if(!spuVoList.isEmpty()){%>
+                                                    <div class="result-counter" style="margin-right: 0;">
+                                                        <text style="margin-right: 0">Showing <span><%=(curPage-1)*9+1%>-<%=(curPage-1)*9+spuVoList.size()%></span> of <span><%=totalResult%></span> results</text>
+                                                    </div><!-- /.result-counter -->
+                                                    <%}%>
                                             </div>
-
-                                            <div class="col-xs-12 col-sm-6">
-                                                <%if(!spuVoList.isEmpty()){%>
-                                                <div class="result-counter">
-                                                    Showing <span><%=(curPage-1)*9+1%>-<%=(curPage-1)*9+spuVoList.size()%></span> of <span><%=totalResult%></span> results
-                                                </div>
-                                                <%}%>
-                                            </div>
-
                                         </div><!-- /.row -->
                                     </div><!-- /.pagination-holder -->
                                 </div><!-- /.products-grid #grid-view -->
@@ -892,7 +877,7 @@
                                                     </div><!-- /.image-holder -->
                                                     <div class="no-margin col-xs-12 col-sm-5 body-holder">
                                                         <div class="body">
-                                                            <div class="label-discount green">-50% sale</div>
+                                                            <div class="label-discount green"><%=spuVo.getBrand()%></div>
                                                             <div class="title">
                                                                 <a href="single-product.jsp"><%=spuVo.getName()%></a>
                                                             </div>
@@ -1080,8 +1065,8 @@
 
                                     <div class="pagination-holder">
                                         <div class="row">
-                                            <div class="col-xs-12 col-sm-6 text-left">
-                                                <ul class="pagination ">
+                                            <div class="col-xs-12 col-sm-6 text-left" style="width: 910px;">
+                                                <ul class="pagination" style="height: 13px">
                                                     <li>
                                                         <% if(hasPrev){%>
                                                         <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage-1%>)">Prev</a>
@@ -1097,12 +1082,13 @@
                                                         <a href="javascript:void(0);" onclick="changePage('<%=key%>','<%=value%>','<%=sortKey%>',<%=sortAsc%>,<%=curPage+1%>)">Next</a>
                                                         <%}%>
                                                     </li>
+                                                    <li></li>
                                                 </ul>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-6">
-                                                <div class="result-counter">
-                                                    Showing <span><%=(curPage-1)*9+1%>-<%=(curPage-1)*9+spuVoList.size()%></span> of <span><%=totalResult%></span> results
-                                                </div><!-- /.result-counter -->
+                                                    <%if(!spuVoList.isEmpty()){%>
+                                                    <div class="result-counter" style="margin-right: 0;">
+                                                        <text style="margin-right: 0">Showing <span><%=(curPage-1)*9+1%>-<%=(curPage-1)*9+spuVoList.size()%></span> of <span><%=totalResult%></span> results</text>
+                                                    </div><!-- /.result-counter -->
+                                                    <%}%>
                                             </div>
                                         </div><!-- /.row -->
                                     </div><!-- /.pagination-holder -->
@@ -1130,9 +1116,9 @@
                     <div class="link-widget">
                         <div class="widget">
                             <p class="regular-bold">Developers</p>
-                            <p>Wang Yunkun</p>
-                            <p>Gu Yue</p>
-                            <p>Shu Nan</p>
+                            <p>Yunkun Wang</p>
+                            <p>Yue Gu</p>
+                            <p>Nan Shu</p>
                         </div>
                     </div>
                     <div class="link-widget">

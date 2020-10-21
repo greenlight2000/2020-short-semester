@@ -16,6 +16,8 @@ public class SPUVO {
 
     private double price;
 
+    private String brand;
+
     private String launchTime;
 
     private ClassificationVO classificationVO;
@@ -114,10 +116,19 @@ public class SPUVO {
         this.sales = sales;
     }
 
-    public SPUVO(long id, String name, double price, String launchTime, ClassificationVO classificationVO, long storeId, String configChoice, String description, String picture, int sales) {
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public SPUVO(long id, String name, double price, String brand, String launchTime, ClassificationVO classificationVO, long storeId, String configChoice, String description, String picture, int sales) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.brand = brand;
         this.launchTime = launchTime;
         this.classificationVO = classificationVO;
         this.storeId = storeId;

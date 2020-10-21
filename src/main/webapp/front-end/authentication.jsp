@@ -1,5 +1,4 @@
 <%@ page import="com.webproject.project01.VO.CartVO" %>
-<%@ page import="com.sun.corba.se.pept.transport.ListenerThread" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="exception-page.jsp"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +11,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 	    <meta name="keywords" content="">
-	    <meta name="robots" content="all">
+<%--	    <meta name="robots" content="all">--%>
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -77,7 +76,7 @@
                             <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
-                            <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
+                            <li><a href="user-info.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
                             <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
@@ -278,9 +277,9 @@
                     <div class="link-widget">
                         <div class="widget">
                             <p class="regular-bold">Developers</p>
-                            <p>Wang Yunkun</p>
-                            <p>Gu Yue</p>
-                            <p>Shu Nan</p>
+                            <p>Yunkun Wang</p>
+                            <p>Yue Gu</p>
+                            <p>Nan Shu</p>
                         </div>
                     </div>
                     <div class="link-widget">

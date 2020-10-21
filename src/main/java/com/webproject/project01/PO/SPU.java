@@ -18,6 +18,8 @@ public class SPU {
     private String name;
     @Column(name = "price")
     private double price;
+    @Column(name = "brand")
+    private String brand;
     @Column(name = "launch_time")
     private String launchTime;
     @Column(name = "picture")
@@ -136,12 +138,21 @@ public class SPU {
         this.moreDetail = moreDetail;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public SPU() {
     }
 
-    public SPU(String name, double price, String launchTime, String picture, String description, int sales, Classification classification, Store store, List<SKU> SKUList, List<Order> orderList) {
+    public SPU(String name, double price, String brand, String launchTime, String picture, String description, int sales, Classification classification, Store store, List<SKU> SKUList, List<Order> orderList) {
         this.name = name;
         this.price = price;
+        this.brand = brand;
         this.launchTime = launchTime;
         this.picture = picture;
         this.description = description;
@@ -152,9 +163,10 @@ public class SPU {
         this.orderList = orderList;
     }
 
-    public SPU(String name, double price, String launchTime, Classification classification, Store store, List<SKU> SKUList, List<Order> orderList) {
+    public SPU(String name, double price, String brand, String launchTime, Classification classification, Store store, List<SKU> SKUList, List<Order> orderList) {
         this.name = name;
         this.price = price;
+        this.brand = brand;
         this.launchTime = launchTime;
         this.classification = classification;
         this.store = store;
@@ -179,6 +191,7 @@ public class SPU {
         SPUVO spuvo = new SPUVO();
         spuvo.setId(this.getId());
         spuvo.setName(this.getName());
+        spuvo.setBrand(this.brand);
         spuvo.setPrice(this.getPrice());
         spuvo.setLaunchTime(this.getLaunchTime());
         if(this.classification==null)

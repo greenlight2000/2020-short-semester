@@ -119,16 +119,17 @@ public class OrderService extends BaseService<Order>{
                 spu.setSales(sale);
                 spuDao.save(spu);
             case "unpaid":
-                int stockNum = order.getSKU().getStockNum() - order.getNum();
+                int stockNum = order.getSKU().getStockNum() - order.getNum();//减少sku库存
                 sku.setStockNum(stockNum);
                 skuDao.save(sku);
                 break;
             case "canceled":
-                stockNum = order.getSKU().getStockNum() + order.getNum();
+                stockNum = order.getSKU().getStockNum() + order.getNum();//释放sku库存
                 sku.setStockNum(stockNum);
                 skuDao.save(sku);
                 break;
         }
+        orderDao.save(order);
     }
     /**
      * 将一条po层数据转化为vo层数据

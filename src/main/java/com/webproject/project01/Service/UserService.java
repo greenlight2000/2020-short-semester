@@ -16,6 +16,7 @@ public class UserService extends BaseService<User> {
     public List<User> searchUsers(String key, String value, boolean isFuzzy){
         return super.searchTs(key, value, isFuzzy, userDao);
     }
+
     //查看个人信息
     public UserVO getUserInfo(long id){
         User user = userDao.getOne(id);
@@ -39,33 +40,49 @@ public class UserService extends BaseService<User> {
         userDao.save(user);
         return "success";
     }
-    public String updateEmail(long id, String oldEmail, String newEmail){
+    public String updateEmail(long id, String newEmail){
         String status = "success";
         User user = userDao.getOne(id);
-        if(user.getEmail().equals(oldEmail)){
+        if(!validEmail(newEmail)){
+            status = "invalid email format";
+        } else if(existedEmail(newEmail)){
+            status = newEmail+" has been registered";
+        }else{
             user.setEmail(newEmail);
             userDao.save(user);
         }
-        else
-            status = "invalid old email";
+
         return status;
     }
-    public String updatePhone(long id, String oldPhone, String newPhone){
+    public String updatePhone(long id, String newPhone){
         String status = "success";
         User user = userDao.getOne(id);
-        if(user.getEmail().equals(oldPhone)){
+        if(!validPhone(newPhone)){
+            status = "invalid phone format";
+        } else if(existedPhone(newPhone)){
+            status = newPhone+" has been registered";
+        }else {
             user.setEmail(newPhone);
             userDao.save(user);
         }
-        else
-            status = "invalid old phone number";
+        return status;
+    }
+    public String updateName(long id, String newName){
+        String status = "success";
+        User user = userDao.getOne(id);
+        if(existedName(newName)){
+            status = newName+" has been registered";
+        }else {
+            user.setName(newName);
+            userDao.save(user);
+        }
         return status;
     }
     public String updatePassword(long id, String oldPassword, String newPassword){
         String status = "success";
         User user = userDao.getOne(id);
-        if(user.getEmail().equals(oldPassword)) {
-            user.setEmail(newPassword);
+        if(checkPwValid(id,oldPassword)) {
+            user.setPassword(newPassword);
             userDao.save(user);
         }else
             status = "invalid old password";

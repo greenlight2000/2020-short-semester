@@ -85,7 +85,7 @@
                             <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
-                            <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
+                            <li><a href="user-info.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
                             <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
@@ -213,7 +213,7 @@
 <!-- ============================================================= HEADER : END ============================================================= -->
         <div class="grid-list-products" style="margin-bottom: 0;">
         <div class="control-bar" style=" color: black;background-color: rgba(135,135,135,0.87)">
-            <div id="filter" class="le-select" style="right: 5px; top: 4px; border-color: #E74C3C; border-radius: 5px;margin-left: 40px;border-bottom-width: 2px">
+            <div id="filter" class="le-select" style="right: 5px; top: 4px; border-color: #E74C3C; border-radius: 5px;margin-left: 40px;border-bottom-width: 1px; margin-left: 150px">
                 <select id="select-payStatus" style="font-weight: 600; width: 100px;">
                     <option value="" selected>all</option>
                     <option value="paid">paid</option>
@@ -222,11 +222,11 @@
                 </select>
             </div>
             <button class="le-button" onclick="filterPayStatus(<%=userId%>)">Filter</button>
-            <div>consumption this month:</div>
-            <div>total consumption</div>
+<%--            <div>consumption this month:</div>--%>
+<%--            <div>total consumption</div>--%>
         </div><!-- /.control-bar -->
         </div>
-    <div id="single-product">
+    <div id="single-product" style="margin-left: 150px; margin-right: 150px; margin-top: 20px">
     <%
     String preTime = "";
     double billPrice = 0;
@@ -511,9 +511,9 @@
                     <div class="link-widget">
                         <div class="widget">
                             <p class="regular-bold">Developers</p>
-                            <p>Wang Yunkun</p>
-                            <p>Gu Yue</p>
-                            <p>Shu Nan</p>
+                            <p>Yunkun Wang</p>
+                            <p>Yue Gu</p>
+                            <p>Nan Shu</p>
                         </div>
                     </div>
                     <div class="link-widget">

@@ -456,12 +456,12 @@ var cancelBill = function(idStr){
     if(confirm("do you want to cancel the bill?")){
         var orderIdArr = idStr.split(';');
         for(var i=0; i<orderIdArr.length-1; i++){
-            // console.log(orderIdArr[i]);
+            console.log(orderIdArr[i]);
             $.post(
                 "/order/cancel",
                 {orderId:orderIdArr[i]},
                 function(){
-                    console.log("payBill completed");
+                    console.log("cancel Bill completed");
                 }
             )
         }
@@ -551,4 +551,90 @@ var submitComment = function(userName){
     $("#star-num-div")[0].lastChild.defaultValue = 0;
     $("#comment-text").val("");
 
+};
+var updateName = function(userId, name){
+    if(name==null || name=="")
+        alert("please input new name");
+    else
+    $.post(
+        "/user/modify",
+        {
+            userId: userId,
+            mod: "information",
+            changeInfo: "name",
+            name: name
+        },
+        function(data){
+            alert(data);
+            if(data=="success")
+                location.href = location.href;
+        }
+    )
+};
+var updatePhone = function(userId, phone){
+    if(phone==null || phone=="")
+        alert("please input new phone number");
+    else
+    $.post(
+        "/user/modify",
+        {
+            userId: userId,
+            mod: "information",
+            changeInfo: "phone",
+            phone: phone
+        },
+        function(data){
+            alert(data);
+            if(data=="success")
+                location.href = location.href;
+        }
+    )
+};
+var updateEmail = function(userId, email){
+    if(email==null || email=="")
+        alert("please input new email");
+    else
+    $.post(
+        "/user/modify",
+        {
+            userId: userId,
+            mod: "information",
+            changeInfo: "email",
+            email: email
+        },
+        function(data){
+            alert(data);
+            if(data=="success")
+                location.href = location.href;
+                // location.reload();
+        }
+    )
+};
+var checkConsistentPwd = function(input1, input2){
+    if(input1!=input2)
+        $("#notice").html('<text style="color: red; size: 3px">inconsistent inputs</text>');
+    else
+        $("#notice").html("");
+};
+var updatePwd = function(userId, oldPwd, newPwd){
+    var confirmPwd = $("#confirm-pwd").val();
+    if(newPwd!=confirmPwd)
+        alert("two inputs must be consistent");
+    else
+    $.post(
+        "/user/modify",
+        {
+            userId: userId,
+            mod: "password",
+            oldPwd: oldPwd,
+            newPwd: newPwd
+        },
+        function(data){
+            alert(data);
+            if(data=="success"){
+                location.href = location.href;
+            }
+
+        }
+    )
 };

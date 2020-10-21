@@ -75,10 +75,10 @@
                     <ul class="right">
                         <ul class="right">
                             <%if(userName.equals("")){%>
-                            <li><a href="authentication.jsp">register</a></li>
+                            <li><a href="register.jsp">register</a></li>
                             <li><a href="authentication.jsp">log in</a></li>
                             <%}else{%>
-                            <li><a href="authentication.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
+                            <li><a href="user-info.jsp">welcome, <%=userName%> &nbsp<img style="border: solid 1px lightgrey;" alt="user_head" src="assets/images/user-figure/defalt-user-figure.jpg" width="25" height="25"/></a></li>
                             <li><a href="javascript:void(0);" onclick="logout()">log out</a></li>
                             <%}%>
                         </ul>
@@ -352,9 +352,9 @@
                     <div class="link-widget">
                         <div class="widget">
                             <p class="regular-bold">Developers</p>
-                            <p>Wang Yunkun</p>
-                            <p>Gu Yue</p>
-                            <p>Shu Nan</p>
+                            <p>Yunkun Wang</p>
+                            <p>Yue Gu</p>
+                            <p>Nan Shu</p>
                         </div>
                     </div>
                     <div class="link-widget">
