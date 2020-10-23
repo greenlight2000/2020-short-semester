@@ -394,11 +394,11 @@
                                 <img width="67" alt="" src="<%=skuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
                             <%int sldCnt=0; for(SKUVO aSkuVo : skuVoList){ sldCnt++;if(aSkuVo.getId()!=skuVo.getId()){%>
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt%>" href="#slide<%=sldCnt%>">
+                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt-1%>" href="#slide<%=sldCnt%>">
                                 <img width="67" alt="" src="<%=aSkuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
                             <%}}%>
-                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt+1%>" href="#slide<%=sldCnt+1%>">
+                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<%=sldCnt%>" href="#slide<%=sldCnt+1%>">
                                 <img width="67" alt="" src="<%=spuVo.getPicture()%>" style="height: 60px;width: 67px"/>
                             </a>
                         </div><!-- /#owl-single-product-thumbnails -->
