@@ -1,0 +1,334 @@
+<html>
+<head>
+<title>mvnw</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6; font-weight: bold;}
+.s1 { color: #808080;}
+.s2 { color: #a9b7c6;}
+.s3 { color: #cc7832;}
+.s4 { color: #6a8759;}
+.s5 { color: #a9b7c6;}
+.s6 { color: #c57633;}
+.s7 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+mvnw</font>
+</center></td></tr></table>
+<pre><span class="s0">#!/bin/sh 
+</span><span class="s1"># ----------------------------------------------------------------------------</span>
+<span class="s1"># Licensed to the Apache Software Foundation (ASF) under one</span>
+<span class="s1"># or more contributor license agreements.  See the NOTICE file</span>
+<span class="s1"># distributed with this work for additional information</span>
+<span class="s1"># regarding copyright ownership.  The ASF licenses this file</span>
+<span class="s1"># to you under the Apache License, Version 2.0 (the</span>
+<span class="s1"># &quot;License&quot;); you may not use this file except in compliance</span>
+<span class="s1"># with the License.  You may obtain a copy of the License at</span>
+<span class="s1">#</span>
+<span class="s1">#    https://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="s1">#</span>
+<span class="s1"># Unless required by applicable law or agreed to in writing,</span>
+<span class="s1"># software distributed under the License is distributed on an</span>
+<span class="s1"># &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span>
+<span class="s1"># KIND, either express or implied.  See the License for the</span>
+<span class="s1"># specific language governing permissions and limitations</span>
+<span class="s1"># under the License.</span>
+<span class="s1"># ----------------------------------------------------------------------------</span>
+
+<span class="s1"># ----------------------------------------------------------------------------</span>
+<span class="s1"># Maven Start Up Batch script</span>
+<span class="s1">#</span>
+<span class="s1"># Required ENV vars:</span>
+<span class="s1"># ------------------</span>
+<span class="s1">#   JAVA_HOME - location of a JDK home dir</span>
+<span class="s1">#</span>
+<span class="s1"># Optional ENV vars</span>
+<span class="s1"># -----------------</span>
+<span class="s1">#   M2_HOME - location of maven2's installed home dir</span>
+<span class="s1">#   MAVEN_OPTS - parameters passed to the Java VM when running Maven</span>
+<span class="s1">#     e.g. to debug Maven itself, use</span>
+<span class="s1">#       set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</span>
+<span class="s1">#   MAVEN_SKIP_RC - flag to disable loading of mavenrc files</span>
+<span class="s1"># ----------------------------------------------------------------------------</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$MAVEN_SKIP_RC</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+
+  <span class="s3">if </span><span class="s2">[ -f /etc/mavenrc ] ; </span><span class="s3">then</span>
+    <span class="s2">. /etc/mavenrc</span>
+  <span class="s3">fi</span>
+
+  <span class="s3">if </span><span class="s2">[ -f </span><span class="s4">&quot;</span><span class="s5">$HOME</span><span class="s4">/.mavenrc&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+    <span class="s2">. </span><span class="s4">&quot;</span><span class="s5">$HOME</span><span class="s4">/.mavenrc&quot;</span>
+  <span class="s3">fi</span>
+
+<span class="s3">fi</span>
+
+<span class="s1"># OS specific support.  $var _must_ be set to either true or false.</span>
+<span class="s2">cygwin=false;</span>
+<span class="s2">darwin=false;</span>
+<span class="s2">mingw=false</span>
+<span class="s3">case </span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">uname</span><span class="s6">`</span><span class="s4">&quot; </span><span class="s3">in</span>
+  <span class="s2">CYGWIN*) cygwin=true </span><span class="s3">;;</span>
+  <span class="s2">MINGW*) mingw=true</span><span class="s3">;;</span>
+  <span class="s2">Darwin*) darwin=true</span>
+    <span class="s1"># Use /usr/libexec/java_home if available, otherwise fall back to /Library/Java/Home</span>
+    <span class="s1"># See https://developer.apple.com/library/mac/qa/qa1170/_index.html</span>
+    <span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+      <span class="s3">if </span><span class="s2">[ -x </span><span class="s4">&quot;/usr/libexec/java_home&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+        <span class="s2">export JAVA_HOME=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">/usr/libexec/java_home</span><span class="s6">`</span><span class="s4">&quot;</span>
+      <span class="s3">else</span>
+        <span class="s2">export JAVA_HOME=</span><span class="s4">&quot;/Library/Java/Home&quot;</span>
+      <span class="s3">fi</span>
+    <span class="s3">fi</span>
+    <span class="s3">;;</span>
+<span class="s3">esac</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+  <span class="s3">if </span><span class="s2">[ -r /etc/gentoo-release ] ; </span><span class="s3">then</span>
+    <span class="s2">JAVA_HOME=</span><span class="s6">`</span><span class="s2">java-config --jre-home</span><span class="s6">`</span>
+  <span class="s3">fi</span>
+<span class="s3">fi</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+  <span class="s1">## resolve links - $0 may be a link to maven's home</span>
+  <span class="s2">PRG=</span><span class="s4">&quot;</span><span class="s5">$0</span><span class="s4">&quot;</span>
+
+  <span class="s1"># need this for relative symlinks</span>
+  <span class="s3">while </span><span class="s2">[ -h </span><span class="s4">&quot;</span><span class="s5">$PRG</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">do</span>
+    <span class="s2">ls=</span><span class="s6">`</span><span class="s2">ls -ld </span><span class="s4">&quot;</span><span class="s5">$PRG</span><span class="s4">&quot;</span><span class="s6">`</span>
+    <span class="s2">link=</span><span class="s6">`</span><span class="s2">expr </span><span class="s4">&quot;</span><span class="s5">$ls</span><span class="s4">&quot; </span><span class="s2">: </span><span class="s4">'.*-&gt; \(.*\)$'</span><span class="s6">`</span>
+    <span class="s3">if </span><span class="s2">expr </span><span class="s4">&quot;</span><span class="s5">$link</span><span class="s4">&quot; </span><span class="s2">: </span><span class="s4">'/.*' </span><span class="s3">&gt; </span><span class="s2">/dev/null; </span><span class="s3">then</span>
+      <span class="s2">PRG=</span><span class="s4">&quot;</span><span class="s5">$link</span><span class="s4">&quot;</span>
+    <span class="s3">else</span>
+      <span class="s2">PRG=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">dirname </span><span class="s4">&quot;</span><span class="s5">$PRG</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s4">/</span><span class="s5">$link</span><span class="s4">&quot;</span>
+    <span class="s3">fi</span>
+  <span class="s3">done</span>
+
+  <span class="s2">saveddir=</span><span class="s6">`</span><span class="s2">pwd</span><span class="s6">`</span>
+
+  <span class="s2">M2_HOME=</span><span class="s6">`</span><span class="s2">dirname </span><span class="s4">&quot;</span><span class="s5">$PRG</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">/..</span>
+
+  <span class="s1"># make it fully qualified</span>
+  <span class="s2">M2_HOME=</span><span class="s6">`</span><span class="s2">cd </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot; </span><span class="s3">&amp;&amp; </span><span class="s2">pwd</span><span class="s6">`</span>
+
+  <span class="s2">cd </span><span class="s4">&quot;</span><span class="s5">$saveddir</span><span class="s4">&quot;</span>
+  <span class="s1"># echo Using m2 at $M2_HOME</span>
+<span class="s3">fi</span>
+
+<span class="s1"># For Cygwin, ensure paths are in UNIX format before anything is touched</span>
+<span class="s3">if </span><span class="s5">$cygwin </span><span class="s2">; </span><span class="s3">then</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">M2_HOME=</span><span class="s6">`</span><span class="s2">cygpath --unix </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot;</span><span class="s6">`</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">JAVA_HOME=</span><span class="s6">`</span><span class="s2">cygpath --unix </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot;</span><span class="s6">`</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$CLASSPATH</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">CLASSPATH=</span><span class="s6">`</span><span class="s2">cygpath --path --unix </span><span class="s4">&quot;</span><span class="s5">$CLASSPATH</span><span class="s4">&quot;</span><span class="s6">`</span>
+<span class="s3">fi</span>
+
+<span class="s1"># For Mingw, ensure paths are in UNIX format before anything is touched</span>
+<span class="s3">if </span><span class="s5">$mingw </span><span class="s2">; </span><span class="s3">then</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">M2_HOME=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">(cd </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot;</span><span class="s2">; pwd)</span><span class="s6">`</span><span class="s4">&quot;</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">JAVA_HOME=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">(cd </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot;</span><span class="s2">; pwd)</span><span class="s6">`</span><span class="s4">&quot;</span>
+<span class="s3">fi</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+  <span class="s2">javaExecutable=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">which javac</span><span class="s6">`</span><span class="s4">&quot;</span>
+  <span class="s3">if </span><span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$javaExecutable</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp; ! </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">expr \&quot;</span><span class="s5">$javaExecutable</span><span class="s2">\&quot; : </span><span class="s4">'\([^ ]*\)'</span><span class="s6">`</span><span class="s4">&quot; </span><span class="s2">= </span><span class="s4">&quot;no&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+    <span class="s1"># readlink(1) is not available as standard on Solaris 10.</span>
+    <span class="s2">readLink=</span><span class="s6">`</span><span class="s2">which readlink</span><span class="s6">`</span>
+    <span class="s3">if </span><span class="s2">[ </span><span class="s3">! </span><span class="s6">`</span><span class="s2">expr </span><span class="s4">&quot;</span><span class="s5">$readLink</span><span class="s4">&quot; </span><span class="s2">: </span><span class="s4">'\([^ ]*\)'</span><span class="s6">` </span><span class="s2">= </span><span class="s4">&quot;no&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+      <span class="s3">if </span><span class="s5">$darwin </span><span class="s2">; </span><span class="s3">then</span>
+        <span class="s2">javaHome=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">dirname \&quot;</span><span class="s5">$javaExecutable</span><span class="s2">\&quot;</span><span class="s6">`</span><span class="s4">&quot;</span>
+        <span class="s2">javaExecutable=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">cd \&quot;</span><span class="s5">$javaHome</span><span class="s2">\&quot; </span><span class="s3">&amp;&amp; </span><span class="s2">pwd -P</span><span class="s6">`</span><span class="s4">/javac&quot;</span>
+      <span class="s3">else</span>
+        <span class="s2">javaExecutable=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">readlink -f \&quot;</span><span class="s5">$javaExecutable</span><span class="s2">\&quot;</span><span class="s6">`</span><span class="s4">&quot;</span>
+      <span class="s3">fi</span>
+      <span class="s2">javaHome=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">dirname \&quot;</span><span class="s5">$javaExecutable</span><span class="s2">\&quot;</span><span class="s6">`</span><span class="s4">&quot;</span>
+      <span class="s2">javaHome=</span><span class="s6">`</span><span class="s2">expr </span><span class="s4">&quot;</span><span class="s5">$javaHome</span><span class="s4">&quot; </span><span class="s2">: </span><span class="s4">'\(.*\)/bin'</span><span class="s6">`</span>
+      <span class="s2">JAVA_HOME=</span><span class="s4">&quot;</span><span class="s5">$javaHome</span><span class="s4">&quot;</span>
+      <span class="s2">export JAVA_HOME</span>
+    <span class="s3">fi</span>
+  <span class="s3">fi</span>
+<span class="s3">fi</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$JAVACMD</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+  <span class="s3">if </span><span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot;  </span><span class="s2">] ; </span><span class="s3">then</span>
+    <span class="s3">if </span><span class="s2">[ -x </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">/jre/sh/java&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+      <span class="s1"># IBM's JDK on AIX uses strange locations for the executables</span>
+      <span class="s2">JAVACMD=</span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">/jre/sh/java&quot;</span>
+    <span class="s3">else</span>
+      <span class="s2">JAVACMD=</span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">/bin/java&quot;</span>
+    <span class="s3">fi</span>
+  <span class="s3">else</span>
+    <span class="s2">JAVACMD=</span><span class="s4">&quot;</span><span class="s6">`</span><span class="s2">which java</span><span class="s6">`</span><span class="s4">&quot;</span>
+  <span class="s3">fi</span>
+<span class="s3">fi</span>
+
+<span class="s3">if </span><span class="s2">[ </span><span class="s3">! </span><span class="s2">-x </span><span class="s4">&quot;</span><span class="s5">$JAVACMD</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+  <span class="s2">echo </span><span class="s4">&quot;Error: JAVA_HOME is not defined correctly.&quot; </span><span class="s2">&gt;&amp;</span><span class="s7">2</span>
+  <span class="s2">echo </span><span class="s4">&quot;  We cannot execute </span><span class="s5">$JAVACMD</span><span class="s4">&quot; </span><span class="s2">&gt;&amp;</span><span class="s7">2</span>
+  <span class="s2">exit </span><span class="s7">1</span>
+<span class="s3">fi</span>
+
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">] ; </span><span class="s3">then</span>
+  <span class="s2">echo </span><span class="s4">&quot;Warning: JAVA_HOME environment variable is not set.&quot;</span>
+<span class="s3">fi</span>
+
+<span class="s2">CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher</span>
+
+<span class="s1"># traverses directory structure from process work directory to filesystem root</span>
+<span class="s1"># first directory with .mvn subdirectory is considered project base directory</span>
+<span class="s2">find_maven_basedir() {</span>
+
+  <span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$1</span><span class="s4">&quot; </span><span class="s2">]</span>
+  <span class="s3">then</span>
+    <span class="s2">echo </span><span class="s4">&quot;Path not specified to find_maven_basedir&quot;</span>
+    <span class="s2">return </span><span class="s7">1</span>
+  <span class="s3">fi</span>
+
+  <span class="s2">basedir=</span><span class="s4">&quot;</span><span class="s5">$1</span><span class="s4">&quot;</span>
+  <span class="s2">wdir=</span><span class="s4">&quot;</span><span class="s5">$1</span><span class="s4">&quot;</span>
+  <span class="s3">while </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$wdir</span><span class="s4">&quot; </span><span class="s2">!= </span><span class="s4">'/' </span><span class="s2">] ; </span><span class="s3">do</span>
+    <span class="s3">if </span><span class="s2">[ -d </span><span class="s4">&quot;</span><span class="s5">$wdir</span><span class="s4">&quot;</span><span class="s2">/.mvn ] ; </span><span class="s3">then</span>
+      <span class="s2">basedir=</span><span class="s5">$wdir</span>
+      <span class="s2">break</span>
+    <span class="s3">fi</span>
+    <span class="s1"># workaround for JBEAP-8937 (on Solaris 10/Sparc)</span>
+    <span class="s3">if </span><span class="s2">[ -d </span><span class="s4">&quot;</span><span class="s3">$</span><span class="s2">{wdir}</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+      <span class="s2">wdir=</span><span class="s6">`</span><span class="s2">cd </span><span class="s4">&quot;</span><span class="s5">$wdir</span><span class="s4">/..&quot;</span><span class="s2">; pwd</span><span class="s6">`</span>
+    <span class="s3">fi</span>
+    <span class="s1"># end of workaround</span>
+  <span class="s3">done</span>
+  <span class="s2">echo </span><span class="s4">&quot;</span><span class="s3">$</span><span class="s2">{basedir}</span><span class="s4">&quot;</span>
+<span class="s2">}</span>
+
+<span class="s1"># concatenates all lines of a file</span>
+<span class="s2">concat_lines() {</span>
+  <span class="s3">if </span><span class="s2">[ -f </span><span class="s4">&quot;</span><span class="s5">$1</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+    <span class="s2">echo </span><span class="s4">&quot;</span><span class="s3">$</span><span class="s2">(tr -s </span><span class="s4">'\n' ' ' </span><span class="s3">&lt; </span><span class="s4">&quot;</span><span class="s5">$1</span><span class="s4">&quot;</span><span class="s2">)</span><span class="s4">&quot;</span>
+  <span class="s3">fi</span>
+<span class="s2">}</span>
+
+<span class="s2">BASE_DIR=</span><span class="s6">`</span><span class="s2">find_maven_basedir </span><span class="s4">&quot;</span><span class="s3">$</span><span class="s2">(pwd)</span><span class="s4">&quot;</span><span class="s6">`</span>
+<span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+  <span class="s2">exit </span><span class="s7">1</span><span class="s2">;</span>
+<span class="s3">fi</span>
+
+<span class="s1">##########################################################################################</span>
+<span class="s1"># Extension to allow automatically downloading the maven-wrapper.jar from Maven-central</span>
+<span class="s1"># This allows using the maven wrapper in projects that prohibit checking in binary data.</span>
+<span class="s1">##########################################################################################</span>
+<span class="s3">if </span><span class="s2">[ -r </span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/maven-wrapper.jar&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+    <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+      <span class="s2">echo </span><span class="s4">&quot;Found .mvn/wrapper/maven-wrapper.jar&quot;</span>
+    <span class="s3">fi</span>
+<span class="s3">else</span>
+    <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+      <span class="s2">echo </span><span class="s4">&quot;Couldn't find .mvn/wrapper/maven-wrapper.jar, downloading it ...&quot;</span>
+    <span class="s3">fi</span>
+    <span class="s3">if </span><span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$MVNW_REPOURL</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+      <span class="s2">jarUrl=</span><span class="s4">&quot;</span><span class="s5">$MVNW_REPOURL</span><span class="s4">/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar&quot;</span>
+    <span class="s3">else</span>
+      <span class="s2">jarUrl=</span><span class="s4">&quot;https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar&quot;</span>
+    <span class="s3">fi</span>
+    <span class="s3">while </span><span class="s2">IFS=</span><span class="s4">&quot;=&quot; </span><span class="s2">read key value; </span><span class="s3">do</span>
+      <span class="s3">case </span><span class="s4">&quot;</span><span class="s5">$key</span><span class="s4">&quot; </span><span class="s3">in </span><span class="s2">(wrapperUrl) jarUrl=</span><span class="s4">&quot;</span><span class="s5">$value</span><span class="s4">&quot;</span><span class="s2">; break </span><span class="s3">;;</span>
+      <span class="s3">esac</span>
+    <span class="s3">done &lt; </span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/maven-wrapper.properties&quot;</span>
+    <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+      <span class="s2">echo </span><span class="s4">&quot;Downloading from: </span><span class="s5">$jarUrl</span><span class="s4">&quot;</span>
+    <span class="s3">fi</span>
+    <span class="s2">wrapperJarPath=</span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/maven-wrapper.jar&quot;</span>
+    <span class="s3">if </span><span class="s5">$cygwin</span><span class="s2">; </span><span class="s3">then</span>
+      <span class="s2">wrapperJarPath=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$wrapperJarPath</span><span class="s4">&quot;</span><span class="s6">`</span>
+    <span class="s3">fi</span>
+
+    <span class="s3">if </span><span class="s2">command -v wget </span><span class="s3">&gt; </span><span class="s2">/dev/null; </span><span class="s3">then</span>
+        <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+          <span class="s2">echo </span><span class="s4">&quot;Found wget ... using wget&quot;</span>
+        <span class="s3">fi</span>
+        <span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$MVNW_USERNAME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">|| </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$MVNW_PASSWORD</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+            <span class="s2">wget </span><span class="s4">&quot;</span><span class="s5">$jarUrl</span><span class="s4">&quot; </span><span class="s2">-O </span><span class="s4">&quot;</span><span class="s5">$wrapperJarPath</span><span class="s4">&quot;</span>
+        <span class="s3">else</span>
+            <span class="s2">wget --http-user=</span><span class="s5">$MVNW_USERNAME </span><span class="s2">--http-password=</span><span class="s5">$MVNW_PASSWORD </span><span class="s4">&quot;</span><span class="s5">$jarUrl</span><span class="s4">&quot; </span><span class="s2">-O </span><span class="s4">&quot;</span><span class="s5">$wrapperJarPath</span><span class="s4">&quot;</span>
+        <span class="s3">fi</span>
+    <span class="s3">elif </span><span class="s2">command -v curl </span><span class="s3">&gt; </span><span class="s2">/dev/null; </span><span class="s3">then</span>
+        <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+          <span class="s2">echo </span><span class="s4">&quot;Found curl ... using curl&quot;</span>
+        <span class="s3">fi</span>
+        <span class="s3">if </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$MVNW_USERNAME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">|| </span><span class="s2">[ -z </span><span class="s4">&quot;</span><span class="s5">$MVNW_PASSWORD</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+            <span class="s2">curl -o </span><span class="s4">&quot;</span><span class="s5">$wrapperJarPath</span><span class="s4">&quot; &quot;</span><span class="s5">$jarUrl</span><span class="s4">&quot; </span><span class="s2">-f</span>
+        <span class="s3">else</span>
+            <span class="s2">curl --user </span><span class="s5">$MVNW_USERNAME</span><span class="s2">:</span><span class="s5">$MVNW_PASSWORD </span><span class="s2">-o </span><span class="s4">&quot;</span><span class="s5">$wrapperJarPath</span><span class="s4">&quot; &quot;</span><span class="s5">$jarUrl</span><span class="s4">&quot; </span><span class="s2">-f</span>
+        <span class="s3">fi</span>
+
+    <span class="s3">else</span>
+        <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+          <span class="s2">echo </span><span class="s4">&quot;Falling back to using Java to download&quot;</span>
+        <span class="s3">fi</span>
+        <span class="s2">javaClass=</span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/MavenWrapperDownloader.java&quot;</span>
+        <span class="s1"># For Cygwin, switch paths to Windows format before running javac</span>
+        <span class="s3">if </span><span class="s5">$cygwin</span><span class="s2">; </span><span class="s3">then</span>
+          <span class="s2">javaClass=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$javaClass</span><span class="s4">&quot;</span><span class="s6">`</span>
+        <span class="s3">fi</span>
+        <span class="s3">if </span><span class="s2">[ -e </span><span class="s4">&quot;</span><span class="s5">$javaClass</span><span class="s4">&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+            <span class="s3">if </span><span class="s2">[ </span><span class="s3">! </span><span class="s2">-e </span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/MavenWrapperDownloader.class&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+                <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+                  <span class="s2">echo </span><span class="s4">&quot; - Compiling MavenWrapperDownloader.java ...&quot;</span>
+                <span class="s3">fi</span>
+                <span class="s1"># Compiling the Java class</span>
+                <span class="s2">(</span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">/bin/javac&quot; &quot;</span><span class="s5">$javaClass</span><span class="s4">&quot;</span><span class="s2">)</span>
+            <span class="s3">fi</span>
+            <span class="s3">if </span><span class="s2">[ -e </span><span class="s4">&quot;</span><span class="s5">$BASE_DIR</span><span class="s4">/.mvn/wrapper/MavenWrapperDownloader.class&quot; </span><span class="s2">]; </span><span class="s3">then</span>
+                <span class="s1"># Running the downloader</span>
+                <span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+                  <span class="s2">echo </span><span class="s4">&quot; - Running MavenWrapperDownloader.java ...&quot;</span>
+                <span class="s3">fi</span>
+                <span class="s2">(</span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">/bin/java&quot; </span><span class="s2">-cp .mvn/wrapper MavenWrapperDownloader </span><span class="s4">&quot;</span><span class="s5">$MAVEN_PROJECTBASEDIR</span><span class="s4">&quot;</span><span class="s2">)</span>
+            <span class="s3">fi</span>
+        <span class="s3">fi</span>
+    <span class="s3">fi</span>
+<span class="s3">fi</span>
+<span class="s1">##########################################################################################</span>
+<span class="s1"># End of extension</span>
+<span class="s1">##########################################################################################</span>
+
+<span class="s2">export MAVEN_PROJECTBASEDIR=</span><span class="s3">$</span><span class="s2">{MAVEN_BASEDIR:-&quot;$BASE_DIR&quot;}</span>
+<span class="s3">if </span><span class="s2">[ </span><span class="s4">&quot;</span><span class="s5">$MVNW_VERBOSE</span><span class="s4">&quot; </span><span class="s2">= true ]; </span><span class="s3">then</span>
+  <span class="s2">echo </span><span class="s5">$MAVEN_PROJECTBASEDIR</span>
+<span class="s3">fi</span>
+<span class="s2">MAVEN_OPTS=</span><span class="s4">&quot;</span><span class="s3">$</span><span class="s2">(concat_lines </span><span class="s4">&quot;</span><span class="s5">$MAVEN_PROJECTBASEDIR</span><span class="s4">/.mvn/jvm.config&quot;</span><span class="s2">) </span><span class="s5">$MAVEN_OPTS</span><span class="s4">&quot;</span>
+
+<span class="s1"># For Cygwin, switch paths to Windows format before running java</span>
+<span class="s3">if </span><span class="s5">$cygwin</span><span class="s2">; </span><span class="s3">then</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">M2_HOME=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$M2_HOME</span><span class="s4">&quot;</span><span class="s6">`</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">JAVA_HOME=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$JAVA_HOME</span><span class="s4">&quot;</span><span class="s6">`</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$CLASSPATH</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">CLASSPATH=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$CLASSPATH</span><span class="s4">&quot;</span><span class="s6">`</span>
+  <span class="s2">[ -n </span><span class="s4">&quot;</span><span class="s5">$MAVEN_PROJECTBASEDIR</span><span class="s4">&quot; </span><span class="s2">] </span><span class="s3">&amp;&amp;</span>
+    <span class="s2">MAVEN_PROJECTBASEDIR=</span><span class="s6">`</span><span class="s2">cygpath --path --windows </span><span class="s4">&quot;</span><span class="s5">$MAVEN_PROJECTBASEDIR</span><span class="s4">&quot;</span><span class="s6">`</span>
+<span class="s3">fi</span>
+
+<span class="s1"># Provide a &quot;standardized&quot; way to retrieve the CLI args that will</span>
+<span class="s1"># work with both Windows and non-Windows executions.</span>
+<span class="s2">MAVEN_CMD_LINE_ARGS=</span><span class="s4">&quot;</span><span class="s5">$MAVEN_CONFIG $@</span><span class="s4">&quot;</span>
+<span class="s2">export MAVEN_CMD_LINE_ARGS</span>
+
+<span class="s2">WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain</span>
+
+<span class="s2">exec </span><span class="s4">&quot;</span><span class="s5">$JAVACMD</span><span class="s4">&quot; </span><span class="s2">\ 
+  </span><span class="s5">$MAVEN_OPTS </span><span class="s2">\ 
+  -classpath </span><span class="s4">&quot;</span><span class="s5">$MAVEN_PROJECTBASEDIR</span><span class="s4">/.mvn/wrapper/maven-wrapper.jar&quot; </span><span class="s2">\ 
+  </span><span class="s4">&quot;-Dmaven.home=</span><span class="s3">$</span><span class="s2">{M2_HOME}</span><span class="s4">&quot; &quot;-Dmaven.multiModuleProjectDirectory=</span><span class="s3">$</span><span class="s2">{MAVEN_PROJECTBASEDIR}</span><span class="s4">&quot; </span><span class="s2">\ 
+  </span><span class="s3">$</span><span class="s2">{WRAPPER_LAUNCHER} </span><span class="s5">$MAVEN_CONFIG </span><span class="s4">&quot;</span><span class="s5">$@</span><span class="s4">&quot;</span>
+</pre>
+</body>
+</html>

@@ -96,7 +96,7 @@ public class OrderService extends BaseService<Order>{
         return orderVoList;
     }
     /**
-     * 将vo层list转换成po层list并上传数据库
+     * upload order list
      * @param orderVoList vo层list数据
      */
     public void uploadOrderList(List<OrderVO> orderVoList){
@@ -106,8 +106,8 @@ public class OrderService extends BaseService<Order>{
         }
     }
     /**
-     * 上传一条新order 并根据payStatus增加SPU销量
-     * @param order po层单条order数据
+     * upload one order , and change the sku inventory storage, the spu sales number according to the pay status.
+     * @param order po's order
      */
     public void uploadOrder(Order order){
         String payStatus = order.getPayStatus();
@@ -132,17 +132,16 @@ public class OrderService extends BaseService<Order>{
         orderDao.save(order);
     }
     /**
-     * 将一条po层数据转化为vo层数据
-     * @param order 一条po层数据
-     * @return 一条vo层数据
+     * po => vo
+     * @param order po
      */
     public OrderVO buildOrderVo(Order order){
         return new OrderVO(order.getId(),order.getOrderTime(),order.getConfigSpecs(),order.getAccessory(),order.getName(),order.getNum(),order.getTotalPrice(),order.getPayStatus(),order.getPicture(),order.getSKU().getSPU().getId(),order.getSKU().getId(),order.getUser().getId());
     }
     /**
-     * 将一条vp层数据转换层数据
-     * @param orderVO 一条vo层数据
-     * @return 一条po层数据
+     * vo => po
+     * @param orderVO vo
+     * @return po
      */
     public Order buildOrder(OrderVO orderVO){
         SKU sku = skuDao.getOne(orderVO.getSkuId());
@@ -151,8 +150,8 @@ public class OrderService extends BaseService<Order>{
         return new Order(orderVO.getOrderTime(),orderVO.getConfigSpecs(),orderVO.getAccessory(),orderVO.getName(),orderVO.getNum(),orderVO.getTotalPrice(),orderVO.getPayStatus(),orderVO.getPicture(),spu,sku,user);
     }
     /**
-     * 删除订单（取消未支付订单）
-     * @param orderId 要删除的订单id
+     * cancel order
+     * @param orderId id
      */
     public void cancelOrder(long orderId){
         Order order = orderDao.getOne(orderId);
@@ -160,8 +159,8 @@ public class OrderService extends BaseService<Order>{
         uploadOrder(order);
     }
     /**
-     * 前端支付未支付订单，后端更新支付状态
-     * @param orderId 被支付的订单id
+     * pay order
+     * @param orderId id
      */
     public void payOrder(long orderId){
         Order order = orderDao.getOne(orderId);

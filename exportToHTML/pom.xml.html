@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>pom.xml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #bababa;}
+.s2 { color: #6a8759;}
+.s3 { color: #a9b7c6;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+pom.xml</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s2">=&quot;1.0&quot; </span><span class="s1">encoding</span><span class="s2">=&quot;UTF-8&quot;</span><span class="s0">?&gt;</span>
+<span class="s0">&lt;project </span><span class="s1">xmlns</span><span class="s2">=&quot;http://maven.apache.org/POM/4.0.0&quot; </span><span class="s1">xmlns:xsi</span><span class="s2">=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+         <span class="s1">xsi:schemaLocation</span><span class="s2">=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;modelVersion&gt;</span><span class="s3">4.0.0</span><span class="s0">&lt;/modelVersion&gt;</span>
+
+    <span class="s0">&lt;parent&gt;</span>
+        <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+        <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter-parent</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;version&gt;</span><span class="s3">2.3.1.RELEASE</span><span class="s0">&lt;/version&gt;</span>
+        <span class="s0">&lt;relativePath/&gt; </span><span class="s4">&lt;!-- lookup parent from repository --&gt;</span>
+    <span class="s0">&lt;/parent&gt;</span>
+    <span class="s0">&lt;packaging&gt;</span><span class="s3">war</span><span class="s0">&lt;/packaging&gt;</span>
+    <span class="s0">&lt;groupId&gt;</span><span class="s3">com.webproject</span><span class="s0">&lt;/groupId&gt;</span>
+    <span class="s0">&lt;artifactId&gt;</span><span class="s3">project01</span><span class="s0">&lt;/artifactId&gt;</span>
+    <span class="s0">&lt;version&gt;</span><span class="s3">0.0.1-SNAPSHOT</span><span class="s0">&lt;/version&gt;</span>
+    <span class="s0">&lt;name&gt;</span><span class="s3">project01</span><span class="s0">&lt;/name&gt;</span>
+    <span class="s0">&lt;description&gt;</span><span class="s3">Demo project for Spring Boot</span><span class="s0">&lt;/description&gt;</span>
+
+    <span class="s0">&lt;properties&gt;</span>
+        <span class="s0">&lt;java.version&gt;</span><span class="s3">1.8</span><span class="s0">&lt;/java.version&gt;</span>
+        <span class="s0">&lt;main.basedir&gt;</span><span class="s3">${basedir}/../..</span><span class="s0">&lt;/main.basedir&gt;</span>
+        <span class="s0">&lt;m2eclipse.wtp.contextRoot&gt;</span><span class="s3">/</span><span class="s0">&lt;/m2eclipse.wtp.contextRoot&gt;</span>
+    <span class="s0">&lt;/properties&gt;</span>
+
+    <span class="s0">&lt;dependencies&gt;</span>
+
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter-test</span><span class="s0">&lt;/artifactId&gt;</span>
+            <span class="s0">&lt;scope&gt;</span><span class="s3">test</span><span class="s0">&lt;/scope&gt;</span>
+            <span class="s0">&lt;exclusions&gt;</span>
+                <span class="s0">&lt;exclusion&gt;</span>
+                    <span class="s0">&lt;groupId&gt;</span><span class="s3">org.junit.vintage</span><span class="s0">&lt;/groupId&gt;</span>
+                    <span class="s0">&lt;artifactId&gt;</span><span class="s3">junit-vintage-engine</span><span class="s0">&lt;/artifactId&gt;</span>
+                <span class="s0">&lt;/exclusion&gt;</span>
+            <span class="s0">&lt;/exclusions&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s4">&lt;!--热部署--&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-devtools</span><span class="s0">&lt;/artifactId&gt;</span>
+            <span class="s0">&lt;optional&gt;</span><span class="s3">true</span><span class="s0">&lt;/optional&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+
+        <span class="s4">&lt;!-- web项目依赖 --&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter-web</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter-tomcat</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.apache.tomcat.embed</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">tomcat-embed-jasper</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s4">&lt;!-- jsp标签库 --&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">javax.servlet</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">jstl</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">javax.servlet</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">javax.servlet-api</span><span class="s0">&lt;/artifactId&gt;</span>
+            <span class="s0">&lt;scope&gt;</span><span class="s3">provided</span><span class="s0">&lt;/scope&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s4">&lt;!-- mysql--&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">mysql</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">mysql-connector-java</span><span class="s0">&lt;/artifactId&gt;</span>
+            <span class="s0">&lt;scope&gt;</span><span class="s3">runtime</span><span class="s0">&lt;/scope&gt;</span>
+            <span class="s0">&lt;version&gt;</span><span class="s3">8.0.19</span><span class="s0">&lt;/version&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s4">&lt;!-- jpa--&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-starter-data-jpa</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+        <span class="s4">&lt;!-- gson--&gt;</span>
+        <span class="s0">&lt;dependency&gt;</span>
+            <span class="s0">&lt;groupId&gt;</span><span class="s3">com.google.code.gson</span><span class="s0">&lt;/groupId&gt;</span>
+            <span class="s0">&lt;artifactId&gt;</span><span class="s3">gson</span><span class="s0">&lt;/artifactId&gt;</span>
+        <span class="s0">&lt;/dependency&gt;</span>
+
+    <span class="s0">&lt;/dependencies&gt;</span>
+
+    <span class="s0">&lt;build&gt;</span>
+        <span class="s0">&lt;plugins&gt;</span>
+            <span class="s0">&lt;plugin&gt;</span>
+                <span class="s0">&lt;groupId&gt;</span><span class="s3">org.springframework.boot</span><span class="s0">&lt;/groupId&gt;</span>
+                <span class="s0">&lt;artifactId&gt;</span><span class="s3">spring-boot-maven-plugin</span><span class="s0">&lt;/artifactId&gt;</span>
+                <span class="s0">&lt;configuration&gt;</span>
+                    <span class="s0">&lt;executable&gt;</span><span class="s3">true</span><span class="s0">&lt;/executable&gt;</span>
+                <span class="s0">&lt;/configuration&gt;</span>
+            <span class="s0">&lt;/plugin&gt;</span>
+            <span class="s0">&lt;plugin&gt;</span>
+                <span class="s0">&lt;groupId&gt;</span><span class="s3">org.apache.maven.plugins</span><span class="s0">&lt;/groupId&gt;</span>
+                <span class="s0">&lt;artifactId&gt;</span><span class="s3">maven-surefire-plugin</span><span class="s0">&lt;/artifactId&gt;</span>
+                <span class="s0">&lt;version&gt;</span><span class="s3">2.18.1</span><span class="s0">&lt;/version&gt;</span>
+                <span class="s0">&lt;configuration&gt;</span>
+                    <span class="s0">&lt;useSystemClassLoader&gt;</span><span class="s3">false</span><span class="s0">&lt;/useSystemClassLoader&gt;</span>
+                    <span class="s0">&lt;skipTests&gt;</span><span class="s3">true</span><span class="s0">&lt;/skipTests&gt;</span>
+                <span class="s0">&lt;/configuration&gt;</span>
+            <span class="s0">&lt;/plugin&gt;</span>
+        <span class="s0">&lt;/plugins&gt;</span>
+    <span class="s0">&lt;/build&gt;</span>
+
+<span class="s0">&lt;/project&gt;</span>
+</pre>
+</body>
+</html>

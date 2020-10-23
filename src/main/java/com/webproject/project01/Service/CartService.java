@@ -41,24 +41,24 @@ public class CartService extends BaseService<Cart>{
         List<Cart> list = cartDao.findAll(spec);
         return list;
     }
-    //删除cart
+    //del cart
     public void delCartById(long cartId){
         cartDao.deleteById(cartId);
     }
 
-    //添加cart
+    //post cart
     public void postNewCartVo(CartVO cartVO){
         Cart cart = buildOneCart(cartVO);
         cartDao.save(cart);
     }
-    //修改数量
+    //edit purchase num
     public void changeCartNum(long cartId, int newNum){
         Cart cart = cartDao.getOne(cartId);
         cart.setTotalPrice(cart.getTotalPrice()*newNum/cart.getNum());
         cart.setNum(newNum);
         cartDao.save(cart);
     }
-    //获取某用户当前购物车内所有商品的总价
+    //sum up all of the purchases' prices in a customer's cart
     public double getTotCartPrice(long userId){
         User user = userDao.getOne(userId);
         List<Cart> cartList = user.getCartList();
@@ -68,13 +68,12 @@ public class CartService extends BaseService<Cart>{
         }
         return totCartPrice;
     }
-    //购物车上传到订单
+    //dump the data fron cart to order
     public void dumpCartToOrder(long userId, String payStatus){
         List<Cart> cartList = getCartByUserId(userId);
 
         String orderTime = getRealTime();
         for(Cart cart : cartList){
-            //把cart里的数据dump进order
             Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSKU().getSPU(),cart.getSKU(),cart.getUser());
             orderDao.save(order);
             SKU sku = order.getSKU();
@@ -95,7 +94,7 @@ public class CartService extends BaseService<Cart>{
                     skuDao.save(sku);
                     break;
             }
-            //删除cart
+            //delete the data in cart after dump
             delCartById(cart.getId());
         }
     }
@@ -108,7 +107,7 @@ public class CartService extends BaseService<Cart>{
     }
 
     /*
-        vo-po转换
+        vo-po transform
      */
     public List<CartVO> buildCartVoList(List<Cart> cartList){
         List<CartVO> cartVoList = new ArrayList<>();

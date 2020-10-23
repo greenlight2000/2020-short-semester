@@ -23,8 +23,8 @@ public class ClassService extends BaseService<Classification> {
     private ClassificationDao classificationDao;
 
     /**
-     * 查询该store中的根分类
-     * @return po层list
+     * query the root layer categories in a store
+     * @return po list
      */
     public List<Classification> showRootClass(){
         Specification<Classification> spec = new Specification<Classification>() {
@@ -36,8 +36,8 @@ public class ClassService extends BaseService<Classification> {
         return classificationDao.findAll(spec);
     }
     /**
-     * 查询该store中的叶子分类
-     * @return po层list
+     * query the leave layer categories in a store
+     * @return po list
      */
     public List<Classification> showLeaveClass(){
         Specification<Classification> spec = new Specification<Classification>() {
@@ -69,8 +69,8 @@ public class ClassService extends BaseService<Classification> {
         return classification.getChildClassList();
     }
     /**
-     * 查询某一个分类树下所有叶子结点包含的spu
-     * @param id 根分类结点id
+     * query all the spu under current category
+     * @param id id of current cat
      * @return spuList
      */
     public List<SPU> showSPU(long id){
@@ -80,9 +80,9 @@ public class ClassService extends BaseService<Classification> {
         return spuList;
     }
     /**
-     * po层list转换成vo层list
-     * @param classList po层list
-     * @return vo层list
+     * po's list => vo's list
+     * @param classList po list
+     * @return vo list
      */
     public List<ClassificationVO> buildVoList(List<Classification> classList){
         List<ClassificationVO> classificationVOList = new ArrayList<>();
@@ -92,19 +92,19 @@ public class ClassService extends BaseService<Classification> {
         return classificationVOList;
     }
     /**
-     * po数据转成vo数据
-     * @param classification po数据
-     * @return vo数据
+     * po => vo
+     * @param classification po
+     * @return vo
      */
     public ClassificationVO buildVo(Classification classification){
         return classification.toVO();
     }
 
-    //private方法
+    //private methods
     /**
-     * 递归拼接classification树的所有子结点下面的spu，装入spuList
-     * @param classification 父结点分类
-     * @param spuList 初始list
+     * use recursion to concat the spu under a category in any layer
+     * @param classification parent category
+     * @param spuList initial list
      */
     private void concatList(Classification classification, List<SPU> spuList){
         if(classification.getChildClassList().isEmpty()){//如果这个类无孩子类，则它是有spu的，拼接进list

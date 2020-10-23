@@ -21,7 +21,7 @@ public class AccessoryService extends BaseService<Accessory> {
     private AccessoryDao accessoryDao;
 
     /**
-     * 查询该store中的所有accessory
+     * query all the accessories in the store
      * @return accessory的list
      */
     public List<Accessory> showAccessory(){
@@ -35,9 +35,9 @@ public class AccessoryService extends BaseService<Accessory> {
     }
 
     /**
-     * po层List数据转换成vo层List
-     * @param poList po层list
-     * @return vo层list
+     * convert PO's list to VO's list
+     * @param poList po layer list object
+     * @return vo layer list object
      */
     public List<AccessoryVO> buildVoList(List<Accessory> poList){
         List<AccessoryVO> voList = new ArrayList<>();
@@ -48,9 +48,9 @@ public class AccessoryService extends BaseService<Accessory> {
     }
 
     /**
-     * po层单条数据转换成vo层单条数据
-     * @param accessory po层单条数据
-     * @return vo层单条数据
+     * convert one PO to one VO
+     * @param accessory one po of accessory
+     * @return one vo of accessory
      */
     public AccessoryVO buildVo(Accessory accessory){
         return new AccessoryVO(accessory.getId(),accessory.getName(),accessory.getPrice(),accessory.getStockNum(),accessory.getStore().getId());

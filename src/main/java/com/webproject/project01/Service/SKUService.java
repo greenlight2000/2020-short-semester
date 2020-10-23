@@ -19,9 +19,9 @@ public class SKUService {
     SKUDao skuDao;
 
     /**
-     * 查询某spu下属的sku信息
-     * @param spuId spu的id
-     * @return po层sku list
+     * query the sku information belonging to one given spu
+     * @param spuId spu id
+     * @return po sku list
      */
     public List<SKU> getSkuListBySpu(long spuId){
         SPU spu = spuDao.getOne(spuId);
@@ -32,18 +32,18 @@ public class SKUService {
         return sku.getStockNum();
     }
     /**
-     * 将一条po层数据转成po层数据
-     * @param sku 一条po层数据
-     * @return 一条vo层数据
+     * po -> po
+     * @param sku po
+     * @return vo
      */
     public SKUVO buildVo(SKU sku){
         return new SKUVO(sku.getId(),sku.getName(), sku.getTotalPrice(),sku.getStockNum(),sku.getPicture(), sku.getConfigSpecs(),sku.getSPU().getId());
     }
 
     /**
-     * 将po层list数据转层vo层list
-     * @param skuList po层list
-     * @return vo层list
+     * po list =>vo list
+     * @param skuList po list
+     * @return vo list
      */
     public List<SKUVO> buildVoList(List<SKU> skuList){
         List<SKUVO> skuVoList = new ArrayList<>();
