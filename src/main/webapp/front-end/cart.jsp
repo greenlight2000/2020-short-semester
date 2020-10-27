@@ -236,7 +236,7 @@
 
                 <div class="col-xs-12 col-sm-5 ">
                     <div class="title">
-                        <a href="#"><%=cartVO.getName()%></a>
+                        <a href="javascript:void(0);" onclick="checkProduct(<%=cartVO.getSpuId()%>)"><%=cartVO.getName()%></a>
                     </div>
                     <div class="brand"><%=cartVO.getConfigSpecs()%></div>
                     <div class="brand">accessory: <%=cartVO.getAccessory().equals("")?"no accessory selected":cartVO.getAccessory()%></div>

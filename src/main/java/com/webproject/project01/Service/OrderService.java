@@ -173,5 +173,17 @@ public class OrderService extends BaseService<Order>{
         spu.setSales(sale);
         spuDao.save(spu);
     }
+    public double monthConsumption(long userId){
+        return orderDao.findDaysConsumption(userId, 30);
+    }
+    public double totalConsumption(long userId){
+        return orderDao.findTotalConsumption(userId);
+    }
 
+    public int monthSpuNum(long userId){
+        return orderDao.findDaysSkuNum(userId,30);
+    }
+    public int totalSkuNum(long userId){
+        return orderDao.findTotalSkuNum(userId);
+    }
 }

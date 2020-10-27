@@ -3351,7 +3351,7 @@ header .top-cart-row .top-cart-holder .total-price-basket {
 .le-input {
   border-radius: 3px;
   background-color: #ececec;
-  border: none;
+  border: 1px;
   color: #3d3d3d;
   width: 100%;
   padding: 5px;
@@ -3360,7 +3360,9 @@ header .top-cart-row .top-cart-holder .total-price-basket {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.le-input:focus,
+.le-input:focus{
+  border-color: #fa7268;
+}
 .le-input:hover {
   background-color: #e0e0e0;
 }

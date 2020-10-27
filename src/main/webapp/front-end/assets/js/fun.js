@@ -154,7 +154,7 @@ var showTotCartPrice = function(userId){
 //在cart.jsp修改商品数量
 var changeNum2 = function(opr, skuId, cartId, userId){
     var oldNum = parseInt($("#choose-num-"+skuId).val());
-    var stockNum = 1000;
+    var stockNum = 0;
     $.get(
         "/sku/stockNum",{skuId:skuId},
         function(data){
@@ -216,15 +216,32 @@ var addToCart = function(configSpecs,name,picture,num,spuId,skuId,userId){
         var accessory = $("#accessory-str")[0].attributes[1].value;
         var totalPrice = $("#price-current")[0].attributes[2].value;
         num = $("#choose-num").val();
+
         if(num==0)
             alert("num cannot be 0");
-        $.post(
-            "/cart/post", {configSpecs,accessory,name,picture,num,totalPrice,spuId,skuId,userId},function (data) {
-                console.log(data);
-                alert(data);
-                location.reload();
+
+        var stockNum=0;
+        $.get(
+            "/sku/stockNum",{skuId:skuId},
+            function(data){
+                stockNum = data;
+                console.log("stockNum="+stockNum);
+
+                if(num>stockNum) {
+                    alert("inventory stock shortage, please reload your page");
+                    checkProduct(spuId);
+                }else
+                    $.post(
+                        "/cart/post", {configSpecs,accessory,name,picture,num,totalPrice,spuId,skuId,userId},
+                        function (data) {
+                            console.log(data);
+                            alert(data);
+                            location.reload();
+                        }
+                    );
             }
         );
+
     }
 };
 
@@ -248,9 +265,11 @@ var clickDelCart = function(cartId){
         $.get(
             "/cart/del", {cartId: cartId}, function (data) {
                 console.log(data);
-                location.reload();
+                if (data != "")
+                    location.href = location.href;
             }
         );
+
 
     }
 };
@@ -296,18 +315,74 @@ var logout = function(){
     }
 };
 var registers = function(){
+
     var validFlag = 1;
-    if($('#register-name').val()=="" || $('#register-password').val()=="" || $('#register-email').val()=="" || $('#register-phone').val()==""){
-        window.alert("Please fill in all the info");
+    if($('#register-name').val()==""){
+        $('#register-name').css("background-color","#fa7268");
+        $('#register-name').focus();
+        $('#notice-name').html('<text style=\"color: red; font-size: 10px\">' + "name cannot be blank" + '</text>');
         validFlag = 0;
+    }else{
+        $('#register-name').css("background-color","");
+        $('#register-name').blur();
+        $('#notice-name').html("");
+    }
+    if($('#register-password').val()==""){
+        $('#register-password').css("background-color","#fa7268");
+        $('#register-password').focus();
+        $('#notice-pwd').html('<text style=\"color: red; font-size: 10px\">' + "password cannot be blank"+'</text>');
+        validFlag = 0;
+    }else{
+        $('#register-password').css("background-color","");
+        $('#register-password').blur();
+        $('#notice-pwd').html("");
+    }
+    if($('#register-email').val()==""){
+        $('#register-email').css("background-color","#fa7268");
+        $('#register-email').focus();
+        $('#notice-email').html('<text style=\"color: red; font-size: 10px\">'+"email cannot be blank"+'</text>');
+        validFlag = 0;
+    }else{
+        $('#register-email').css("background-color","");
+        $('#register-email').blur();
+        $('#notice-email').html("");
+    }
+    if($('#register-phone').val()==""){
+        $('#register-phone').css("background-color","#fa7268");
+        $('#register-phone').focus();
+        $('#notice-phone').html('<text style=\"color: red; font-size: 10px\">' + "phone cannot be blank"+'</text>');
+        validFlag = 0;
+    }else{
+        $('#register-phone').css("background-color","");
+        $('#register-phone').blur();
+        $('#notice-phone').html("");
+    }
+
+    if(checkPwdStrength($('#register-password').val()<=2)){
+        alert("password strength is too low, please consider having numbers, capital and lower case, signs in your password");
+        return;
+    }
+    if(!$("#confirm-checkbox").prop("checked")){
+        alert("please confirm that you agree on our privacy policy");
+        return;
     }
     console.log("form:");
     console.log($('#register-from').serialize());
     if(validFlag==1){
         $.post(
             "/register", $('#register-from').serialize(), function (data) {
+
+                if(data.indexOf("email")!=-1){
+                    $('#register-email').css("background-color","#fa7268");
+                    $('#register-email').focus();
+                    $('#notice-email').html('<text style=\"color: red; font-size: 10px\">' + data + '</text>');
+                }
+                if(data.indexOf("phone")!=-1){
+                    $('#register-phone').css("background-color","#fa7268");
+                    $('#register-phone').focus();
+                    $('#notice-phone').html('<text style=\"color: red; font-size: 10px\">' + data +'</text>');
+                }
                 alert(data);
-                console.log(data);
                 if(data.indexOf("success")!=-1){
                     var url = "";
                     if(confirm("login to access more content?"))
@@ -319,16 +394,27 @@ var registers = function(){
 
             }
         );
+    }else{
+        alert("please input all the required information");
     }
 
 };
 
 var confirmCheckOut = function(userId){
     if(userId!="" && userId!=null){
+        var payStatus = "";
+        if(confirm("complete the payment"))
+            payStatus = "paid";
+        else
+            payStatus = "unpaid";
         $.post(
-            "/postOrder",{userId},function(data){
-                alert("successful checkout");
-                location.href = "orders.jsp"+"?userId="+userId;
+            "/postOrder",{userId,payStatus},function(data){
+                alert(data);
+                if(data.indexOf("success") != -1) {
+                    location.href = "orders.jsp"+"?userId="+userId;
+                }else{
+                    location.href = "cart.jsp"+"?userId="+userId;
+                }
             }
         )
     }else {
@@ -553,9 +639,11 @@ var submitComment = function(userName){
 
 };
 var updateName = function(userId, name){
-    if(name==null || name=="")
-        alert("please input new name");
-    else
+    if(name==null || name=="") {
+        $("#modi-name-input").css("border-color","red");
+        $("#modi-name-input").focus();
+        $("#notice-name").html('<text style="color: red; font-size: 10px; margin-top: 0">please input new name</text>');
+    }else
     $.post(
         "/user/modify",
         {
@@ -565,16 +653,27 @@ var updateName = function(userId, name){
             name: name
         },
         function(data){
-            alert(data);
-            if(data=="success")
+            if(data=="success") {
+                $("#notice-name").html("");
+                $("#modi-name-input").css("border-color","");
+                $("#modi-name-input").blur();
+                alert(data);
                 location.href = location.href;
+            }else{
+                $("#notice-name").html('<text style="color: red; font-size: 10px">' + data + '</text>');
+                $("#modi-name-input").css("border-color","red");
+                $("#modi-name-input").focus();
+                alert(data);
+            }
         }
     )
 };
 var updatePhone = function(userId, phone){
-    if(phone==null || phone=="")
-        alert("please input new phone number");
-    else
+    if(phone==null || phone=="") {
+        $("#modi-phone-input").css("border-color","red");
+        $("#modi-phone-input").focus();
+        $("#notice-phone").html('<text style="color: red; font-size: 10px">please input new phone number</text>');
+    }else
     $.post(
         "/user/modify",
         {
@@ -584,16 +683,27 @@ var updatePhone = function(userId, phone){
             phone: phone
         },
         function(data){
-            alert(data);
-            if(data=="success")
+            if(data=="success") {
+                $("#notice-phone").html("");
+                $("#modi-phone-input").css("border-color","");
+                $("#modi-phone-input").blur();
+                alert(data);
                 location.href = location.href;
+            }else{
+                $("#notice-phone").html('<text style="color: red; font-size: 10px">' + data + '</text>');
+                $("#modi-phone-input").css("border-color","red");
+                $("#modi-phone-input").focus();
+                alert(data);
+            }
         }
     )
 };
 var updateEmail = function(userId, email){
-    if(email==null || email=="")
-        alert("please input new email");
-    else
+    if(email==null || email=="") {
+        $("#modi-email-input").css("border-color","red");
+        $("#modi-email-input").focus();
+        $("#notice-email").html('<text style="color: red; font-size: 10px">please input new email</text>');
+    }else
     $.post(
         "/user/modify",
         {
@@ -603,24 +713,42 @@ var updateEmail = function(userId, email){
             email: email
         },
         function(data){
-            alert(data);
-            if(data=="success")
+            if(data=="success") {
+                $("#notice-email").html("");
+                $("#modi-email-input").css("border-color","");
+                $("#modi-email-input").blur();
+                alert(data);
                 location.href = location.href;
-                // location.reload();
+            }else{
+                $("#notice-email").html('<text style="color: red; font-size: 10px">' + data + '</text>');
+                $("#modi-email-input").css("border-color","red");
+                $("#modi-email-input").focus();
+                alert(data);
+            }
         }
     )
 };
 var checkConsistentPwd = function(input1, input2){
-    if(input1!=input2)
-        $("#notice").html('<text style="color: red; size: 3px">inconsistent inputs</text>');
-    else
+
+    if(input1!=input2) {
+        $("#notice").html('<text style="color: red; font-size: 10px">inconsistent inputs</text>');
+        $("#confirm-pwd").css("border-color","red");
+        $("#confirm-pwd").focus();
+        $("#new-pwd").css("border-color","red");
+        $("#new-pwd").focus();
+    }else {
         $("#notice").html("");
+        $("#confirm-pwd").css("border-color","");
+        $("#confirm-pwd").blur();
+        $("#new-pwd").css("border-color","");
+        $("#new-pwd").blur();
+    }
 };
 var updatePwd = function(userId, oldPwd, newPwd){
     var confirmPwd = $("#confirm-pwd").val();
-    if(newPwd!=confirmPwd)
+    if(newPwd!=confirmPwd) {
         alert("two inputs must be consistent");
-    else
+    }else
     $.post(
         "/user/modify",
         {
@@ -630,11 +758,90 @@ var updatePwd = function(userId, oldPwd, newPwd){
             newPwd: newPwd
         },
         function(data){
-            alert(data);
             if(data=="success"){
+                $("#old-pwd").css("border-color","");
+                $("#old-pwd").blur();
+                alert(data);
                 location.href = location.href;
+            }else{
+                $("#notice2").html('<text style="color: red; font-size: 10px">invalid old password</text>');
+                $("#old-pwd").css("border-color","red");
+                $("#old-pwd").focus();
+                alert(data);
             }
 
         }
     )
+};
+var isNameValid = function(name){
+    if(name != null && name != ''){
+        $('#register-name').css('background-color','');
+        $('#notice-name').html('');
+    }else{
+        $('#register-name').css("background-color","#fa7268");
+        $('#register-name').focus();
+        $('#notice-name').html('<text style=\"color: red; font-size: 10px\">' + "name cannot be blank"+'</text>');
+    }
+};
+var isPhoneValid = function(phone){
+    if(phone != null && phone != ''){
+        $('#register-phone').css('background-color','');
+        $('#notice-phone').html('');
+    }else{
+        $('#register-phone').css("background-color","#fa7268");
+        $('#register-phone').focus();
+        $('#notice-phone').html('<text style=\"color: red; font-size: 10px\">' + "phone cannot be blank"+'</text>');
+    }
+};
+var isEmailValid = function(email){
+    if(email != null && email != ''){
+        $('#register-email').css('background-color','');
+        $('#notice-email').html('');
+    }else{
+        $('#register-email').css("background-color","#fa7268");
+        $('#register-email').focus();
+        $('#notice-email').html('<text style=\"color: red; font-size: 10px\">' + "email cannot be blank"+'</text>');
+    }
+};
+var isPwdValid = function(pwd){
+    if(pwd != null && pwd != ''){
+        $('#register-password').css('background-color','');
+        $('#notice-pwd').html('');
+
+        var modes = checkPwdStrength(pwd);
+        if(modes<=2){
+            $('#register-password').css('background-color','#fa7268');
+            $('#notice-pwd').html('<text style="color: red; font-size: 10px">password strength is too low</text>');
+        }else if(modes==3){
+            $('#register-password').css('background-color','');
+            $('#notice-pwd').html('<text style="color: orange; font-size: 10px">password strength is medium</text>');
+        }else{
+            $('#register-password').css('background-color','');
+            $('#notice-pwd').html('<text style="color: forestgreen; font-size: 10px">password strength is high</text>');
+        }
+    }else{
+        $('#register-password').css("background-color","#fa7268");
+        $('#register-password').focus();
+        $('#notice-pwd').html('<text style=\"color: red; font-size: 10px\">' + "password cannot be blank"+'</text>');
+    }
+
+};
+var checkPwdStrength = function(value){
+    var modes =  0;
+    if(value==''){//最初级别
+        return modes;
+    }
+    if(/\d/.test(value)){//如果用户输入的密码 包含了数字
+        modes++;
+    }
+    if(/[a-z]/.test(value)){//如果用户输入的密码 包含了小写的a到z
+        modes++;
+    }
+    if(/[A-Z]/.test(value)){//如果用户输入的密码 包含了大写的A到Z
+        modes++;
+    }
+    if(/\W/.test(value)){//如果是非数字 字母 下划线
+        modes++;
+    }
+    return modes;
 };

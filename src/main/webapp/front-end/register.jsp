@@ -218,24 +218,31 @@
 <%--                        required oninvalid="setCustomValidity('Must fill in phone!');" οninput="setCustomValidity('');"--%>
 						<div class="field-row">
 							<label>User name</label>
-                            <input id="register-name" name="name" type="text" class="le-input" >
+                            <input id="register-name" name="name" type="text" class="le-input" onchange="isNameValid($('#register-name').val())">
+                            <div id="notice-name"></div>
                         </div><!-- /.field-row -->
 						<div class="field-row">
 							<label>password</label>
-                            <input id="register-password" name="password" type="password" class="le-input" >
+                            <input id="register-password" name="password" type="password" class="le-input" onchange="isPwdValid($('#register-password').val())">
+                            <div id="notice-pwd"></div>
 						</div>
                         <div class="field-row">
                             <label>e-mail address</label>
-                            <input id="register-email" name="email" type="text" class="le-input" onchange="console.log('here'+this);">
+                            <input id="register-email" name="email" type="text" class="le-input" onchange="isEmailValid($('#register-email').val())">
+                            <div id="notice-email"></div>
                         </div>
 						<div class="field-row">
 							<label>phone number</label>
-                            <input id="register-phone" name="phone" type="text" class="le-input">
+                            <input id="register-phone" name="phone" type="text" class="le-input" onchange="isPhoneValid($('#register-phone').val())">
+                            <div id="notice-phone"></div>
 						</div>
 						
 						<div class="field-row clearfix" style="margin-top: -20px;">
+                            <span class="pull-left">
+                                <label class="content-color"><input id="confirm-checkbox" type="checkbox" class="le-checbox auto-width inline"> <span class="bold">I agree on the <a href="privacy-policy.html" target="_blank">User Agreement & Privacy Policy</a></span></label>
+                        	</span>
                         	<span class="pull-right">
-								<a href="authentication.jsp" class="content-color bold" style="margin-right: 40px;">Already have an account?</a>
+								<a href="authentication.jsp" class="content-color bold" style="margin-right: 1px;">Already have an account?</a>
                         	</span>
                         </div>
 

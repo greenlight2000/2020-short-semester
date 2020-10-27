@@ -321,6 +321,7 @@
                                         <div class="form__group1">
                                             <label for="modi-name-input" class="form__label">User Name:</label>
                                             <input name="login" id="modi-name-input" type="text" class="form__input" placeholder="<%=userName%>">
+                                            <div id="notice-name"></div>
                                         </div>
                                     </div>
                                     <div class="col-10 col-lg-6">
@@ -331,6 +332,7 @@
                                         <div class="form__group1">
                                             <label for="modi-phone-input" class="form__label">Tel-Number:</label>
                                             <input name="login" id="modi-phone-input" type="text" class="form__input" placeholder="<%=phone%>">
+                                            <div id="notice-phone"></div>
                                         </div>
                                     </div>
                                     <div class="col-10 col-lg-6">
@@ -341,6 +343,7 @@
                                         <div class="form__group1">
                                             <label for="modi-email-input" class="form__label">E-Mail:</label>
                                             <input name="login" id="modi-email-input" type="text" class="form__input" placeholder="<%=email%>">
+                                            <div id="notice-email"></div>
                                         </div>
                                     </div>
                                     <div class="col-10 col-lg-6">
@@ -364,6 +367,7 @@
                                             <label for="old-pwd" class="form__label">Old password:</label>
                                             <input name="oldpass" id="old-pwd" type="password" class="form__input">
                                         </div>
+                                        <div id="notice2"></div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
@@ -375,12 +379,14 @@
 
                                     <div class="col-12 col-lg-6">
                                         <div class="form__group">
+                                            <br>
                                             <label for="confirm-pwd" class="form__label">Confirm New Password:</label>
                                             <input name="confirmpass" id="confirm-pwd" type="password" class="form__input" onchange="checkConsistentPwd($('#new-pwd').val(),$('#confirm-pwd').val())">
                                         </div>
                                         <div id="notice"></div>
                                     </div>
                                     <div class="col-12 col-lg-4">
+                                        <br>
                                         <button class="form__btn" style="margin-left: 38%;
                                         " type="button" onclick="updatePwd(<%=userId%>,$('#old-pwd').val(),$('#new-pwd').val())"><span>Save</span></button>
                                     </div>

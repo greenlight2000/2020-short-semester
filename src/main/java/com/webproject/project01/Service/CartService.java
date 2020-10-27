@@ -69,13 +69,16 @@ public class CartService extends BaseService<Cart>{
         return totCartPrice;
     }
     //购物车上传到订单
-    public void dumpCartToOrder(long userId, String payStatus){
+    public String dumpCartToOrder(long userId, String payStatus){
         List<Cart> cartList = getCartByUserId(userId);
 
         String orderTime = getRealTime();
         for(Cart cart : cartList){
             //把cart里的数据dump进order
             Order order = new Order(orderTime,cart.getConfigSpecs(),cart.getAccessory(),cart.getName(),cart.getNum(),cart.getTotalPrice(),payStatus,cart.getPicture(),cart.getSKU().getSPU(),cart.getSKU(),cart.getUser());
+            if(order.getSKU().getStockNum() < order.getNum()){
+                return "the invention stock number of some products has changed, please modify your cart and try to checkout again";
+            }
             orderDao.save(order);
             SKU sku = order.getSKU();
             SPU spu = order.getSKU().getSPU();
@@ -98,6 +101,7 @@ public class CartService extends BaseService<Cart>{
             //删除cart
             delCartById(cart.getId());
         }
+        return "successful checkout";
     }
 
     private String getRealTime(){

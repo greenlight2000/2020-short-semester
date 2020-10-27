@@ -65,6 +65,13 @@
     request.getRequestDispatcher("/showOrder").include(request,response);
     List<OrderVO> orderVoList = session.getAttribute("orderVoList")==null?new ArrayList<>(): (List<OrderVO>) session.getAttribute("orderVoList");
 %>
+<%
+    request.getRequestDispatcher("/order/statistics?userId="+userId).include(request,response);
+    double totalConsumption = (double) session.getAttribute("totalConsumption");
+    double monthConsumption = (double) session.getAttribute("monthConsumption");
+    int monthSpuNum = (int) session.getAttribute("monthSpuNum");
+    int totalSpuNum = (int) session.getAttribute("totalSpuNum");
+%>
 	<div class="wrapper">
 		<!-- ============================================================= TOP NAVIGATION ============================================================= -->
         <nav class="top-bar animate-dropdown">
@@ -222,9 +229,15 @@
                 </select>
             </div>
             <button class="le-button" onclick="filterPayStatus(<%=userId%>)">Filter</button>
-<%--            <div>consumption this month:</div>--%>
-<%--            <div>total consumption</div>--%>
-        </div><!-- /.control-bar -->
+            <div style="float: right; margin-right: 170px;">
+                <div style="color: lightgrey">total consumption: <div style="color: darkblue; float: right"> $<%=totalConsumption%></div></div>
+                <div style=" color: lightgrey">total no of products bought: <div style="color: darkblue; float: right"> <%=totalSpuNum%></div></div>
+            </div>
+            <div style="float: right; margin-right: 100px;">
+                <div style=" color: lightgrey">consumption this month: <div style="color: darkblue; float: right"> $<%=monthConsumption%></div></div>
+                <div style=" color: lightgrey">no of products bought this month: <div style="color: darkblue; float: right"> <%=monthSpuNum%></div></div>
+            </div>
+            </div><!-- /.control-bar -->
         </div>
     <div id="single-product" style="margin-left: 150px; margin-right: 150px; margin-top: 20px">
     <%

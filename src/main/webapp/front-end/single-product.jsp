@@ -420,7 +420,7 @@
 <%--                    <div class="star-holder inline"><div class="star" data-score="4"></div></div>--%>
                     <div class="availability" style="margin-left: 0px"><label>launchTime:</label><span class="available">  <%=spuVo.getLaunchTime()%></span></div>
                     <div class="availability"><label>inventory:</label><span class="available">  <%=skuVo.getStockNum()%></span></div>
-                    <div class="title"><a href="javascript:void(0)"><%=skuVo.getName()%></a></div>
+                    <div class="title"><a href="javascript:void(0)" onclick="checkProduct(<%=spuVo.getId()%>)"><%=skuVo.getName()%></a></div>
                     <div class="brand"><a style="color: grey" href="javascript:void(0)" onclick="goToCatSpu(<%=spuVo.getClassificationVO().getId()%>)"><%=spuVo.getClassificationVO()==null?"":spuVo.getClassificationVO().getName()%></a></div>
 
                     <div class="excerpt">
