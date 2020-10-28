@@ -320,7 +320,7 @@
                         <input type="text" class="price-slider" value="" >
 
                         <span class="min-max">
-                            Price: $89 - $2899
+                            Price: $10 - $999
                         </span>
                         <span class="filter-button">
                             <a href="#">filter</a>

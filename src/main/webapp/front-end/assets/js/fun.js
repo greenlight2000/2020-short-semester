@@ -160,31 +160,33 @@ var changeNum2 = function(opr, skuId, cartId, userId){
         function(data){
             stockNum = data;
             console.log("stockNum="+stockNum);
+
+            if(opr=='+') {
+                if(oldNum+1 > stockNum)
+                    alert("inventory stock shortage");
+                else
+                    $("#choose-num-"+skuId).val(oldNum + 1);
+            }
+            else if (opr=='-') {
+                if(oldNum-1 > 0)
+                    $("#choose-num-"+skuId).val(oldNum - 1);
+            }
+            var totPrice = parseFloat($('#cart-tot-price-'+skuId)[0].attributes.value.value);
+            var newNum = parseInt($("#choose-num-"+skuId).val());
+            var newTotPrice = totPrice * newNum / oldNum;
+            // console.log($('#cart-tot-price')[0].attributes.value.value);
+            $('#cart-tot-price-'+skuId)[0].attributes.value.value = newTotPrice;
+            $('#cart-tot-price-'+skuId).html("$"+(newTotPrice.toFixed(1)));
+            $.get(
+                "/cart/changeNum",{cartId,newNum},
+                function(data){
+                    console.log("successful change num in db");
+                    showTotCartPrice(userId);
+                }
+            );
         }
     );
-    if(opr=='+') {
-        if(oldNum+1 > stockNum)
-            alert("inventory stock shortage");
-        else
-            $("#choose-num-"+skuId).val(oldNum + 1);
-    }
-    else if (opr=='-') {
-        if(oldNum-1 > 0)
-            $("#choose-num-"+skuId).val(oldNum - 1);
-    }
-    var totPrice = parseFloat($('#cart-tot-price-'+skuId)[0].attributes.value.value);
-    var newNum = parseInt($("#choose-num-"+skuId).val());
-    var newTotPrice = totPrice * newNum / oldNum;
-    // console.log($('#cart-tot-price')[0].attributes.value.value);
-    $('#cart-tot-price-'+skuId)[0].attributes.value.value = newTotPrice;
-    $('#cart-tot-price-'+skuId).html("$"+(newTotPrice.toFixed(1)));
-    $.get(
-        "/cart/changeNum",{cartId,newNum},
-        function(data){
-            console.log("successful change num in db");
-            showTotCartPrice(userId);
-        }
-    );
+
 };
 //在single-product.jsp修改商品数
 var changeNum = function(opr,stockNum){
@@ -214,7 +216,7 @@ var addToCart = function(configSpecs,name,picture,num,spuId,skuId,userId){
     }else{
         alert("adding to cart...");
         var accessory = $("#accessory-str")[0].attributes[1].value;
-        var totalPrice = $("#price-current")[0].attributes[2].value;
+        var totalPrice = calCartTolPrice()//$("#price-current")[0].attributes[2].value;
         num = $("#choose-num").val();
 
         if(num==0)

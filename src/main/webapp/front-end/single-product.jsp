@@ -601,7 +601,7 @@
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
-                                                    Integer id purus ultricies nunc tincidunt congue vitae nec felis. Vivamus sit amet nisl convallis, faucibus risus in, suscipit sapien. Vestibulum egestas interdum tellus id venenatis.
+                                                    This keyboard is amazing, I bought it for my little one, and she absolutely loves it!
                                                 </p><!-- /.comment-text -->
                                             </div><!-- /.comment-body -->
 
@@ -625,14 +625,14 @@
                                                         <a href="#" class="bold">Daisy Gatsby</a>
                                                     </div>
                                                     <div class="star-holder inline">
-                                                        <div class="star" data-score="5"></div>
+                                                        <div class="star" data-score="2"></div>
                                                     </div>
                                                     <div class="date inline pull-right">
                                                         2020-10-20 17:35:50
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
-                                                    Integer id purus ultricies nunc tincidunt congue vitae nec felis. Vivamus sit amet nisl convallis, faucibus risus in, suscipit sapien. Vestibulum egestas interdum tellus id venenatis.
+                                                    Is it just me or the keyboard's sound volume is very low. I can barely hear the music that I'm playing. I hope the platform could give me some help or compensation.
                                                 </p><!-- /.comment-text -->
                                             </div><!-- /.comment-body -->
 
@@ -656,14 +656,14 @@
                                                         <a href="#" class="bold">Williams Johnson</a>
                                                     </div>
                                                     <div class="star-holder inline">
-                                                        <div class="star" data-score="3"></div>
+                                                        <div class="star" data-score="5"></div>
                                                     </div>
                                                     <div class="date inline pull-right">
                                                         2020-10-20 17:35:50
                                                     </div>
                                                 </div><!-- /.meta-info -->
                                                 <p class="comment-text">
-                                                    Integer id purus ultricies nunc tincidunt congue vitae nec felis. Vivamus sit amet nisl convallis, faucibus risus in, suscipit sapien. Vestibulum egestas interdum tellus id venenatis.
+                                                    just started to learn to play piano, I'm super excited to recieve this music keyboard. I love how they make the delicate outlook design. Lovin' it!!
                                                 </p><!-- /.comment-text -->
                                             </div><!-- /.comment-body -->
 

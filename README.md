@@ -48,15 +48,17 @@ inventory number
 
 #### Inventory Stock
 
-Triple detection to prevent 
+Triple detection to prevent inventory 
 
-> One of the most important features that distinguishes us from the other groups is that our product inventory is secured. Cases where user bought a number of product that overflow the inventory of the product itself, is completly prevented. You can say that our product is **Thread safe**. I'll show you how it works.
+> One of the most important features that distinguishes us from the other groups is that our product inventory is secured. We can handle a certain degree of concurrency. In this website, the number of the product that you buy, there's no possibility that it will overflows the inventory num of the product. You can say that our product is **Thread safe**. I'll show you how it works.
 >
 > ...
 >
-> I'm not bragging, but I honestly think that not many of the other groups can do this.
+> I'm not bragging, but I honestly think that not many of the other groups can do this. (back-end database)
 >
-> I mean, if you seriously want to put one of  the websites online, put into actual use, there is no way you can avoid considering the inventory of the product that you're selling. From this sense, only our website, or website like this can guarantee the security of the products inventory.
+> I mean, if you seriously want to put one of  the websites online, put into actual use, there is no way you can avoid considering the inventory security of the product. I feel like a lot of the other group, superficial front-end design, this website can guarantee the security of the product inventory. 
+>
+> From this sense, if you're about to choose only one website among us, and to put into your business use, we are the one.
 
 
 
@@ -82,8 +84,50 @@ Modify-information
 
 
 
+
+
+> All the functions are explained elaborately in the report, so here I wanna just talk about what makes our website stand out, and what's so great with our website.
+
 ## Security-Scalability
 
-Exception.jsp
+#### Inventory Stock
 
-Spring Boot framework
+Triple detection mechanism 
+
+> One of the most important features that distinguishes us from the other groups is that our product inventory is secured. 
+>
+> If you're trying to sell something, you need to make sure you have enough inventory for to sell.
+>
+> In this website, we have a **Triple detection mechanism** to prevent a customer from buying a number of products that overflows the inventory. I'll show you how it works.
+>
+> ...
+
+ You can say that our product is "**Thread safe**". We can handle a certain degree of concurrency. 
+
+
+
+> //I'm not bragging, but I honestly think that not many of the other groups can do this. (back-end database)
+>
+> //I mean, if you seriously want to put one of  the websites online, put into actual use, there is no way you can avoid //considering the inventory security of the product. 
+>
+> I feel like a lot of the other group, superficial front-end design, when they didn't even take inventory management into account, <u>this</u> website can guarantee the security of <u>your</u> product inventory. 
+>
+> From this sense, if you're about to choose only one website among us, and to put into your business use, we are the one.
+
+
+
+Exception handler webpage
+
+> This is another function that I believe not many of the other groups are capable of. 
+>
+> It is inevitable that some error or exception will be thrown during the process of the website, especially in jsp website when we use session to communicate the information. For other group's website, if you encounter an error in your website, their webpage will be stuck, or will trigger some unexpected event. 
+>
+> But in our website, we have design a special exception handler page for this. I'll show you how it works.
+
+
+
+Scalable back-end Spring Boot framework
+
+> We are using a powerful javaweb framework. And the design pattern we applied in our website assure you with high scalability.
+>
+> If you wanna promote this website and add in more functions in it (in the future), the structure of our back-end codes will make sure you can do that effortless.
